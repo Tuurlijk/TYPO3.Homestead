@@ -1,0 +1,13 @@
+---
+# handlers file for settler
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: restart php5-fpm
+  service: name=php5-fpm state=restarted
+
+- name: restart mysql
+  service: name=mysql state=restarted
+
+- name: restart postgresql
+  service: name=postgresql state=restarted

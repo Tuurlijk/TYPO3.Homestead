@@ -1,0 +1,12 @@
+---
+# defaults file for settler
+settler_update_cache: yes
+settler_cache_valid_time: 3600
+
+settler_upgrade_packages: yes
+
+#settler_timezone_file: /usr/share/zoneinfo/America/Chicago
+#settler_timezone_file: /usr/share/zoneinfo/Japan
+settler_timezone_file: /usr/share/zoneinfo/UTC
+
+settler_mysql_root_password: secret

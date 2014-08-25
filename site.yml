@@ -5,4 +5,4 @@
   vars:
     settler_apt_update: yes
   roles:
-    - settler
+    - { role: . }

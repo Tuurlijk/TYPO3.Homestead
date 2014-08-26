@@ -114,7 +114,7 @@
 
 # Add Composer Global Bin To Path
 - name: add composer global bin to path
-  lineinfile: dest=/home/vagrant/.profile line=PATH="/home/vagrant/.composer/vendor/bin:$PATH"
+  lineinfile: dest=/home/vagrant/.profile line=PATH="/home/vagrant/.composer/vendor/bin:$PATH" create=yes
 
 
 # Install Laravel Envoy

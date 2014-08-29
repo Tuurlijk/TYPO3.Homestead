@@ -10,3 +10,5 @@ settler_upgrade_packages: yes
 settler_timezone_file: /usr/share/zoneinfo/UTC
 
 settler_mysql_root_password: secret
+
+settler_user: vagrant

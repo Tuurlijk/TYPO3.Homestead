@@ -21,7 +21,7 @@
     - "ppa:nginx/stable"
     - "ppa:rwky/redis"
     - "ppa:chris-lea/node.js"
-    - "ppa:ondrej/php5"
+    - "ppa:ondrej/php5-5.6"
 
 
 # Update Package Lists

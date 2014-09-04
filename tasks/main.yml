@@ -206,16 +206,20 @@
 
 
 # Install SQLite
-- apt: name=sqlite3 state=present
-- apt: name=libsqlite3-dev state=present
+- apt: name={{ item }} state=present
+  with_items:
+    - sqlite3
+    - libsqlite3-dev
 
 
 # Install MySQL
 - debconf: name="mysql-server" question="mysql-server/root_password" vtype="password" value={{ settler_mysql_root_password }}
 - debconf: name="mysql-server" question="mysql-server/root_password_again" vtype="password" value={{ settler_mysql_root_password }}
 - template: src=my_credentials.cnf dest=/root/.my.cnf owner=root mode=0600
-- apt: name=mysql-server state=present
-- apt: name=python-mysqldb state=present
+- apt: name={{ item }} state=present
+  with_items:
+    - mysql-server
+    - python-mysqldb
 
 - name: ensure mysql is running
   service: name=mysql state=started enabled=yes

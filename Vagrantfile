@@ -26,8 +26,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :ansible do |ansible|
     ansible.verbose = "v"
     ansible.playbook = "site.yml"
-    #ansible.tags = ["target"]
-    #ansible.vault_password_file = "vault_pass.txt"
     ansible.raw_arguments = ["--diff"]
     ansible.groups = {
       "local" => ["default"]

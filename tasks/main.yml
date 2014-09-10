@@ -170,6 +170,16 @@
     - {regex: "date.timezone =.*", line: "date.timezone = UTC"}
 
 
+# Enable Remote xdebug
+- name: enable remote xdebug
+  template: dest=/etc/php5/mods-available/xdebug.ini src=xdebug.ini
+  notify:
+    - restart php5-fpm
+- file: src=../../mods-available/xdebug.ini dest=/etc/php5/fpm/conf.d/20-xdebug.ini state=link force=yes
+  notify:
+    - restart php5-fpm
+
+
 # Set The Nginx & PHP-FPM User
 - name: set nginx user
   lineinfile: dest=/etc/nginx/nginx.conf regexp="{{ item.regex }}" line="{{ item.line }}"

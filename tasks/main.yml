@@ -170,6 +170,11 @@
     - {regex: "date.timezone =.*", line: "date.timezone = UTC"}
 
 
+# Copy fastcgi_params to Nginx because they broke it on the PPA
+- name: copy fastcgi_params
+  template: dest=/etc/nginx/fastcgi_params src=fastcgi_params
+
+
 # Enable Remote xdebug
 - name: enable remote xdebug
   template: dest=/etc/php5/mods-available/xdebug.ini src=xdebug.ini

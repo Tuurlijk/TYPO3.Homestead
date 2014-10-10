@@ -155,6 +155,28 @@
     - restart nginx
 
 
+# Add The HHVM Key & Repository
+- apt_key: url=http://dl.hhvm.com/conf/hhvm.gpg.key state=present
+  tags: [hhvm]
+- apt_repository: repo='deb http://dl.hhvm.com/ubuntu trusty main' state=present update_cache=yes
+  tags: [hhvm]
+- apt: name=hhvm state=present
+  tags: [hhvm]
+
+
+# Configure HHVM To Run As Homestead
+- replace: dest=/etc/default/hhvm regexp='#RUN_AS_USER="www-data"' replace='RUN_AS_USER="vagrant"'
+  notify:
+    - restart hhvm
+  tags: [hhvm]
+
+
+# Start HHVM On System Start
+- name: ensure hhvm is running
+  service: name=hhvm state=started enabled=yes
+  tags: [hhvm]
+
+
 # Setup Some PHP-FPM Options
 - name: make mailparse available
   file: src=/etc/php5/mods-available/mailparse.ini dest=/etc/php5/fpm/conf.d/20-mailparse.ini state=link force=yes

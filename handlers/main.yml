@@ -11,3 +11,6 @@
 
 - name: restart postgresql
   service: name=postgresql state=restarted
+
+- name: restart hhvm
+  service: name=hhvm state=restarted

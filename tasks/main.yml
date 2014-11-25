@@ -254,7 +254,7 @@
 - template: src=my_credentials.cnf dest=/root/.my.cnf owner=root mode=0600
 - apt: name={{ item }} state=present
   with_items:
-    - mysql-server
+    - mysql-server-5.6
     - python-mysqldb
 
 - name: ensure mysql is running

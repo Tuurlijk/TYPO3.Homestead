@@ -1,7 +1,7 @@
-Ansible Laravel Homestead Settler
-==================================
+Ansible driven TYPO3 Neos Homestead
+===================================
 
-Ansible scripts that build the Laravel Homestead development environment.
+Ansible scripts that build the TYPO3 Neos Homestead development environment.
 
 Requirements
 ------------
@@ -40,6 +40,6 @@ An optional section for the role authors to include contact information, or a we
 References
 ----------
 
+- [konomae/ansible-laravel-settler](https://github.com/konomae/ansible-laravel-settler)
 - [laravel/homestead](https://github.com/laravel/homestead)
 - [laravel/settler](https://github.com/laravel/settler)
-- [How to Install Laravel with an Nginx Web Server on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-laravel-with-an-nginx-web-server-on-ubuntu-14-04)

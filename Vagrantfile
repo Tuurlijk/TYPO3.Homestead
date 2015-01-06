@@ -1,35 +1,134 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Examples:
+# https://gitlab.com/gitlab-org/cookbook-gitlab/blob/master/Vagrantfile#L80
+# http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html
+
+# You can ask for more memory and cores when creating your Vagrant machine:
+# VAGRANT_MEMORY=2048 VAGRANT_CORES=4 vagrant up
+MEMORY = ENV['VAGRANT_MEMORY'] || '2048'
+CORES = ENV['VAGRANT_CORES'] || '2'
+
+# Network
+PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.12.12'
+HOSTNAME = ENV['VAGRANT_HOSTNAME'] || 'typo3.neos.homestead'
+
+# Determine if we need to forward ports
+FORWARD = ENV['VAGRANT_FORWARD'] || '1'
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = '2'
+
+# Boot the box with the gui enabled
+DEBUG = ENV['VAGRANT_DEBUG'] || true
+
+# Generate SSH keys for these known hosts
+knownHosts = [ 'github.com' ]
+
+# Throw an error if required Vagrant plugins are not installed
+plugins = { 'vagrant-vbguest' => nil }
+
+plugins.each do |plugin, version|
+	unless Vagrant.has_plugin? plugin
+		error = "The '#{plugin}' plugin is not installed! Try running:\nvagrant plugin install #{plugin}"
+		error += " --plugin-version #{version}" if version
+		raise error
+	end
+end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # Configure The Box
-  config.vm.box = "chef/ubuntu-14.04"
-  config.vm.hostname = "homestead"
+	config.vm.hostname = HOSTNAME
+	config.vm.box = "ubuntu/trusty64"
+	config.vm.boot_timeout = 60
+	config.hostsupdater.aliases = [HOSTNAME]
 
-  config.vm.network :private_network, ip: "192.168.33.10"
+	# Network
+	config.vm.network :private_network, ip: PRIVATE_NETWORK
+	if FORWARD.to_i > 0
+		config.vm.network :forwarded_port, guest: 80, host: 8080
+		config.vm.network :forwarded_port, guest: 3306, host: 33060
+		config.vm.network :forwarded_port, guest: 5432, host: 54320
+		config.vm.network :forwarded_port, guest: 35729, host: 35729
+	end
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "2048"]
-    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-  end
+	# SSH
+	config.ssh.forward_agent = true
+	config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'" # avoids 'stdin: is not a tty' error.
+	#config.ssh.private_key_path = ["#{ENV['HOME']}/.ssh/id_rsa"]
+	config.vm.provision "shell", inline: "echo -e '#{File.read("#{Dir.home}/.ssh/id_rsa")}' > '/home/vagrant/.ssh/id_rsa'"
+	config.vm.provision "shell", inline: "touch /home/vagrant/.ssh/known_hosts"
+	config.vm.provision "shell", inline: "chown -R vagrant:vagrant /home/vagrant/.ssh"
+	config.vm.provision "shell", inline: "su vagrant -c 'ssh-keygen -R #{PRIVATE_NETWORK}'"
+	config.vm.provision "shell", inline: "ssh-keyscan #{PRIVATE_NETWORK} >> /home/vagrant/.ssh/known_hosts"
 
-  # Configure Port Forwarding
-  config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "forwarded_port", guest: 3306, host: 33060
-  config.vm.network "forwarded_port", guest: 5432, host: 54320
-  config.vm.network "forwarded_port", guest: 35729, host: 35729
+	# SSH known hosts
+	knownHosts.each do |host|
+		config.vm.provision "shell", inline: "su vagrant -c 'ssh-keygen -R #{host}'"
+		config.vm.provision "shell", inline: "ssh-keyscan #{host} >> /home/vagrant/.ssh/known_hosts"
+	end
 
-  config.vm.provision :ansible do |ansible|
-    ansible.verbose = "v"
-    ansible.playbook = "site.yml"
-    ansible.raw_arguments = ["--diff"]
-    ansible.groups = {
-      "local" => ["default"]
-    }
-  end
+	# Virtualbox
+	config.vm.provider :virtualbox do |v|
+		v.gui = !!DEBUG
+
+		v.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
+		v.customize ["modifyvm", :id, "--chipset", "ich9"]
+		v.customize ["modifyvm", :id, "--cpus", CORES.to_i]
+		v.customize ["modifyvm", :id, "--memory", MEMORY.to_i]
+		v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+
+		if CORES.to_i > 1
+			v.customize ["modifyvm", :id, "--ioapic", "on"]
+		end
+	end
+
+	# Vmware Fusion
+	config.vm.provider :vmware_fusion do |v, override|
+		override.vm.box = "trusty64_fusion"
+		override.vm.box_url = "http://files.vagrantup.com/trusty64_vmware_fusion.box"
+		v.vmx["memsize"] = MEMORY.to_i
+		v.vmx["numvcpus"] = CORES.to_i
+	end
+
+	# Parallels
+	config.vm.provider :parallels do |v, override|
+		v.customize ["set", :id, "--memsize", MEMORY, "--cpus", CORES]
+	end
+
+	# Ansible
+	config.vm.provision "ansible" do |ansible|
+		ansible.verbose = "vvv"
+		ansible.playbook = "site.yml"
+		#ansible.inventory_path = "vagrant-inventory"
+		ansible.limit = "all"
+		ansible.raw_arguments = ENV['ANSIBLE_ARGS']
+		#ansible.raw_arguments = ["--diff"]
+		ansible.groups = {
+			"local" => ["default"]
+		}
+		ansible.extra_vars = {
+			php_apc_configs: [
+				"apc.enable_cli=On",
+				"apc.shm_size=256M",
+				"apc.mmap_file_mask=/tmp/apc.XXXXXX"
+				],
+			php_xdebug_configs: [
+				"xdebug.remote_enable = on",
+				"xdebug.remote_connect_back = on",
+				"xdebug.idekey = PHPSTORM-XDEBUG",
+				"xdebug.profiler_enable = 0",
+				"xdebug.profiler_enable_trigger = 1",
+				"xdebug.max_nesting_level = 500",
+				"xdebug.cli_color = 1",
+				"xdebug.var_display_max_depth = 5",
+				"xdebug.show_mem_delta = 1"
+				]
+		}
+	end
+
+	# Shares
+	#config.vm.synced_folder "src", "/var/www", type: "nfs", :create => "true", mount_options: ['rw,noatime', 'vers=3', 'tcp', 'fsc']
+	#config.vm.synced_folder "logs/", "/var/log/apache2/",  type: "nfs", :create => "true", :linux_nfs_options => ["noatime"]
 
 end

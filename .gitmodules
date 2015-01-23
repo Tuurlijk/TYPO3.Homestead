@@ -1,0 +1,9 @@
+[submodule "php-fpm"]
+	path = roles/php-fpm
+	url = https://github.com/NBZ4live/ansible-php-fpm.git
+[submodule "composer"]
+	path = roles/composer
+	url = https://github.com/NBZ4live/ansible-role-composer.git
+[submodule "nginx"]
+	path = roles/nginx
+	url = https://github.com/NBZ4live/ansible-role-nginx.git

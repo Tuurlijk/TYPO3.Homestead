@@ -1,0 +1,11 @@
+---
+- name: sync uploads
+  sudo: no
+  local_action: shell rsync -e ssh -aq --exclude-from roles/typo3/files/exclude-list.txt
+        {{ remote_ssh.user }}@{{ remote_ssh.host}}:{{ remote_dir.uploads }} src/{{ vhost }}{{ vhosts[vhost].public_folder }}
+- name: sync bestanden
+  sudo: no
+  local_action: shell rsync -e ssh -aq --exclude-from roles/typo3/files/exclude-list.txt
+        {{ remote_ssh.user }}@{{ remote_ssh.host}}:{{ remote_dir.bestanden }} src/{{ vhost }}{{ vhosts[vhost].public_folder }}fileadmin
+  tags:
+    - rsync-bestanden

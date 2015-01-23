@@ -1,0 +1,62 @@
+<VirtualHost *:80>
+    DocumentRoot "/var/www/{{ vhost }}{{ vhosts[vhost].public_folder }}"
+    ServerName {{ domain }}
+    ServerAlias {{ api_domain }}
+    <Directory "/var/www/{{ vhost }}{{ vhosts[vhost].public_folder }}">
+            allow from all
+            Options None
+            Options FollowSymlinks
+    </Directory>
+    LogLevel warn
+
+    php_value display_errors Off
+    php_value log_errors On
+    php_value error_log /var/log/apache2/php-errors.log
+
+    php_flag register_globals off
+    php_flag register_argc_argv off
+    php_flag magic_quotes_gpc off
+    php_value variables_order GPCS
+
+    <FilesMatch "\.js\.gzip$">
+            AddType "text/javascript" .gzip
+    </FilesMatch>
+    <FilesMatch "\.css\.gzip$">
+            AddType "text/css" .gzip
+    </FilesMatch>
+    AddEncoding gzip .gzip
+
+    <IfModule mod_deflate.c>
+        SetOutputFilter DEFLATE
+        SetEnvIfNoCase Request_URI \.(?i:gif|jpe?g|png)$ no-gzip dont-vary
+        SetEnvIfNoCase Request_URI \.(?i:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary
+        SetEnvIfNoCase Request_URI \.pdf$ no-gzip dont-vary
+        SetEnvIfNoCase Request_URI \.avi$ no-gzip dont-vary
+        SetEnvIfNoCase Request_URI \.mov$ no-gzip dont-vary
+        SetEnvIfNoCase Request_URI \.mp3$ no-gzip dont-vary
+        SetEnvIfNoCase Request_URI \.mp4$ no-gzip dont-vary
+        SetEnvIfNoCase Request_URI \.rm$ no-gzip dont-vary
+        SetEnvIfNoCase Request_URI \.woff$ no-gzip dont-vary
+    </IfModule>
+    <IfModule mod_expires.c>
+        ExpiresActive on
+        ExpiresDefault "access plus 1 hour"
+    </IfModule>
+    FileETag MTime Size
+
+    RewriteEngine On
+
+    RewriteRule ^/(typo3/|t3lib/|tslib/|fileadmin/|typo3conf/|showpic\.php|favicon\.ico) - [L]
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-d
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
+    RewriteRule ^/(.*)$        /index.php      [NS,PT]
+
+
+    <Directory ~ "\.svn">
+      Order allow,deny
+      Deny from all
+    </Directory>
+
+    SetEnv OTAP O
+
+</VirtualHost>

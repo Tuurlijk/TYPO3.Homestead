@@ -1,0 +1,22 @@
+---
+# This role contains common plays that will run on all nodes.
+
+- name: update apt cache
+  apt: update_cache=yes
+- name: apt upgrade dist
+  apt: upgrade=dist
+- name: install {{ item }}
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - curl
+    - git
+    - htop
+    - multitail
+    - ntp
+    - rsync
+    - subversion
+    - unzip
+    - wget
+    - zip
+  notify:
+    - restart ntp

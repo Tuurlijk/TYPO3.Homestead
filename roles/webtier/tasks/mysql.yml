@@ -1,0 +1,28 @@
+---
+#install mysql, the phyton package is needed for the other ansible tasks
+- name: install MySQL
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - mysql-client
+    - mysql-server
+    - python-mysqldb
+- name: start MySQL service
+  service: name=mysql state=started
+- name: setup MySQL root user
+  mysql_user: name=root password={{ mysql_root_pwd }} host={{ item }} state=present
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+- name: setup MySQL creds for root user
+  template: src=mysql.conf.j2 dest=~/.my.cnf owner=root mode=0600
+- name: delete blank MySQL users
+  mysql_user: name="" host={{ item }} state=absent
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+- name: drop MySQL test database
+  mysql_db: name=test state=absent

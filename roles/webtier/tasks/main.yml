@@ -1,0 +1,8 @@
+---
+
+- include: apache.yml
+- include: mysql.yml
+- include: php.yml
+
+- name: install graphicsmagick
+  apt: pkg=graphicsmagick state=latest

@@ -1,5 +1,5 @@
 ---
-# handlers file for settler
+# handlers file for homestead
 - name: restart nginx
   service: name=nginx state=restarted
 

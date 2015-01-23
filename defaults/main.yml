@@ -1,14 +1,18 @@
 ---
-# defaults file for settler
-settler_update_cache: yes
-settler_cache_valid_time: 3600
+# defaults file for homestead
+homestead_update_cache: yes
+homestead_cache_valid_time: 3600
 
-settler_upgrade_packages: yes
+homestead_upgrade_packages: yes
 
-#settler_timezone_file: /usr/share/zoneinfo/America/Chicago
-#settler_timezone_file: /usr/share/zoneinfo/Japan
-settler_timezone_file: /usr/share/zoneinfo/UTC
+#homestead_timezone_file: /usr/share/zoneinfo/America/Chicago
+#homestead_timezone_file: /usr/share/zoneinfo/Europe/Amsterdam
+#homestead_timezone_file: /usr/share/zoneinfo/Europe/Berlin
+#homestead_timezone_file: /usr/share/zoneinfo/Europe/London
+#homestead_timezone_file: /usr/share/zoneinfo/Europe/Paris
+#homestead_timezone_file: /usr/share/zoneinfo/Japan
+homestead_timezone_file: /usr/share/zoneinfo/UTC
 
-settler_mysql_root_password: secret
+homestead_mysql_root_password: secret
 
-settler_user: vagrant
+homestead_user: vagrant

@@ -1,14 +1,16 @@
 ---
-# tasks file for settler
+# tasks file for homestead
 
 # Update Package List
 - name: update package lists
-  apt: update_cache=yes cache_valid_time={{ settler_cache_valid_time }}
-  when: settler_update_cache
+  apt:
+    update_cache: yes
+    cache_valid_time: {{ homestead_cache_valid_time }}
+  when: homestead_update_cache
 
 - name: upgrade all packages
   apt: upgrade=dist
-  when: settler_upgrade_packages
+  when: homestead_upgrade_packages
 
 
 # Install Some PPAs
@@ -61,7 +63,7 @@
 
 # Set My Timezone
 - name: set my timezone
-  file: src={{ settler_timezone_file }} dest=/etc/localtime state=link force=yes
+  file: src={{ homestead_timezone_file }} dest=/etc/localtime state=link force=yes
 
 
 # Install PHP Stuffs
@@ -249,8 +251,8 @@
 
 
 # Install MySQL
-- debconf: name="mysql-server" question="mysql-server/root_password" vtype="password" value={{ settler_mysql_root_password }}
-- debconf: name="mysql-server" question="mysql-server/root_password_again" vtype="password" value={{ settler_mysql_root_password }}
+- debconf: name="mysql-server" question="mysql-server/root_password" vtype="password" value={{ homestead_mysql_root_password }}
+- debconf: name="mysql-server" question="mysql-server/root_password_again" vtype="password" value={{ homestead_mysql_root_password }}
 - template: src=my_credentials.cnf dest=/root/.my.cnf owner=root mode=0600
 - apt: name={{ item }} state=present
   with_items:
@@ -266,15 +268,15 @@
   notify:
     - restart mysql
 
-- mysql_user: name=root host=10.0.2.2 priv=*.*:ALL,GRANT password={{ settler_mysql_root_password }}
+- mysql_user: name=root host=10.0.2.2 priv=*.*:ALL,GRANT password={{ homestead_mysql_root_password }}
   notify:
     - restart mysql
 
-- mysql_user: name=homestead host=10.0.2.2 priv=*.*:ALL,GRANT password={{ settler_mysql_root_password }}
+- mysql_user: name=homestead host=10.0.2.2 priv=*.*:ALL,GRANT password={{ homestead_mysql_root_password }}
   notify:
     - restart mysql
 
-- mysql_user: name=homestead host=% priv=*.*:ALL,GRANT password={{ settler_mysql_root_password }}
+- mysql_user: name=homestead host=% priv=*.*:ALL,GRANT password={{ homestead_mysql_root_password }}
   notify:
     - restart mysql
 
@@ -308,7 +310,7 @@
 # ref: https://github.com/opscode/bento/pull/201
 - lineinfile: dest=/etc/sudoers regexp="%sudo\s*ALL=.*NOPASSWD:ALL" line="%sudo ALL=(ALL) NOPASSWD:ALL"
 
-- postgresql_user: name=homestead role_attr_flags=SUPERUSER,INHERIT,NOCREATEDB,NOCREATEROLE,NOREPLICATION password="{{ settler_mysql_root_password }}"
+- postgresql_user: name=homestead role_attr_flags=SUPERUSER,INHERIT,NOCREATEDB,NOCREATEROLE,NOREPLICATION password="{{ homestead_mysql_root_password }}"
   sudo: yes
   sudo_user: postgres
 

@@ -1,0 +1,10 @@
+---
+- name: install Ruby dev and phantomjs
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - ruby-dev
+    - phantomjs
+
+- name: install Ruby gems watir-webdriver and test-unit
+  gem: name=watir-webdriver state=latest
+  gem: name=test-unit state=latest

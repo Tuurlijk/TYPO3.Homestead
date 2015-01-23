@@ -40,7 +40,7 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.hostname = HOSTNAME
 	config.vm.box = "ubuntu/trusty64"
-	config.vm.boot_timeout = 60
+	config.vm.boot_timeout = 120
 	config.hostsupdater.aliases = [HOSTNAME]
 
 	# Network
@@ -55,7 +55,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# SSH
 	config.ssh.forward_agent = true
 	config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'" # avoids 'stdin: is not a tty' error.
-	#config.ssh.private_key_path = ["#{ENV['HOME']}/.ssh/id_rsa"]
+	config.vm.provision "shell", inline: "echo -e '#{File.read("#{Dir.home}/.ssh/id_rsa.pub")}' >> '/home/vagrant/.ssh/authorized_keys'"
 	config.vm.provision "shell", inline: "echo -e '#{File.read("#{Dir.home}/.ssh/id_rsa")}' > '/home/vagrant/.ssh/id_rsa'"
 	config.vm.provision "shell", inline: "touch /home/vagrant/.ssh/known_hosts"
 	config.vm.provision "shell", inline: "chown -R vagrant:vagrant /home/vagrant/.ssh"
@@ -72,11 +72,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.provider :virtualbox do |v|
 		v.gui = !!DEBUG
 
-		v.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
-		v.customize ["modifyvm", :id, "--chipset", "ich9"]
-		v.customize ["modifyvm", :id, "--cpus", CORES.to_i]
-		v.customize ["modifyvm", :id, "--memory", MEMORY.to_i]
-		v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+		v.customize [
+			"modifyvm", :id,
+			"--cpuexecutioncap", "90",
+			"--chipset", "ich9",
+			"--cpus", CORES.to_i,
+			"--memory", MEMORY.to_i,
+			"--natdnshostresolver1", "on"
+			]
 
 		if CORES.to_i > 1
 			v.customize ["modifyvm", :id, "--ioapic", "on"]
@@ -96,39 +99,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.customize ["set", :id, "--memsize", MEMORY, "--cpus", CORES]
 	end
 
-	# Ansible
+	# Ansible | http://docs.ansible.com/playbooks_best_practices.html
 	config.vm.provision "ansible" do |ansible|
-		ansible.verbose = "vvv"
+		ansible.verbose = "v"
 		ansible.playbook = "site.yml"
-		#ansible.inventory_path = "vagrant-inventory"
+		ansible.inventory_path = "inventory"
 		ansible.limit = "all"
 		ansible.raw_arguments = ENV['ANSIBLE_ARGS']
-		#ansible.raw_arguments = ["--diff"]
-		ansible.groups = {
-			"local" => ["default"]
-		}
 		ansible.extra_vars = {
-			php_apc_configs: [
-				"apc.enable_cli=On",
-				"apc.shm_size=256M",
-				"apc.mmap_file_mask=/tmp/apc.XXXXXX"
-				],
-			php_xdebug_configs: [
-				"xdebug.remote_enable = on",
-				"xdebug.remote_connect_back = on",
-				"xdebug.idekey = PHPSTORM-XDEBUG",
-				"xdebug.profiler_enable = 0",
-				"xdebug.profiler_enable_trigger = 1",
-				"xdebug.max_nesting_level = 500",
-				"xdebug.cli_color = 1",
-				"xdebug.var_display_max_depth = 5",
-				"xdebug.show_mem_delta = 1"
-				]
+			private_interface: PRIVATE_NETWORK,
+			hostname: HOSTNAME
 		}
 	end
 
 	# Shares
 	#config.vm.synced_folder "src", "/var/www", type: "nfs", :create => "true", mount_options: ['rw,noatime', 'vers=3', 'tcp', 'fsc']
 	#config.vm.synced_folder "logs/", "/var/log/apache2/",  type: "nfs", :create => "true", :linux_nfs_options => ["noatime"]
-
 end

@@ -1,0 +1,40 @@
+---
+- name: install PHP
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5
+    - php5-cli
+    - php5-mysql
+    - php5-curl
+    - php5-gd
+    - php5-sqlite
+    - php5-xmlrpc
+    - php5-imagick
+    - php5-apcu
+    - php5-mysql
+    - php5-xdebug
+  notify:
+    - restart apache
+  tags:
+    - php
+
+- name: install mod_php
+  apt: pkg=libapache2-mod-php5 state=latest
+  notify:
+    - restart apache
+
+- name: PHP | Setup PHP APC
+  shell: echo "{{ item }}" >> /etc/php5/mods-available/apcu.ini
+  with_items: php_apc_configs
+  notify:
+    - restart apache
+  tags:
+    - php5-apcu
+
+- name: PHP | Setup PHP xDebug
+  shell: echo "{{ item }}" >> /etc/php5/mods-available/xdebug.ini
+  with_items: php_xdebug_configs
+  notify:
+    - restart apache
+  tags:
+    - php

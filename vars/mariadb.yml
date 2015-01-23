@@ -1,0 +1,5 @@
+mariadb:
+    root_password: supersecret
+    user: user
+    password: password
+    database: db

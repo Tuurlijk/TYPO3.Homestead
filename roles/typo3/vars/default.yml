@@ -1,0 +1,19 @@
+---
+domain: "{{ vhost }}"
+
+# remote settings, can be overriden
+remote_db:
+  host: dev.maxserv.com
+  user: msweb2014-dev-v2
+  password: 9HFA65bAiAimSGnk9d
+  name: msweb2014_db_v2
+
+remote_vhost: dev.maxserv.com
+
+remote_dir:
+  uploads: ~/vhosts/{{ remote_vhost }}/data/uploads
+  bestanden: ~/vhosts/{{ remote_vhost }}/pages/fileadmin
+
+remote_ssh:
+  user: www-data
+  host: dev.maxserv.com

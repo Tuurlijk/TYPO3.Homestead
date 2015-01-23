@@ -1,0 +1,4 @@
+---
+# file: roles/x/defaults/main.yml
+# if not overridden in inventory or as a parameter, this is the value that will be used
+mysql_root_pwd: supersecret

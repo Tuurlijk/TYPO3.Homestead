@@ -15,5 +15,3 @@
 #     - {regex: "display_errors = .*", line: "display_errors = On"}
 #     - {regex: "memory_limit = .*", line: "memory_limit = 512M"}
 #     - {regex: "date.timezone =.*", line: "date.timezone = UTC"}
-- name: set some php cli settings
-  template: src=php.ini dest=/etc/php5/cli/conf.d/00-php.ini

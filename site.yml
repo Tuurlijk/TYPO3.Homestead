@@ -9,34 +9,48 @@
   pre_tasks:
     - user: name=vagrant
   vars_files:
-    - vars/mariadb.yml
     - vars/common.yml
+    - vars/mariadb.yml
+    - vars/nginxphp.yml
+    - vars/phpcommon.yml
   roles:
-    - role: php5-cli
-      tags: [ 'php5-cli' ]
+    - role: common
+      tags: "common"
+#    - role: php5-cli
+#      tags: [ 'php5-cli' ]
     - role: nginx
-      tags: [ 'nginx' ]
+      tags: 'nginx'
     - role: hhvm
-      tags: [ 'hhvm' ]
+      tags: 'hhvm'
     - role: mariadb
-      tags: [ 'mariadb' ]
+      tags: 'mariadb'
     - role: composer
-      tags: [ 'composer' ]
+      tags: 'composer'
     - role: phpcommon
-      tags: [ 'phpcommon' ]
+      tags: 'phpcommon'
     - role: php-fpm
-      tags: [ 'php-fpm' ]
+      tags: 'php-fpm'
       php_fpm_pools:
         - name: foo
           user: www-data
           group: www-data
           listen: 8000
           pm: dynamic
+          pm.max_children: 5
+          pm.start_servers: 2
+          pm.min_spare_servers: 1
+          pm.max_spare_servers: 3
+          chdir: /
         - name: bar
           user: www-data
           group: www-data
           listen: 8001
           pm: dynamic
+          pm.max_children: 5
+          pm.start_servers: 2
+          pm.min_spare_servers: 1
+          pm.max_spare_servers: 3
+          chdir: /
       php_fpm_ini:
         # PHP section directives
         - option: "engine"

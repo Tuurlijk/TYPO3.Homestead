@@ -1,5 +1,6 @@
+---
 mariadb:
     root_password: supersecret
-    user: user
-    password: password
+    user: typo3
+    password: supersecret
     database: db

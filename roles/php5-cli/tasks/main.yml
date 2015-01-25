@@ -6,3 +6,14 @@
   lineinfile: dest=/etc/php5/cli/php.ini
               regexp='date.timezone ='
               line='date.timezone = {{ timezone }}'
+
+# Set Some PHP CLI Settings
+# - name: set some php cli settings
+#   lineinfile: dest=/etc/php5/cli/php.ini regexp="{{ item.regex }}" line="{{ item.line }}"
+#   with_items:
+#     - {regex: "error_reporting = .*", line: "error_reporting = E_ALL"}
+#     - {regex: "display_errors = .*", line: "display_errors = On"}
+#     - {regex: "memory_limit = .*", line: "memory_limit = 512M"}
+#     - {regex: "date.timezone =.*", line: "date.timezone = UTC"}
+- name: set some php cli settings
+  template: src=php.ini dest=/etc/php5/cli/conf.d/00-php.ini

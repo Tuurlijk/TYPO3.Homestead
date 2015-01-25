@@ -3,7 +3,6 @@
   sudo: yes
   gather_facts: yes
   vars:
-    homestead_apt_update: yes
     web_server: nginxhhvm
     servername: typo3.neos.homestead 192.168.12.12
     timezone: Europe/Amsterdam
@@ -12,37 +11,32 @@
   vars_files:
     - vars/mariadb.yml
     - vars/common.yml
-    - [ "vars/nginxhhvm.yml", "vars/ws_defaults.yml" ]
   roles:
-    - init
-    - php5-cli
-    - nginx
-    - hhvm
-    - mariadb
-    - composer
-    - phpcommon
+    - role: php5-cli
+      tags: [ 'php5-cli' ]
+    - role: nginx
+      tags: [ 'nginx' ]
+    - role: hhvm
+      tags: [ 'hhvm' ]
+    - role: mariadb
+      tags: [ 'mariadb' ]
+    - role: composer
+      tags: [ 'composer' ]
+    - role: phpcommon
+      tags: [ 'phpcommon' ]
     - role: php-fpm
+      tags: [ 'php-fpm' ]
       php_fpm_pools:
         - name: foo
           user: www-data
           group: www-data
           listen: 8000
           pm: dynamic
-          pm.max_children: 5
-          pm.start_servers: 2
-          pm.min_spare_servers: 1
-          pm.max_spare_servers: 3
-          chdir: /
         - name: bar
           user: www-data
           group: www-data
           listen: 8001
           pm: dynamic
-          pm.max_children: 5
-          pm.start_servers: 2
-          pm.min_spare_servers: 1
-          pm.max_spare_servers: 3
-          chdir: /
       php_fpm_ini:
         # PHP section directives
         - option: "engine"
@@ -53,7 +47,7 @@
           value: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
         - option: "date.timezone"
           section: "PHP"
-          value: "Europe/Amsterdam"
+          value: "{{ timezone }}"
         # soap section directives
         - option: "soap.wsdl_cache_dir"
           section: "soap"

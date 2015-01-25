@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  author: your name
-  description: 
-  company: your company (optional)
+  author: Michiel Roos
+  description: TYPO3 test and development environment
+  company: MaxServ
   # Some suggested licenses:
   # - BSD (default)
   # - MIT
@@ -10,7 +10,7 @@ galaxy_info:
   # - GPLv3
   # - Apache
   # - CC-BY
-  license: license (GPLv2, CC-BY, etc)
+  license: license GPLv3
   min_ansible_version: 1.2
   #
   # Below are all platforms currently available. Just uncomment
@@ -65,14 +65,14 @@ galaxy_info:
   #  - 9.1
   #  - 9.1
   #  - 9.2
-  #- name: Ubuntu
-  #  versions:
+  - name: Ubuntu
+    versions:
   #  - all
   #  - lucid
   #  - maverick
   #  - natty
   #  - oneiric
-  #  - precise
+    - precise
   #  - quantal
   #  - raring
   #  - saucy
@@ -101,7 +101,7 @@ galaxy_info:
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   #
-  #categories:
+  categories:
   #- cloud
   #- cloud:ec2
   #- cloud:gce
@@ -110,12 +110,12 @@ galaxy_info:
   #- database
   #- database:nosql
   #- database:sql
-  #- development
+  - development
   #- monitoring
   #- networking
   #- packaging
   #- system
-  #- web
+  - web
 dependencies: []
   # List your role dependencies here, one per line. Only
   # dependencies available via galaxy should be listed here.

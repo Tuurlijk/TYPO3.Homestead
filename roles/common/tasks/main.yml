@@ -1,22 +1,71 @@
 ---
 # This role contains common plays that will run on all nodes.
+# Update Package List
+- name: Update apt package lists
+  sudo: yes
+  apt:
+    update_cache: yes
+    cache_valid_time: {{ homestead.cache_valid_time }}
+  when: homestead.update_cache
 
-- name: update apt cache
-  apt: update_cache=yes
-- name: apt upgrade dist
+- name: Upgrade all packages
   apt: upgrade=dist
-- name: install {{ item }}
+  when: homestead.upgrade_packages
+
+- name: Install System Packages
+  sudo: yes
   apt: pkg={{ item }} state=latest
   with_items:
     - curl
-    - git
-    - htop
-    - multitail
-    - ntp
-    - rsync
-    - subversion
-    - unzip
     - wget
-    - zip
-  notify:
-    - restart ntp
+    - python-software-properties
+
+- name: Install Some PPAs - software-properties-common
+  apt: name=software-properties-common state=present
+
+- name: Add package repositories
+  apt_repository: repo={{ item }}
+  with_items:
+    - "ppa:nginx/stable"
+    - "ppa:rwky/redis"
+    - "ppa:chris-lea/node.js"
+    - "ppa:ondrej/{{ php_ppa }}"
+
+- name: Update apt
+  sudo: yes
+  apt: update_cache=yes
+
+- name: Install Extra Packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items: sys_packages
+
+- name: Install a few helpful python packages
+  pip: name={{ item }} state=present
+  with_items:
+    - "httpie"
+    - "fabric"
+    - "python-simple-hipchat"
+
+- name: Put vagrant user in www-data group
+  user: name=vagrant groups=www-data append=yes
+
+- name: Configure the timezone
+  sudo: yes
+  template: src=timezone.tpl dest=/etc/timezone
+
+- name: More Configure the timezone
+  sudo: yes
+  file: src=/usr/share/zoneinfo/{{timezone}} dest=/etc/localtime state=link force=yes backup=yes
+
+- name: Set the hostname in /etc/hostname
+  shell: echo {{ hostname }} > /etc/hostname
+  when: hostname is defined
+
+- name: Set the hostname
+  shell: hostname {{ hostname }}
+  when: hostname is defined
+
+- name: Update /etc/hosts
+  lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line='127.0.0.1 localhost {{ hostname }}' owner=root group=root mode=0644
+  when: hostname is defined

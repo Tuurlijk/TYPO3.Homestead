@@ -8,7 +8,7 @@
 # You can ask for more memory and cores when creating your Vagrant machine:
 # VAGRANT_MEMORY=2048 VAGRANT_CORES=4 vagrant up
 MEMORY = ENV['VAGRANT_MEMORY'] || '2048'
-CORES = ENV['VAGRANT_CORES'] || '2'
+CORES = ENV['VAGRANT_CORES'] || '1'
 
 # Network
 PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.12.12'
@@ -21,7 +21,7 @@ FORWARD = ENV['VAGRANT_FORWARD'] || '1'
 VAGRANTFILE_API_VERSION = '2'
 
 # Boot the box with the gui enabled
-DEBUG = ENV['VAGRANT_DEBUG'] || true
+DEBUG = ENV['VAGRANT_DEBUG'] || false
 
 # Generate SSH keys for these known hosts
 knownHosts = [ 'github.com' ]
@@ -103,7 +103,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.provision "ansible" do |ansible|
 		ansible.verbose = "v"
 		ansible.playbook = "site.yml"
-		ansible.inventory_path = "inventory"
+# 		ansible.inventory_path = "inventory"
 		ansible.limit = "all"
 		ansible.raw_arguments = ENV['ANSIBLE_ARGS']
 		ansible.extra_vars = {

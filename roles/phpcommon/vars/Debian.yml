@@ -1,0 +1,4 @@
+---
+php_ini_path: /etc/php5/fpm/php.ini
+php_apc_ini_path: /etc/php5/mods-available/apcu.ini
+php_xdebug_ini_path: /etc/php5/mods-available/xdebug.ini

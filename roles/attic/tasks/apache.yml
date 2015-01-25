@@ -3,17 +3,16 @@
   apt: pkg=apache2 state=latest
   notify:
     - restart apache
+
 - name: activate mod_rewrite
   apache2_module: state=present name=rewrite
   notify:
     - restart apache
+
 - name: activate mod_expires
   apache2_module: state=present name=expires
   notify:
     - restart apache
-- name: put vagrant user in www-data group
-  user: name=vagrant groups=www-data append=yes
-
 
 # disable default vhost
 - name: deactivate default vhost

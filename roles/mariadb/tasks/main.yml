@@ -18,6 +18,20 @@
     - mariadb-server
     - python-mysqldb
 
+- name: mariadb | Setup MySQL creds for root user
+  template: src=mysql.conf.j2 dest=~/.my.cnf owner=root mode=0600
+
+- name: mariadb | Delete blank MySQL users
+  mysql_user: name="" host={{ item }} state=absent
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: Drop MySQL test database
+  mysql_db: name=test state=absent
+
 - name: mariadb | Update root password for all root accounts
   mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mariadb.root_password }} login_user=root login_password={{ mariadb.root_password }}
   with_items:

@@ -20,6 +20,9 @@
     - wget
     - python-software-properties
 
+- name: Autoremove unused packages
+  command: apt-get -y autoremove
+
 - name: Install Some PPAs - software-properties-common
   apt: name=software-properties-common state=present
 

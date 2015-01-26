@@ -1,7 +1,7 @@
-Ansible driven TYPO3 Neos Homestead
-===================================
+Ansible driven TYPO3 Homestead
+==============================
 
-Ansible scripts that build the TYPO3 Neos Homestead development environment.
+Ansible scripts that build the TYPO3 Homestead development environment.
 
 Requirements
 ------------

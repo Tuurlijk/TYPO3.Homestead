@@ -12,7 +12,7 @@ CORES = ENV['VAGRANT_CORES'] || '1'
 
 # Network
 PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.12.12'
-HOSTNAME = ENV['VAGRANT_HOSTNAME'] || 'typo3.neos.homestead'
+HOSTNAME = ENV['VAGRANT_HOSTNAME'] || 'typo3.homestead'
 
 # Determine if we need to forward ports
 FORWARD = ENV['VAGRANT_FORWARD'] || '1'

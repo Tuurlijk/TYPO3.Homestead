@@ -4,7 +4,7 @@
   gather_facts: yes
   vars:
     web_server: nginxhhvm
-    servername: typo3.neos.homestead 192.168.12.12
+    servername: typo3.homestead 192.168.12.12
     timezone: Europe/Amsterdam
   pre_tasks:
     - user: name=vagrant

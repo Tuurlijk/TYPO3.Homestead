@@ -1,5 +1,5 @@
 ---
-    php_ppa: php5-5.5
+    php_ppa: php5
     doc_root: /vagrant
     sys_packages:
         - 'build-essential'

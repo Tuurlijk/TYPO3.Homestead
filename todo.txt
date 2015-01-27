@@ -1,2 +1,10 @@
 Generate self signed ssl certificates
 https://github.com/protobox/protobox/commit/602800bb6157c76b6de496ee569aed22bb2276dc
+
+Use node config from this article
+https://serversforhackers.com/getting-started-with-ansible/
+
+Setup ssh
+http://blog.dhananjaynene.com/2013/10/hands-on-ansible-tutorial/
+
+Setup postfix

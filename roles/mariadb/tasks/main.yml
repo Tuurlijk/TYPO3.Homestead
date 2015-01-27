@@ -1,30 +1,39 @@
 ---
 - name: Add MariaDB-Repository
-  sudo: yes
   apt_repository: repo='deb http://mirror3.layerjet.com/mariadb/repo/10.1/ubuntu {{ ansible_distribution_release }} main' state=present
 
 - name: Add Key for MariaDB Repository
-  sudo: yes
   apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
 
 - name: Update apt
-  sudo: yes
   apt: update_cache=yes
 
-- name: mariadb | Install MariaDB Packages
-  sudo: yes
+- name: Install MariaDB Packages
   apt: pkg={{ item }} state=latest
   with_items:
     - mariadb-server
     - python-mysqldb
 
-- name: mariadb | Setup MySQL creds for root user
+- name: Set the MySQL root password
+  mysql_user: user=root
+              password={{ mariadb.root_password }}
+              host={{ item }}
+  with_items:
+    - "{{ hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: Setup MySQL credentials for root user
   template: src=mysql.conf.j2 dest=~/.my.cnf owner=root mode=0600
 
-- name: mariadb | Delete blank MySQL users
+- name: Setup MySQL credentials for vagrant user
+  template: src=mysql.conf.j2 dest=/home/vagrant/.my.cnf owner=vagrant mode=0600
+
+- name: Delete blank MySQL users
   mysql_user: name="" host={{ item }} state=absent
   with_items:
-    - "{{ ansible_hostname }}"
+    - "{{ hostname }}"
     - 127.0.0.1
     - ::1
     - localhost
@@ -32,7 +41,7 @@
 - name: Drop MySQL test database
   mysql_db: name=test state=absent
 
-- name: mariadb | Update root password for all root accounts
+- name: Update root password for all root accounts
   mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mariadb.root_password }} login_user=root login_password={{ mariadb.root_password }}
   with_items:
     - "{{ hostname }}"
@@ -40,8 +49,8 @@
     - ::1
     - localhost
 
-- name: mariadb | Create databases
+- name: Create databases
   mysql_db: name={{ mariadb.database }} state=present login_user=root login_password={{ mariadb.root_password }}
 
-- name: mariadb | Create users
+- name: Create users
   mysql_user: name={{ mariadb.user }} password={{ mariadb.password }} priv={{ mariadb.database }}.*:ALL state=present login_user=root login_password={{ mariadb.root_password }}

@@ -26,17 +26,6 @@ DEBUG = ENV['VAGRANT_DEBUG'] || false
 # Generate SSH keys for these known hosts
 knownHosts = [ 'github.com' ]
 
-# Throw an error if required Vagrant plugins are not installed
-plugins = { 'vagrant-vbguest' => nil }
-
-plugins.each do |plugin, version|
-	unless Vagrant.has_plugin? plugin
-		error = "The '#{plugin}' plugin is not installed! Try running:\nvagrant plugin install #{plugin}"
-		error += " --plugin-version #{version}" if version
-		raise error
-	end
-end
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.hostname = HOSTNAME
 	config.vm.box = "ubuntu/trusty64"
@@ -111,7 +100,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		}
 	end
 
-	# Shares
-	#config.vm.synced_folder "src", "/var/www", type: "nfs", :create => "true", mount_options: ['rw,noatime', 'vers=3', 'tcp', 'fsc']
-	#config.vm.synced_folder "logs/", "/var/log/apache2/",  type: "nfs", :create => "true", :linux_nfs_options => ["noatime"]
+	# Synced Folders
+	config.vm.synced_folder ".", "/vagrant", disabled: true
+	config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www"
+
+	# Use NFS for the shared folder
+	#config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www",
+	#	id: "core",
+	#	:nfs => true,
+	#	:mount_options => ['nolock,vers=3,tcp,noatime']
 end

@@ -102,7 +102,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# Synced Folders
 	config.vm.synced_folder ".", "/vagrant", disabled: true
-	config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www"
+	config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www", group: "www-data"
 
 	# Use NFS for the shared folder
 	#config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www",

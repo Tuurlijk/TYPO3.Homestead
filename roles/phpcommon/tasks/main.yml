@@ -4,10 +4,18 @@
   include_vars: "{{ ansible_os_family }}.yml"
   tags: [ configuration, php ]
 
+- name: Install Some PPAs - software-properties-common
+  apt: name=software-properties-common state=present
+
+- name: Add package repositories
+  apt_repository: repo={{ item }}
+  with_items:
+    - "ppa:ondrej/{{ php_common_ppa }}"
+
 - name: Install PHP Packages
   sudo: yes
   apt: pkg={{ item }} state=latest
-  with_items: php_packages
+  with_items: php_common_packages
   tags: [ php ]
 
 - name: Make mcrypt available
@@ -21,6 +29,11 @@
   notify:
    - restart php-fpm
   tags: [ configuration, php ] 
+
+- name: Customize PHP cli configuration file
+  ini_file: dest={{ php_cli_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
+  with_items: php_ini
+  tags: [ configuration, php ]
 
 - name: Customize PHP xdebug configuration file
   lineinfile: dest={{ php_xdebug_ini_path }} line="[global]" insertbefore=BOF state=present

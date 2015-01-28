@@ -17,7 +17,7 @@ galaxy_info:
   # the ones that apply to your role. If you don't see your 
   # platform on this list, let us know and we'll get it added!
   #
-  #platforms:
+  platforms:
   #- name: EL
   #  versions:
   #  - all
@@ -72,7 +72,7 @@ galaxy_info:
   #  - maverick
   #  - natty
   #  - oneiric
-    - precise
+      - precise
   #  - quantal
   #  - raring
   #  - saucy
@@ -110,12 +110,12 @@ galaxy_info:
   #- database
   #- database:nosql
   #- database:sql
-  - development
+    - development
   #- monitoring
   #- networking
   #- packaging
   #- system
-  - web
+    - web
 dependencies: []
   # List your role dependencies here, one per line. Only
   # dependencies available via galaxy should be listed here.

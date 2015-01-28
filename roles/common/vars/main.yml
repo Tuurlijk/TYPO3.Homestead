@@ -1,0 +1,31 @@
+---
+homestead:
+  update_cache: yes
+  cache_valid_time: 3600
+  upgrade_packages: yes
+doc_root: /vagrant
+sys_packages:
+  - 'build-essential'
+  - 'curl'
+  - 'dos2unix'
+  - 'gcc'
+  - 'git'
+  - 'graphicsmagick'
+  - 'htop'
+  - 'iotop'
+  - 'libmcrypt4'
+  - 'libpcre3-dev'
+  - 'make'
+  - 'mc'
+  - 'multitail'
+  - 'python-pip'
+  - 'python2.7-dev'
+  - 're2c'
+  - 'subversion'
+  - 'supervisor'
+  - 'unattended-upgrades'
+  - 'unzip'
+  - 'vim'
+  - 'wget'
+  - 'whois'
+  - 'zip'

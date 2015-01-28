@@ -19,7 +19,6 @@
     - database
     - files
 
-# git checkout
 - name: Checkout maxserv.com-cms6.git
   sudo: no
   action: git repo=ssh://git@stash.maxserv.com/max/maxserv.com-cms6.git dest=src/{{ vhost }} version=development
@@ -31,28 +30,6 @@
   file: path=/var/www/{{ vhost }}{{ vhosts[vhost].public_folder }}typo3temp state=directory
   tags:
     - data
-
-# create apache vhost
-- name: copy virtual host setup over
-  template: src=vhost.conf.j2 dest=/etc/apache2/sites-available/{{ vhost }}.conf
-  notify:
-    - restart apache
-  tags:
-    - vhostconfig
-- name: copy cookiewall apache config include
-  copy: src=cookiewall.inc dest=/etc/apache2/includes/
-  notify:
-    - restart apache
-  tags:
-    - vhostconfig
-- name: activate virtual host
-  command: a2ensite {{ vhost }}
-  register: a2ensite_cmd
-  changed_when: a2ensite_cmd.stdout.find('already enabled') == -1
-  notify:
-    - restart apache
-  tags:
-    - vhostconfig
 
 - include: database.yml tags=database,data
 

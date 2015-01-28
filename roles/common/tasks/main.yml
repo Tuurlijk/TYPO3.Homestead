@@ -32,7 +32,6 @@
     - "ppa:nginx/stable"
     - "ppa:rwky/redis"
     - "ppa:chris-lea/node.js"
-    - "ppa:ondrej/{{ php_ppa }}"
 
 - name: Update apt
   sudo: yes

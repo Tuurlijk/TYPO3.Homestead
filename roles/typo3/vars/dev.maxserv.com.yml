@@ -1,8 +1,0 @@
----
-remote_db:
-  host: dev.maxserv.com
-  user: msweb2014-dev-v2
-  password: 9HFA65bAiAimSGnk9d
-  name: msweb2014_db_v2
-
-remote_vhost: dev.maxserv.com

@@ -7,71 +7,19 @@
   pre_tasks:
     - user: name=vagrant
   vars_files:
-    - vars/common.yml
-    - vars/mariadb.yml
-    - vars/nginxphp.yml
-    - vars/phpcommon.yml
+    - vars/php-fpm.yml
   roles:
     - role: common
       tags: "common"
-    - role: php5-cli
-      tags: [ 'php5-cli' ]
-    - role: nginx
-      tags: 'nginx'
-    - role: hhvm
-      tags: 'hhvm'
-    - role: mariadb
-      tags: 'mariadb'
-    - role: composer
-      tags: 'composer'
-    - role: phpcommon
-      tags: 'phpcommon'
     - role: php-fpm
       tags: 'php-fpm'
-      php_fpm_pools:
-        - name: foo
-          user: www-data
-          group: www-data
-          listen: 8000
-          pm: dynamic
-          pm.max_children: 5
-          pm.start_servers: 2
-          pm.min_spare_servers: 1
-          pm.max_spare_servers: 3
-          chdir: /
-        - name: bar
-          user: www-data
-          group: www-data
-          listen: 8001
-          pm: dynamic
-          pm.max_children: 5
-          pm.start_servers: 2
-          pm.min_spare_servers: 1
-          pm.max_spare_servers: 3
-          chdir: /
-      php_fpm_ini:
-        # PHP section directives
-        - option: "engine"
-          section: "PHP"
-          value: "1"
-        - option: "error_reporting"
-          section: "PHP"
-          value: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
-        - option: "date.timezone"
-          section: "PHP"
-          value: "{{ timezone }}"
-        # soap section directives
-        - option: "soap.wsdl_cache_dir"
-          section: "soap"
-          value: "/tmp"
-        # Pdo_mysql section directives
-        - option: "pdo_mysql.cache_size"
-          section: "Pdo_mysql"
-          value: "2000"
-          php_fpm_config:
-        - option: "log_level"
-          section: "global"
-          value: "notice"
-        - option: "syslog.facility"
-          section: "global"
-          value: "daemon"
+    - role: phpcommon
+      tags: 'phpcommon'
+    - role: hhvm
+      tags: 'hhvm'
+    - role: composer
+      tags: 'composer'
+    - role: nginx
+      tags: 'nginx'
+    - role: mariadb
+      tags: 'mariadb'

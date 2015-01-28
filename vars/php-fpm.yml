@@ -1,0 +1,45 @@
+---
+php_fpm_pools:
+  - name: www
+    user: www-data
+    group: www-data
+    listen.owner: www-data
+    listen.group: www-data
+    listen: "/var/run/php5-fpm.www.sock"
+    pm: dynamic
+    pm.max_children: 5
+    pm.start_servers: 2
+    pm.min_spare_servers: 1
+    pm.max_spare_servers: 3
+    chdir: /
+  - name: xhprof
+    user: www-data
+    group: www-data
+    listen.owner: www-data
+    listen.group: www-data
+    listen: "/var/run/php5-fpm.xhprof.sock"
+    pm: dynamic
+    pm.max_children: 5
+    pm.start_servers: 2
+    pm.min_spare_servers: 1
+    pm.max_spare_servers: 3
+    chdir: /
+php_fpm_ini:
+  # PHP section directives
+  - option: "engine"
+    section: "PHP"
+    value: "1"
+  - option: "error_reporting"
+    section: "PHP"
+    value: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+  - option: "date.timezone"
+    section: "PHP"
+    value: "{{ timezone }}"
+  # soap section directives
+  - option: "soap.wsdl_cache_dir"
+    section: "soap"
+    value: "/tmp"
+  # Pdo_mysql section directives
+  - option: "pdo_mysql.cache_size"
+    section: "Pdo_mysql"
+    value: "2000"

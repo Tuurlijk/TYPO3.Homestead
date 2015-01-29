@@ -74,7 +74,8 @@
 
 - name: Setup dircolors
   sudo: vagrant
-  template: src=dircolors.j2 dest=~/.dircolors
+  copy: src=dircolors dest=~/.dircolors
 
 - include: zsh.yml
   when: homestead.use_zsh
+  tags: zsh

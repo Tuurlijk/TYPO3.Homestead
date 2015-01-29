@@ -4,6 +4,7 @@ php_cli_ini_path: /etc/php5/cli/php.ini
 php_apc_ini_path: /etc/php5/mods-available/apcu.ini
 php_xdebug_ini_path: /etc/php5/mods-available/xdebug.ini
 php_common_ppa: php5
+php_common_enable_blackfire: yes
 php_common_packages:
     - 'php-pear'
     - 'php5-apcu'

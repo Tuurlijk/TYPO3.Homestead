@@ -49,7 +49,7 @@
 - name: Enable remote xdebug
   file: src=../../mods-available/xdebug.ini dest=/etc/php5/fpm/conf.d/20-xdebug.ini state=link force=yes
   notify:
-    - restart php5-fpm
+    - restart php-fpm
   tags: [ configuration, php, xdebug ]
 
 - name: Customize PHP APC configuration file
@@ -72,14 +72,14 @@
 - name: Enable xhprof
   file: src=../../mods-available/xhprof.ini dest=/etc/php5/fpm/conf.d/20-xhprof.ini state=link force=yes
   notify:
-    - restart php5-fpm
+    - restart php-fpm
   tags: [ configuration, php, xhprof ]
 
 - name: Disable blackfire
   file: src=../../mods-available/blackfire.ini dest=/etc/php5/fpm/conf.d/90-blackfire.ini state=absent force=yes
   when: not php_common_enable_blackfire
   notify:
-    - restart php5-fpm
+    - restart php-fpm
   tags: [ configuration, php, xdebug, xhprof, blackfire ]
 
 - include: blackfire.yml

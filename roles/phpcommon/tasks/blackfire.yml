@@ -18,11 +18,11 @@
 - name: Disable remote xdebug
   file: src=../../mods-available/xdebug.ini dest=/etc/php5/fpm/conf.d/20-xdebug.ini state=absent force=yes
   notify:
-    - restart php5-fpm
+    - restart php-fpm
   tags: [ configuration, php, xdebug ]
 
 - name: Disable xhprof
   file: src=../../mods-available/xhprof.ini dest=/etc/php5/fpm/conf.d/20-xhprof.ini state=absent force=yes
   notify:
-    - restart php5-fpm
+    - restart php-fpm
   tags: [ configuration, php, xhprof ]

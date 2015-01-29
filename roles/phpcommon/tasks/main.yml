@@ -64,10 +64,23 @@
   tags: [ configuration, php, apc ]
 
 - name: Enable PHP APC
-  file: src=../../mods-available/apc.ini dest=/etc/php5/fpm/conf.d/20-apc.ini state=link force=yes
+  file: src=../../mods-available/apcu.ini dest=/etc/php5/fpm/conf.d/20-apcu.ini state=link force=yes
   notify:
     - restart php-fpm
   tags: [ configuration, php, apc ]
+
+- name: Enable xhprof
+  file: src=../../mods-available/xhprof.ini dest=/etc/php5/fpm/conf.d/20-xhprof.ini state=link force=yes
+  notify:
+    - restart php5-fpm
+  tags: [ configuration, php, xhprof ]
+
+- name: Disable blackfire
+  file: src=../../mods-available/blackfire.ini dest=/etc/php5/fpm/conf.d/90-blackfire.ini state=absent force=yes
+  when: not php_common_enable_blackfire
+  notify:
+    - restart php5-fpm
+  tags: [ configuration, php, xdebug, xhprof, blackfire ]
 
 - include: blackfire.yml
   when: php_common_enable_blackfire

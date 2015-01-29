@@ -1,13 +1,13 @@
 ---
 - hosts: all
   sudo: yes
-  gather_facts: yes
   vars:
     timezone: Europe/Amsterdam
   pre_tasks:
     - user: name=vagrant
   vars_files:
     - vars/php-fpm.yml
+    - vars/typo3.yml
   roles:
     - role: common
       tags: "common"
@@ -23,3 +23,5 @@
       tags: 'nginx'
     - role: mariadb
       tags: 'mariadb'
+    - role: typo3
+      tags: 'typo3'

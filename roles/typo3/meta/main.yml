@@ -1,5 +1,5 @@
 ---
 dependencies:
-  - { role: common }
-  - { role: mariadb }
-  - { role: nginx }
+#  - { role: common }
+#  - { role: mariadb }
+#  - { role: nginx }

@@ -24,7 +24,7 @@ VAGRANTFILE_API_VERSION = '2'
 DEBUG = ENV['VAGRANT_DEBUG'] || false
 
 # Generate SSH keys for these known hosts
-knownHosts = [ 'github.com' ]
+knownHosts = [ 'github.com', 'git.typo3.org' ]
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.hostname = HOSTNAME

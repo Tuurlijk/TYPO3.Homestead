@@ -1,20 +1,9 @@
 ---
 
-- include_vars: default.yml
-- include_vars: "{{ vhosts[vhost].download_from }}.yml"
-- include_vars: default.yml
-  tags:
-    - data
-    - files
-- include_vars: "{{ vhosts[vhost].download_from }}.yml"
-  tags:
-    - files
+- name: Creates {{ typo3_source_path }}/cms directory
+  file: path={{ typo3_source_path }}/cms state=directory owner={{ typo3.cms.sources.owner | default('vagrant') }} group={{ typo3.cms.sources.group | default('www-data') }} mode=0775
 
-- name: Creates directory
-  file: path=/var/www/{{ vhost }}{{ vhosts[vhost].public_folder }}typo3temp state=directory
-  tags:
-    - data
-
-- include: database.yml tags=database,data
-
-- include: files.yml tags=files,data
+- name: Clone TYPO3 CMS
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  git: repo=git://git.typo3.org/Packages/TYPO3.CMS.git
+       dest={{ typo3_source_path }}/cms/typo3-cms

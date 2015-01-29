@@ -65,6 +65,7 @@ export LESS=-r
 
 alias ei='touch ENABLE_INSTALL_TOOL'
 alias di='rm ENABLE_INSTALL_TOOL'
+alias fucking=sudo
 alias :e="\$EDITOR"
 alias :q="exit"
 alias l="ls -A -F"

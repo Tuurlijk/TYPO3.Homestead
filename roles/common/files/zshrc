@@ -65,6 +65,8 @@ export LESS=-r
 
 alias ei='touch ENABLE_INSTALL_TOOL'
 alias di='rm ENABLE_INSTALL_TOOL'
+alias oops='git reset --soft HEAD^'
+alias kut='git reset --soft HEAD^'
 alias fucking=sudo
 alias :e="\$EDITOR"
 alias :q="exit"

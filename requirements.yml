@@ -13,3 +13,7 @@
 - src: geerlingguy.composer
   path: roles
   name: composer
+
+- src: JasonGiedymin.nodejs
+  path: roles
+  name: nodejs

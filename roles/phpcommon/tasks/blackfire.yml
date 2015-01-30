@@ -1,7 +1,7 @@
 ---
 
 - name: Add PackageCloud repo key
-  shell: wget -O - https://packagecloud.io/gpg.key | sudo apt-key add -
+  apt_key: url=https://packagecloud.io/gpg.key state=present
 
 - name: Add PackageCloud repo
   shell: echo deb http://packages.blackfire.io/debian any main | sudo tee /etc/apt/sources.list.d/blackfire.list

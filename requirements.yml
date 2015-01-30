@@ -1,0 +1,15 @@
+- src: nbz4live.php-fpm
+  path: roles
+  name: php-fpm
+
+- src: jdauphant.nginx
+  path: roles
+  name: nginx
+
+- src: GyulaWeber.hhvm
+  path: roles
+  name: hhvm
+
+- src: geerlingguy.composer
+  path: roles
+  name: composer

@@ -7,18 +7,18 @@
 
 # You can ask for more memory and cores when creating your Vagrant machine:
 # VAGRANT_MEMORY=2048 VAGRANT_CORES=4 vagrant up
-MEMORY = ENV['VAGRANT_MEMORY'] || '2048'
-CORES = ENV['VAGRANT_CORES'] || '1'
+MEMORY = ENV['VAGRANT_MEMORY'] || 2048
+CORES = ENV['VAGRANT_CORES'] || 1
 
 # Network
 PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.12.12'
 HOSTNAME = ENV['VAGRANT_HOSTNAME'] || 'typo3.homestead'
 
 # Determine if we need to forward ports
-FORWARD = ENV['VAGRANT_FORWARD'] || '1'
+FORWARD = ENV['VAGRANT_FORWARD'] || 1
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = '2'
+VAGRANTFILE_API_VERSION = 2
 
 # Boot the box with the gui enabled
 DEBUG = ENV['VAGRANT_DEBUG'] || false
@@ -60,18 +60,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# Virtualbox
 	config.vm.provider :virtualbox do |v|
 		v.gui = !!DEBUG
-
+		v.cpus = CORES.to_i
+		v.memory = MEMORY.to_i
 		v.customize [
 			"modifyvm", :id,
-			"--cpuexecutioncap", "90",
 			"--chipset", "ich9",
-			"--cpus", CORES.to_i,
-			"--memory", MEMORY.to_i,
+			"--cpuexecutioncap", "90",
 			"--natdnshostresolver1", "on"
 			]
 
 		if CORES.to_i > 1
-			v.customize ["modifyvm", :id, "--ioapic", "on"]
+			v.customize [
+				"modifyvm", :id,
+				"--chipset", "ich9",
+				"--cpuexecutioncap", "90",
+				"--ioapic", "on",
+				"--natdnshostresolver1", "on"
+				]
 		end
 	end
 

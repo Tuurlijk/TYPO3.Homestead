@@ -38,3 +38,11 @@ nginx_sites:
     - server_name _
     - root "{{ typo3_source_path }}/homestead/"
     - include snippets/php-fpm.conf
+  "typo3.homestead":
+    - listen 443 default_server
+    - server_name _
+    - root "{{ typo3_source_path }}/homestead/"
+    - include snippets/php-fpm.conf
+    - ssl on
+    - ssl_certificate {{nginx_conf_dir}}/ssl/typo3.homestead.crt
+    - ssl_certificate_key {{nginx_conf_dir}}/ssl/typo3.homestead.key

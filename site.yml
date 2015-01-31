@@ -20,11 +20,11 @@
       tags: 'hhvm'
     - role: composer
       tags: 'composer'
+    - role: typo3
+      tags: 'typo3'
     - role: nginx
       tags: 'nginx'
     - role: mariadb
       tags: 'mariadb'
     - role: nodejs
       tags: 'nodejs'
-    - role: typo3
-      tags: 'typo3'

@@ -1,9 +1,3 @@
-Generate self signed ssl certificates
-https://github.com/protobox/protobox/commit/602800bb6157c76b6de496ee569aed22bb2276dc
-
-Use node config from this article
-https://serversforhackers.com/getting-started-with-ansible/
-
 Nginx configuration snippets
 https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
 
@@ -11,9 +5,3 @@ Setup ssh
 http://blog.dhananjaynene.com/2013/10/hands-on-ansible-tutorial/
 
 Setup postfix
-
-
-openssl req \
-  -x509 -sha512 -nodes -days 3650 \
-  -subj '/C=NL/ST=Noord-Brabant/L=Giessen/CN=typo3.homestead' \
-  -newkey rsa:4096 -keyout typo3.homestead.pem -out typo3.homestead.pem

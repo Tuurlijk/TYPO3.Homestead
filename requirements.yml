@@ -14,6 +14,6 @@
   path: roles
   name: composer
 
-- src: JasonGiedymin.nodejs
+- src: laggyluke.nodejs
   path: roles
   name: nodejs

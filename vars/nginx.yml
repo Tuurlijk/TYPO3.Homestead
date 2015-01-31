@@ -36,5 +36,5 @@ nginx_sites:
   default:
     - listen 80 default_server
     - server_name _
-    - root "/var/www/typo3.homestead"
+    - root "{{ typo3_source_path }}/homestead/"
     - include snippets/php-fpm.conf

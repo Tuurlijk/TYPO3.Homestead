@@ -3,6 +3,16 @@
   typo3:
     cms:
       sources:
-        branches: [ 4.5, 4.7, 6.1, 6.2 ]
+        branches: []
       sites:
-        branches: [ 4.5, 4.7, 6.1, 6.2 ]
+        branches: []
+    flow:
+      sources:
+        branches: []
+      sites:
+        branches: []
+    neos:
+      sources:
+        branches: []
+      sites:
+        branches: []

@@ -7,6 +7,7 @@ nginx_snippets:
   php-fpm:
     - try_files $uri $uri/ /index.php?$args
     - location ~ \.php$ {
+        add_header    X-TYPO3-Homestead php-fpm;
         try_files     $uri =404;
         fastcgi_pass  unix:/var/run/php5-fpm.sock;
         fastcgi_index index.php;
@@ -16,6 +17,7 @@ nginx_snippets:
   php-fpm-xhprof:
     - try_files $uri $uri/ /index.php?$args
     - location ~ \.php$ {
+        add_header    X-TYPO3-Homestead php-fpm-xhprof;
         try_files     $uri =404;
         fastcgi_pass  unix:/var/run/php5-fpm-xhprof.sock;
         fastcgi_index index.php;
@@ -25,6 +27,7 @@ nginx_snippets:
   hhvm:
     - try_files $uri $uri/ /index.php?$args
     - location ~ \.(hh|php)$ {
+        add_header    X-TYPO3-Homestead hhvm;
         try_files     $uri =404;
         fastcgi_pass  127.0.0.1:9000;
         fastcgi_index index.php;
@@ -37,8 +40,8 @@ nginx_sites:
     - listen 80 default_server
     - server_name _
     - root "{{ typo3_source_path }}/homestead/"
-    - include snippets/php-fpm.conf
-  "typo3.homestead":
+    - include snippets/hhvm.conf
+  default-ssl:
     - listen 443 default_server
     - server_name _
     - root "{{ typo3_source_path }}/homestead/"

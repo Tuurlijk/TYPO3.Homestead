@@ -1,7 +1,7 @@
 ---
-  typo3:
-    cms:
-      sources:
-        branches: [ 4.5, 4.7, 6.1, 6.2 ]
-      sites:
-        branches: [ 4.5, 4.7, 6.1, 6.2 ]
+typo3:
+  cms:
+    sources:
+      branches: [ 4.5, 4.7, 6.1, 6.2 ]
+    sites:
+      branches: [ 4.5, 4.7, 6.1, 6.2 ]

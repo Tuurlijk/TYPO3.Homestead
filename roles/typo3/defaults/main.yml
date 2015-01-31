@@ -1,5 +1,7 @@
 ---
   typo3_source_path: "/usr/share/typo3"
+  typo3_ssl_certificates:
+    - 'typo3.homestead'
   typo3:
     cms:
       sources:

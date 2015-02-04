@@ -1,4 +1,8 @@
 ---
+php_fpm_config:
+  - option: "request_terminate_timeout"
+    section: "global"
+    value: "120s"
 php_fpm_pools:
   - name: default
     user: www-data
@@ -34,6 +38,15 @@ php_fpm_ini:
   - option: "date.timezone"
     section: "PHP"
     value: "{{ timezone }}"
+  - option: "max_execution_time"
+    section: "PHP"
+    value: 240
+  - option: "upload_max_filesize"
+    section: "PHP"
+    value: "10240 KB"
+  - option: "post_max_size"
+    section: "PHP"
+    value: "10 MB"
   - option: "soap.wsdl_cache_dir"
     section: "soap"
     value: "/tmp"

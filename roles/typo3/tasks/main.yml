@@ -10,14 +10,11 @@
   sudo: vagrant
   copy: src=index.html dest={{ typo3_source_path }}/homestead/index.html
 
-- name: Clone TYPO3 CMS
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
-  git: repo=git://git.typo3.org/Packages/TYPO3.CMS.git
-       dest={{ typo3_source_path }}/cms/typo3-cms
-
 - name: Generate ssl certificates for nginx sites (needs to run before nginx role)
   command: openssl req -x509 -sha512 -nodes -days 3650 -subj '/C=NL/ST=Noord-Brabant/O=MaxServ/L=Giessen/CN={{ item }}' -newkey rsa:4096 -keyout {{nginx_conf_dir}}/ssl/{{ item }}.key -out {{nginx_conf_dir}}/ssl/{{ item }}.crt creates={{nginx_conf_dir}}/ssl/{{ item }}.crt
   with_items: typo3_ssl_certificates
   notify:
     - reload nginx
   tags: [configuration,nginx,ssl]
+
+- include: cms.yml

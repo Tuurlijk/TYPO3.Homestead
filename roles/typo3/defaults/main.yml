@@ -1,20 +1,31 @@
 ---
-  typo3_source_path: "/usr/share/typo3"
+  typo3_source_path: '/usr/share/typo3'
+
+  typo3_cms_src_repository: 'git://git.typo3.org/Packages/TYPO3.CMS.git'
+
+  typo3_webroot: '/var/www/'
+
   typo3_ssl_certificates:
     - 'typo3.homestead'
   typo3:
     cms:
       sources:
         branches: []
+        tags: []
       sites:
         branches: []
+        tags: []
     flow:
       sources:
         branches: []
+        tags: []
       sites:
         branches: []
+        tags: []
     neos:
       sources:
         branches: []
+        tags: []
       sites:
         branches: []
+        tags: []

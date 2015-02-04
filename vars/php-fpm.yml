@@ -43,10 +43,10 @@ php_fpm_ini:
     value: 240
   - option: "upload_max_filesize"
     section: "PHP"
-    value: "10240 KB"
+    value: "20M"
   - option: "post_max_size"
     section: "PHP"
-    value: "10 MB"
+    value: "10M"
   - option: "soap.wsdl_cache_dir"
     section: "soap"
     value: "/tmp"

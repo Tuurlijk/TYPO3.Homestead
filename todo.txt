@@ -5,3 +5,11 @@ Setup ssh
 http://blog.dhananjaynene.com/2013/10/hands-on-ansible-tutorial/
 
 Setup postfix
+
+Caching and NFS slowness
+http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html
+
+Setup cronjobs
+
+Setup nfs
+https://gitlab.com/gitlab-org/cookbook-gitlab/blob/master/Vagrantfile

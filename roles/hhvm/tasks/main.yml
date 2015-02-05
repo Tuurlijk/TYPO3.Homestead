@@ -1,13 +1,21 @@
 - name: Add HHVM key
   apt_key: url=http://dl.hhvm.com/conf/hhvm.gpg.key
+  tags: hhvm
 
 - name: Add HHVM repository
   apt_repository: repo='deb http://dl.hhvm.com/ubuntu trusty main'
+  tags: hhvm
 
 - name: Install HHVM
   apt: pkg=hhvm state=latest update_cache=yes
+  tags: hhvm
 
 - name: write server.ini
   copy: src=server.ini dest=/etc/hhvm/server.ini
   notify:
     - restart hhvm
+  tags: hhvm
+
+- name: Start the hhvm service
+  service: name=hhvm state=started enabled=yes
+  tags: [service,hhvm]

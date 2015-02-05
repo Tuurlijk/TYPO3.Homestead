@@ -1,15 +1,18 @@
 ---
 
-- name: Create {{ typo3_source_path }}/cms directory
-  file: path={{ typo3_source_path }}/cms state=directory owner={{ typo3.cms.sources.owner | default('vagrant') }} group={{ typo3.cms.sources.group | default('www-data') }} mode=0775
+- name: Create {{ typo3_source_path }}/ base directories
+  file: path={{ typo3_source_path }}/{{ item }} state=directory owner={{ typo3.cms.sources.owner | default('vagrant') }} group={{ typo3.cms.sources.group | default('www-data') }} mode=0775
+  with_items: typo3.keys()
+  tags: [typo3-configuration]
 
 - name: Generate ssl certificates for nginx sites (needs to run before nginx role)
   command: openssl req -x509 -sha512 -nodes -days 3650 -subj '/C=NL/ST=Noord-Brabant/O=MaxServ/L=Giessen/CN={{ item }}' -newkey rsa:4096 -keyout {{nginx_conf_dir}}/ssl/{{ item }}.key -out {{nginx_conf_dir}}/ssl/{{ item }}.crt creates={{nginx_conf_dir}}/ssl/{{ item }}.crt
   with_items: typo3_ssl_certificates
   notify:
     - reload nginx
-  tags: [configuration,nginx,ssl]
+  tags: [typo3-configuration,nginx,ssl]
 
 - include: defaultSite.yml
 - include: mariadb.yml
 - include: cms.yml
+- include: neos.yml

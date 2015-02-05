@@ -12,6 +12,8 @@ nginx_snippets:
         try_files     $uri =404;
         fastcgi_pass  unix:/var/run/php5-fpm.sock;
         fastcgi_index index.php;
+        fastcgi_param FLOW_CONTEXT Development;
+        fastcgi_param FLOW_REWRITEURLS 1;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include       fastcgi_params;
       }
@@ -22,6 +24,8 @@ nginx_snippets:
         try_files     $uri =404;
         fastcgi_pass  unix:/var/run/php5-fpm-xhprof.sock;
         fastcgi_index index.php;
+        fastcgi_param FLOW_CONTEXT Development;
+        fastcgi_param FLOW_REWRITEURLS 1;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include       fastcgi_params;
       }
@@ -32,6 +36,8 @@ nginx_snippets:
         try_files     $uri =404;
         fastcgi_pass  unix:/var/run/hhvm/sock;
         fastcgi_index index.php;
+        fastcgi_param FLOW_CONTEXT Development;
+        fastcgi_param FLOW_REWRITEURLS 1;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include       fastcgi_params;
       }
@@ -57,4 +63,28 @@ nginx_sites:
   4.5.39.typo3.cms:
     - server_name 4.5.39.typo3.cms
     - root "/var/www/4.5.39.typo3.cms/"
+    - include snippets/php-fpm.conf
+  6.2.typo3.cms:
+    - server_name 6.2.typo3.cms
+    - root "/var/www/6.2.typo3.cms/"
+    - include snippets/php-fpm.conf
+  6.2.9.typo3.cms:
+    - server_name 6.2.9.typo3.cms
+    - root "/var/www/6.2.9.typo3.cms/"
+    - include snippets/php-fpm.conf
+  7.0.typo3.cms:
+    - server_name 7.0.typo3.cms
+    - root "/var/www/7.0.typo3.cms/"
+    - include snippets/php-fpm.conf
+  7.0.2.typo3.cms:
+    - server_name 7.0.2.typo3.cms
+    - root "/var/www/7.0.2.typo3.cms/"
+    - include snippets/php-fpm.conf
+  1.2.typo3.neos:
+    - server_name 1.2.typo3.neos
+    - root "/var/www/1.2.typo3.neos/Web/"
+    - include snippets/php-fpm.conf
+  dev-master.typo3.neos:
+    - server_name dev-master.typo3.neos
+    - root "/var/www/dev-master.typo3.neos/Web/"
     - include snippets/php-fpm.conf

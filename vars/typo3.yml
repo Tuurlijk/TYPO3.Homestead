@@ -7,6 +7,8 @@ typo3_ssl_certificates:
   - 6.2.9.typo3.cms
   - 7.0.typo3.cms
   - 7.0.2.typo3.cms
+  - 1.2.typo3.neos
+  - dev-master.typo3.neos
 typo3:
   cms:
     sources:
@@ -19,3 +21,7 @@ typo3:
       6.2.9.typo3.cms: 'TYPO3_6-2-9'
       7.0.typo3.cms: 'TYPO3_7-0'
       7.0.2.typo3.cms: 'TYPO3_7-0-2'
+  neos:
+    sites:
+      1.2.typo3.neos: 'no-dev'
+      dev-master.typo3.neos: 'dev-master'

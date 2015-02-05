@@ -1,0 +1,3 @@
+---
+homestead_ssh_public_keys:
+  - '/Users/michiel/.ssh/id_rsa.pub'

@@ -76,6 +76,9 @@
   sudo: vagrant
   copy: src=dircolors dest=~/.dircolors
 
+- include: ssh.yml
+  tags: ssh
+
 - include: zsh.yml
   when: homestead.use_zsh
   tags: zsh

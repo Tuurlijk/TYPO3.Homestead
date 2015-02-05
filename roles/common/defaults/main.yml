@@ -4,6 +4,11 @@ homestead:
   cache_valid_time: 3600
   upgrade_packages: yes
   use_zsh: yes
+homestead_ssh_public_keys:
+homestead_ssh_known_hosts:
+  - 'github.com'
+  - 'git.typo3.org'
+  - 'packagist.org'
 sys_packages:
   - 'build-essential'
   - 'curl'

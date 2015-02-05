@@ -1,11 +1,11 @@
 ---
 - hosts: all
+  gather_facts: true
   sudo: yes
   vars:
     timezone: Europe/Amsterdam
-  pre_tasks:
-    - user: name=vagrant
   vars_files:
+    - vars/common.yml
     - vars/php-fpm.yml
     - vars/nginx.yml
     - vars/typo3.yml

@@ -5,6 +5,10 @@
   with_items: typo3.keys()
   tags: [typo3-configuration]
 
+- name: Make sure the nginx ssl directory extists
+  file: path={{nginx_conf_dir}}/ssl state=directory owner=root group={{nginx_group}} mode=0755
+  tags: [configuration,nginx,ssl]
+
 - name: Generate ssl certificates for nginx sites (needs to run before nginx role)
   command: openssl req -x509 -sha512 -nodes -days 3650 -subj '/C=NL/ST=Noord-Brabant/O=MaxServ/L=Giessen/CN={{ item }}' -newkey rsa:4096 -keyout {{nginx_conf_dir}}/ssl/{{ item }}.key -out {{nginx_conf_dir}}/ssl/{{ item }}.crt creates={{nginx_conf_dir}}/ssl/{{ item }}.crt
   with_items: typo3_ssl_certificates

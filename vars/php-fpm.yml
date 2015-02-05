@@ -3,6 +3,7 @@ php_fpm_config:
   - option: "request_terminate_timeout"
     section: "global"
     value: "120s"
+
 php_fpm_pools:
   - name: default
     user: www-data
@@ -28,6 +29,7 @@ php_fpm_pools:
     pm.min_spare_servers: 1
     pm.max_spare_servers: 3
     chdir: /
+
 php_fpm_ini:
   - option: "engine"
     section: "PHP"

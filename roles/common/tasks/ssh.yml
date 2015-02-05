@@ -1,13 +1,5 @@
 ---
 
-- name: Add authorized keys from host user
-  authorized_key: >
-    user=vagrant
-    key="{{ lookup('file', item) }}"
-    state=present
-  with_items: homestead_ssh_public_keys
-  tags: ssh-keys
-
 - name: Get host keys
   shell: ssh-keyscan {{ item }}
   with_items: homestead_ssh_known_hosts

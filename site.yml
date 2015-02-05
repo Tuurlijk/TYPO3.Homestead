@@ -5,7 +5,6 @@
   vars:
     timezone: Europe/Amsterdam
   vars_files:
-    - vars/common.yml
     - vars/php-fpm.yml
     - vars/nginx.yml
     - vars/typo3.yml

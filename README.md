@@ -1,14 +1,40 @@
-Ansible driven TYPO3 Homestead
+TYPO3 Homestead
 ==============================
 
-Ansible scripts that build the TYPO3 Homestead development environment.
+TYPO3 Homestead is your one-stop TYPO3 development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be built with all the packages and configuration needed to start development right away. 
+
+Features
+--------
+
+TYPO3 Homestead comes with the following stack:
+* composer
+* hhvm
+* mariadb
+* nginx
+* nodejs
+* php-apcu
+* php-fpm
+* self signed ssl certificates
+* xdebug
+* xhprof / blackfire
+* zsh
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+TYPO3 Homestead uses several roles from the ansible-galaxy:
+* nbz4live.php-fpm
+* jdauphant.nginx
+* geerlingguy.composer
+* laggyluke.nodejs
 
-Role Variables
+You will need to install these roles before you can run the playbook.
+
+```
+ansible-galaxy install -r requirements.yml
+```
+
+Variables
 --------------
 
 A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
@@ -30,7 +56,7 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-MIT
+GPLv3
 
 Author Information
 ------------------

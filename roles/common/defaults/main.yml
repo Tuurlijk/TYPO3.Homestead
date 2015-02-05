@@ -6,9 +6,11 @@ homestead:
   use_zsh: yes
 homestead_ssh_public_keys:
 homestead_ssh_known_hosts:
-  - 'github.com'
   - 'git.typo3.org'
+  - 'github.com'
   - 'packagist.org'
+  - '-p 29418 review.typo3.org'
+  - '-p 29418 91.184.35.13'
 sys_packages:
   - 'byobu'
   - 'curl'

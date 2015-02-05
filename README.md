@@ -1,7 +1,7 @@
 TYPO3 Homestead
-==============================
+===============
 
-TYPO3 Homestead is your one-stop TYPO3 development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be built with all the packages and configuration needed to start development right away. 
+TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be built with all the packages and configuration needed to start development right away.
 
 Features
 --------
@@ -15,18 +15,21 @@ TYPO3 Homestead comes with the following stack:
 * php-apcu
 * php-fpm
 * self signed ssl certificates
+* TYPO3 CMS
+* TYPO3 FLOW
+* TYPO3 NEOS
 * xdebug
 * xhprof / blackfire
 * zsh
 
+The flexible configuration allows you to create any combination of TYPO3 source and PHP backend with or without SSL.
+
 Requirements
 ------------
 
-TYPO3 Homestead uses several roles from the ansible-galaxy:
-* nbz4live.php-fpm
-* jdauphant.nginx
-* geerlingguy.composer
-* laggyluke.nodejs
+* [Virtualbox](https://www.virtualbox.org/) or another virtualization product
+* [Vagrant](http://www.vagrantup.com/)
+* [Ansible](http://www.ansible.com/)
 
 You will need to install these roles before you can run the playbook.
 
@@ -42,12 +45,22 @@ A description of the settable variables for this role should go here, including 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+TYPO3 Homestead uses several roles from the ansible-galaxy:
+* [nbz4live.php-fpm](https://galaxy.ansible.com/list#/roles/304)
+* [jdauphant.nginx](https://galaxy.ansible.com/list#/roles/466)
+* [geerlingguy.composer](https://galaxy.ansible.com/list#/roles/429)
+* [laggyluke.nodejs](https://galaxy.ansible.com/list#/roles/285)
 
-Example Playbook
--------------------------
+You will need to install these roles before you can run the playbook.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```
+ansible-galaxy install -r requirements.yml
+```
+
+Configuration Examples
+----------------------
+
+Setup your
 
     - hosts: servers
       roles:
@@ -56,12 +69,7 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-GPLv3
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[GNU General Public License version 3](https://www.gnu.org/licenses/gpl-3.0.html)
 
 References
 ----------

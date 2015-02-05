@@ -67,7 +67,7 @@
 
 - name: Setup dircolors
   sudo: vagrant
-  copy: src=dircolors dest=~/.dircolors
+  copy: src=dircolors dest=~/.dircolors force=no
 
 - include: ssh.yml
   tags: ssh

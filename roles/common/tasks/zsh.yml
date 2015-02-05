@@ -18,11 +18,11 @@
 
 - name: Copy zshrc
   sudo: vagrant
-  copy: src=zshrc dest=~/.zprezto/runcoms/zshrc
+  copy: src=zshrc dest=~/.zprezto/runcoms/zshrc force=no
 
 - name: Copy typofree prompt
   sudo: vagrant
-  copy: src=prompt_typofree_setup dest=~/.zprezto/modules/prompt/functions/prompt_typofree_setup
+  copy: src=prompt_typofree_setup dest=~/.zprezto/modules/prompt/functions/prompt_typofree_setup force=no
 
 - name: Enable typofree prompt
   sudo: vagrant

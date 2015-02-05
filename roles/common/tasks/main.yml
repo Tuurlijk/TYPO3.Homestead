@@ -42,13 +42,6 @@
   apt: pkg={{ item }} state=latest
   with_items: sys_packages
 
-- name: Install a few helpful python packages
-  pip: name={{ item }} state=present
-  with_items:
-    - "httpie"
-    - "fabric"
-    - "python-simple-hipchat"
-
 - name: Put vagrant user in www-data group
   user: name=vagrant groups=www-data append=yes
 

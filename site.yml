@@ -11,20 +11,20 @@
     - vars/typo3.yml
   roles:
     - role: common
-      tags: "common"
+      tags: common
     - role: php-fpm
-      tags: 'php-fpm'
+      tags: php-fpm
     - role: phpcommon
-      tags: 'phpcommon'
+      tags: phpcommon
     - role: hhvm
-      tags: 'hhvm'
+      tags: hhvm
     - role: composer
-      tags: 'composer'
+      tags: composer
     - role: typo3
-      tags: 'typo3'
+      tags: typo3
     - role: nginx
-      tags: 'nginx'
+      tags: nginx
     - role: mariadb
-      tags: 'mariadb'
+      tags: mariadb
     - role: nodejs
-      tags: 'nodejs'
+      tags: nodejs

@@ -79,11 +79,15 @@ A description of the settable variables for this role should go here, including 
 Configuration Examples
 ----------------------
 
-Setup your
+TODO
+----
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+* Nginx configuration snippets?
+  https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
+* Caching and NFS slowness
+  http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html
+  https://gitlab.com/gitlab-org/cookbook-gitlab/blob/master/Vagrantfile
+* Setup cronjobs
 
 License
 -------

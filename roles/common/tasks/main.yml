@@ -71,7 +71,7 @@
 
 - name: Setup postfix as a null mailer
   sudo: yes
-  copy: src=postfix_main.cf.j2 dest=/etc/postfix/main.cf force=no
+  copy: src=postfix_main.cf dest=/etc/postfix/main.cf force=no
 
 - name: Start the postfix service
   service: name=postfix state=started enabled=yes

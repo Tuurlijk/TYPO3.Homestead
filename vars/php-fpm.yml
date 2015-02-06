@@ -48,7 +48,7 @@ php_fpm_ini:
     value: "20M"
   - option: "post_max_size"
     section: "PHP"
-    value: "10M"
+    value: "20M"
   - option: "soap.wsdl_cache_dir"
     section: "soap"
     value: "/tmp"

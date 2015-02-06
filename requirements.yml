@@ -1,15 +1,15 @@
 - src: nbz4live.php-fpm
-  path: roles
-  name: php-fpm
+#  path: roles
+#  name: php-fpm
 
 - src: jdauphant.nginx
-  path: roles
-  name: nginx
+#  path: roles
+#  name: nginx
 
-- src: geerlingguy.composer
-  path: roles
-  name: composer
+- src: tersmitten.composer
+#  path: roles
+#  name: composer
 
 - src: laggyluke.nodejs
-  path: roles
-  name: nodejs
+#  path: roles
+#  name: nodejs

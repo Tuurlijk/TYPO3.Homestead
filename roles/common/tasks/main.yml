@@ -47,7 +47,7 @@
 
 - name: Configure the timezone
   sudo: yes
-  template: src=timezone.tpl dest=/etc/timezone
+  template: src=timezone.tpl.j2 dest=/etc/timezone
 
 - name: More Configure the timezone
   sudo: yes
@@ -68,6 +68,14 @@
 - name: Setup dircolors
   sudo: vagrant
   copy: src=dircolors dest=~/.dircolors force=no
+
+- name: Setup postfix as a null mailer
+  sudo: yes
+  copy: src=postfix_main.cf.j2 dest=/etc/postfix/main.cf force=no
+
+- name: Start the postfix service
+  service: name=postfix state=started enabled=yes
+  tags: [service,postfix]
 
 - include: ssh.yml
   tags: ssh

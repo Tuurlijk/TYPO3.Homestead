@@ -1,3 +1,4 @@
+---
+
 - name: restart hhvm
   service: name=hhvm state=restarted enabled=yes
-

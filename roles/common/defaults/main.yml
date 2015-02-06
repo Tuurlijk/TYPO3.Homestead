@@ -23,6 +23,7 @@ sys_packages:
   - 'iotop'
   - 'libmcrypt4'
   - 'multitail'
+  - 'postfix'
   - 'python-mysqldb'
   - 'python-pip'
   - 'python2.7-dev'

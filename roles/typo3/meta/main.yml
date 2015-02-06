@@ -1,5 +1,0 @@
----
-dependencies:
-#  - { role: common }
-#  - { role: mariadb }
-#  - { role: nginx }

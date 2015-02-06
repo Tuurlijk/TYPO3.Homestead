@@ -4,22 +4,3 @@
   notify:
     - restart hhvm
   tags: [hhvm]
-
-# Copy fastcgi_params to Nginx because they broke it on the PPA
-- name: copy fastcgi_params
-  template: dest=/etc/nginx/fastcgi_params src=fastcgi_params
-
-# Install Node
-- apt: name=nodejs state=present
-- npm: name={{ item }} state=present global=yes
-  with_items:
-    - grunt-cli
-    - gulp
-    - bower
-
-# Install A Few Other Things
-- name: install a few other things
-  apt: name={{ item }} state=present
-  with_items:
-    - redis-server
-    - memcached

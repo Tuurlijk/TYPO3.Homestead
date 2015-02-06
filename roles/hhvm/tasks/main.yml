@@ -11,7 +11,7 @@
   tags: hhvm
 
 - name: write server.ini
-  copy: src=server.ini dest=/etc/hhvm/server.ini force=no
+  copy: src=server.ini dest=/etc/hhvm/server.ini
   notify:
     - restart hhvm
   tags: hhvm

@@ -30,9 +30,9 @@ The flexible configuration allows you to create any combination of TYPO3 source 
 Requirements
 ------------
 
-* [Virtualbox](https://www.virtualbox.org/) or another virtualization product
-* [Vagrant](http://www.vagrantup.com/)
-* [Ansible](http://www.ansible.com/)
+* [Virtualbox](https://www.virtualbox.org/) or another virtualization product - Free!
+* [Vagrant](http://www.vagrantup.com/) - Free!
+* [Ansible](http://docs.ansible.com/intro_installation.html) - Free! (only the Tower ui will cost you)
 
 Dependencies
 ------------

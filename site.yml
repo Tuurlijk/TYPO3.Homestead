@@ -7,7 +7,7 @@
   vars_files:
     - vars/nginx.yml
     - vars/php-fpm.yml
-    - vars/sites.yml
+    - vars/websites.yml
     - vars/typo3.yml
   roles:
     - { role: common,              tags: common }

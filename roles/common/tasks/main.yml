@@ -77,6 +77,9 @@
   service: name=postfix state=started enabled=yes
   tags: [service,postfix]
 
+- include: ramdisk.yml
+  tags: ramdisk
+
 - include: ssh.yml
   tags: ssh
 

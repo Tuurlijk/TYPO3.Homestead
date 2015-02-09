@@ -1,17 +1,6 @@
 ---
 typo3_org_username: tuurlijk
 
-typo3_ssl_certificates:
-  - typo3.homestead
-  - 4.5.typo3.cms
-  - 4.5.39.typo3.cms
-  - 6.2.typo3.cms
-  - 6.2.9.typo3.cms
-  - 7.0.typo3.cms
-  - 7.0.2.typo3.cms
-  - 1.2.typo3.neos
-  - dev-master.typo3.neos
-
 typo3:
   cms:
     sources:

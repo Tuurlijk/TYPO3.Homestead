@@ -81,7 +81,7 @@ When the installation process has finished, you can visit [http://typo3.homestea
 * [1.2.typo3.neos](http://1.2.typo3.neos)
 * [dev-master.typo3.neos](http://dev-master.typo3.neos)
 
-Currently the sites are not fully setup yet. You will need to run through the install tools by hand. Thisl will be simplified later on.
+Currently the sites are not fully setup yet. You will need to run through the install tools by hand. This will be simplified later on.
 
 The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all database. The install tool password is the TYPO3 default.
 
@@ -97,6 +97,18 @@ You can just set the variables when booting the machine:
 ```bash
 VAGRANT_CORES=2 VAGRANT_PRIVATE_NETWORK=192.66.99.11 vagrant up
 ```
+
+Making it faster
+----------------
+
+When you provision the machine, a ramfs based ramdisk will be created. This is a RAM based filesystem that will grow as needed. Fstab entries will be created for each active website. These will mount-bind your typo3temp folders to a corresponding folder on the ramfs based RAM disk. Unfortunately we can not auto-mount these on the next machine boot as they will need the fileshare from the host system to be active.
+
+This means that the disks wil be active when provisioning for the first time, but when you start up the machine again (after it has already been provisioned) you will need to mount the ramdisks manually by running:
+ ```bash
+ ANSIBLE_ARGS='--tags=typo3-cms-ramdisk' vagrant provision
+ ```
+
+ You should also run that command when you add a website for which you wish to use a ramdisk based typo3temp folder.
 
 Variables
 ---------
@@ -184,9 +196,7 @@ TODO
   http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html
   https://gitlab.com/gitlab-org/cookbook-gitlab/blob/master/Vagrantfile
 * Setup cronjobs
-* Move typo3 caches to ramdisk
-  http://kvz.io/blog/2007/07/18/create-turbocharged-storage-using-tmpfs/
-  
+
 License
 -------
 

@@ -85,3 +85,11 @@
 - include: blackfire.yml
   when: php_common_enable_blackfire
   tags: blackfire
+
+- name: Disable remote xdebug
+  file: src=../../mods-available/xdebug.ini dest=/etc/php5/fpm/conf.d/20-xdebug.ini state=absent force=yes
+  when: not php_xdebug_enable
+  notify:
+    - restart php-fpm
+  tags: [ configuration, php, xdebug ]
+

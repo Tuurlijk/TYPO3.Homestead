@@ -1,3 +1,5 @@
+---
+
 php_ini:
   - option: "error_reporting"
     section: "global"
@@ -23,6 +25,8 @@ php_apc_ini:
   - option: "apc.mmap_file_mask"
     section: "global"
     value: "/tmp/apc.XXXXXX"
+
+php_xdebug_enable: false
 
 php_xdebug_ini:
   - option: "xdebug.cli_color"

@@ -119,6 +119,11 @@
   tags: [typo3-cms-ramdisk]
 
 - name: Make fstab entries for TYPO3 CMS typo3temp
-  mount: src=/mnt/typo3cache/{{ item }} name={{ typo3_webroot }}{{ item }}/typo3temp/ fstype=none opts=bind state=mounted
+  mount: src=/mnt/typo3cache/{{ item }} name={{ typo3_webroot }}{{ item }}/typo3temp/ fstype=none opts=bind,noauto state=present
+  with_items: typo3.cms.sites.keys()
+  tags: [typo3-cms-ramdisk]
+
+- name: Mount bind TYPO3 CMS typo3temp ramdisks
+  command: mount /mnt/typo3cache/{{ item }}
   with_items: typo3.cms.sites.keys()
   tags: [typo3-cms-ramdisk]

@@ -58,6 +58,11 @@ Installation is pretty straight forward:
 ```
 git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
+```
+
+Now setup your shared directory to hold your typo3 sources and sites in your Vagrantfile.
+
+```
 ansible-galaxy install -r requirements.yml
 vagrant up
 ```

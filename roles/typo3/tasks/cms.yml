@@ -54,7 +54,7 @@
 
 - name: Symlink TYPO3 CMS Sources into site roots
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
-  file: src={{ typo3_source_path }}/cms/{{ item.value }}
+  file: src=../sources/cms/{{ item.value }}
         dest={{ typo3_webroot }}{{ item.key }}/typo3_src state=link
   with_dict: typo3.cms.sites
   tags: [typo3-cms-symlink]

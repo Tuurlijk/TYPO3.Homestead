@@ -53,7 +53,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# SSH
 	config.ssh.forward_agent = true
 	config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'" # avoids 'stdin: is not a tty' error.
-# 	config.vm.provision "shell", inline: "echo -e '#{File.read("#{Dir.home}/.ssh/id_rsa")}' > '/home/vagrant/.ssh/id_rsa'"
+	config.ssh.forward_agent = true
+	# 	config.vm.provision "shell", inline: "echo -e '#{File.read("#{Dir.home}/.ssh/id_rsa")}' > '/home/vagrant/.ssh/id_rsa'"
+# 	config.ssh.username = "root"
+# 	config.ssh.private_key_path = "phusion.key"
 
 	# Virtualbox
 	config.vm.provider :virtualbox do |v|
@@ -98,16 +101,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		ansible.limit = "all"
 		ansible.raw_arguments = ENV['ANSIBLE_ARGS']
 		ansible.extra_vars = {
-			ansible_ssh_args: '-o ForwardAgent=yes',
 			ansible_ssh_user: 'vagrant',
-			private_interface: PRIVATE_NETWORK,
 			hostname: HOSTNAME
 		}
 	end
 
 	# Synced Folders
 	config.vm.synced_folder ".", "/vagrant", disabled: true
-	config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www", create: true, group: "www-data", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
+	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www", create: true, group: "www-data", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
 # 	config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www", group: "www-data", mount_options: ["dmode=775,fmode=664"]
 #mount_options: ["umask=0002,dmask=0002,fmask=0002"]
 

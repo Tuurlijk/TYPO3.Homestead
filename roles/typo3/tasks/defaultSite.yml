@@ -1,8 +1,8 @@
 ---
 
-- name: Create {{ typo3_source_path }}/homestead directory
-  file: path={{ typo3_source_path }}/homestead state=directory owner={{ typo3.cms.sources.owner | default('vagrant') }} group={{ typo3.cms.sources.group | default('www-data') }} mode=0775
+- name: Create typo3.homestead directory
+  file: path={{ typo3_webroot }}/typo3.homestead state=directory owner={{ typo3.cms.sources.owner | default('vagrant') }} group={{ typo3.cms.sources.group | default('www-data') }} mode=0775
 
 - name: Setup homestead default site
   sudo: vagrant
-  copy: src=index.html dest={{ typo3_source_path }}/homestead/index.html force=no
+  copy: src=index.html dest={{ typo3_webroot }}/typo3.homestead/index.html force=no

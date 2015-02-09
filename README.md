@@ -80,7 +80,7 @@ The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo
 Variables
 ---------
 
-You can override any of the role variables in the configuration files in the `/vars/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and also what versions of TYPO3 source you wish to have available. You can specify a list of tags and branches to checkout from git:
+You can override any of the role variables in the configuration files in the `/vars/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and also what versions of TYPO3 source you wish to have available. You can specify an array of tags (`git tag`) and branches (`git branch -r`) to checkout from git:
 
 ```
 typo3:

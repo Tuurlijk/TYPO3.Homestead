@@ -46,7 +46,7 @@ TYPO3 Homestead uses several roles from the ansible-galaxy:
 
 You will need to install these roles before you can run the playbook.
 
-```
+```bash
 ansible-galaxy install -r requirements.yml
 ```
 
@@ -54,18 +54,18 @@ Installation
 ------------
 
 Installation is pretty straight forward:
-```
+```bash
 git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
 ```
 
 Now setup your shared directory to hold your typo3 sources and sites in your Vagrantfile:
-```
+```ruby
 config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www", create: true, group: "www-data", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
 ```
 
 Then install the requirements and boot the machine:
-```
+```bash
 ansible-galaxy install -r requirements.yml
 vagrant up
 ```
@@ -94,7 +94,7 @@ You can pass seveal command line options to Vagrant when booting the machine:
 
 You can just set the variables when booting the machine:
 
-```
+```bash
 VAGRANT_CORES=2 VAGRANT_PRIVATE_NETWORK=192.66.99.11 vagrant up
 ```
 
@@ -103,7 +103,7 @@ Variables
 
 You can override any of the role variables in the configuration files in the `/vars/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and also what versions of TYPO3 source you wish to have available. You can specify an array of tags (`git tag`) and branches (`git branch -r`) to checkout from git:
 
-```
+```yaml
 typo3:
   cms:
     sources:
@@ -113,7 +113,7 @@ typo3:
 
 You can then 'map' the available TYPO3 sources to a domain name. TYPO3 Homestead will then know what source to link to what domain name during the provisioning step.
 
-```
+```yaml
 typo3:
   cms:
     sources:
@@ -130,19 +130,19 @@ typo3:
 
 If you change any typo3 configuration after you have provisioned your server, you will need to re-provision using:
 
-```
+```bash
 ANSIBLE_ARGS='--tags=typo3' vagrant provision
 ```
 
 If you change any nginx configuration after you have provisioned your server, you will need to re-provision using:
 
-```
+```bash
 ANSIBLE_ARGS='--tags=nginx' vagrant provision
 ```
 
 You can also do both at once. Please not that typo3 needs to run first because the ssl certificates and web directories need to be available for nginx to pass the configuration check:
 
-```
+```bash
 ANSIBLE_ARGS='--tags=typo3,nginx' vagrant provision
 ```
 
@@ -156,7 +156,7 @@ You can choose between different PHP backends:
 * php-fpm-xhprof (not enabled yet: wip)
 * hhvm
 
-```
+```yaml
 nginx_sites:
   4.5.typo3.cms:
     - server_name 4.5.typo3.cms

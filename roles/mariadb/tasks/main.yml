@@ -1,9 +1,10 @@
 ---
-- name: Add MariaDB-Repository
-  apt_repository: repo='deb http://mirror3.layerjet.com/mariadb/repo/10.1/ubuntu {{ ansible_distribution_release }} main' state=present
 
 - name: Add Key for MariaDB Repository
   apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
+
+- name: Add MariaDB-Repository
+  apt_repository: repo='deb http://mirror3.layerjet.com/mariadb/repo/10.1/ubuntu {{ ansible_distribution_release }} main' state=present
 
 - name: Update apt
   apt: update_cache=yes
@@ -48,3 +49,9 @@
     - 127.0.0.1
     - ::1
     - localhost
+
+- name: Customize MySQL configuration file
+  lineinfile: dest={{ mariadb.conf_path }} regexp="^tmpdir\s*=\s/tmp" line="tmpdir = /run/shm" backrefs=yes
+  notify:
+   - restart mysql
+  tags: lala

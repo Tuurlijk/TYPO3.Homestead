@@ -1,4 +1,5 @@
 ---
+
 nginx_http_params:
   - index index.php index.html
   - charset utf-8
@@ -41,50 +42,3 @@ nginx_snippets:
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include       fastcgi_params;
       }
-
-nginx_sites:
-  default:
-    - listen 80 default_server
-    - server_name _
-    - root "{{ typo3_source_path }}/homestead/"
-    - include snippets/hhvm.conf
-  default-ssl:
-    - listen 443 default_server
-    - server_name _
-    - root "{{ typo3_source_path }}/homestead/"
-    - include snippets/php-fpm.conf
-    - ssl on
-    - ssl_certificate {{nginx_conf_dir}}/ssl/typo3.homestead.crt
-    - ssl_certificate_key {{nginx_conf_dir}}/ssl/typo3.homestead.key
-  4.5.typo3.cms:
-    - server_name 4.5.typo3.cms
-    - root "/var/www/4.5.typo3.cms/"
-    - include snippets/php-fpm.conf
-  4.5.39.typo3.cms:
-    - server_name 4.5.39.typo3.cms
-    - root "/var/www/4.5.39.typo3.cms/"
-    - include snippets/php-fpm.conf
-  6.2.typo3.cms:
-    - server_name 6.2.typo3.cms
-    - root "/var/www/6.2.typo3.cms/"
-    - include snippets/php-fpm.conf
-  6.2.9.typo3.cms:
-    - server_name 6.2.9.typo3.cms
-    - root "/var/www/6.2.9.typo3.cms/"
-    - include snippets/php-fpm.conf
-  7.0.typo3.cms:
-    - server_name 7.0.typo3.cms
-    - root "/var/www/7.0.typo3.cms/"
-    - include snippets/php-fpm.conf
-  7.0.2.typo3.cms:
-    - server_name 7.0.2.typo3.cms
-    - root "/var/www/7.0.2.typo3.cms/"
-    - include snippets/php-fpm.conf
-  1.2.typo3.neos:
-    - server_name 1.2.typo3.neos
-    - root "/var/www/1.2.typo3.neos/Web/"
-    - include snippets/php-fpm.conf
-  dev-master.typo3.neos:
-    - server_name dev-master.typo3.neos
-    - root "/var/www/dev-master.typo3.neos/Web/"
-    - include snippets/php-fpm.conf

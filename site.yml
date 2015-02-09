@@ -5,8 +5,9 @@
   vars:
     timezone: Europe/Amsterdam
   vars_files:
-    - vars/php-fpm.yml
     - vars/nginx.yml
+    - vars/php-fpm.yml
+    - vars/sites.yml
     - vars/typo3.yml
   roles:
     - { role: common,              tags: common }
@@ -16,5 +17,7 @@
     - { role: tersmitten.composer, tags: composer }
     - { role: mariadb,             tags: mariadb }
     - { role: typo3,               tags: typo3 }
-    - { role: jdauphant.nginx,     tags: nginx }
+# Waiting for the resolution of https://github.com/jdauphant/ansible-role-nginx/pull/33
+#    - { role: jdauphant.nginx,     tags: nginx }
+    - { role: nginx,     tags: nginx }
     - { role: laggyluke.nodejs,    tags: nodejs }

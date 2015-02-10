@@ -44,10 +44,11 @@ TYPO3 Homestead uses several roles from the ansible-galaxy:
 * [geerlingguy.composer](https://galaxy.ansible.com/list#/roles/429)
 * [laggyluke.nodejs](https://galaxy.ansible.com/list#/roles/285)
 
-You will need to install these roles before you can run the playbook.
+Later you will need to install these roles before you can run the playbook.
 
 ```bash
-ansible-galaxy install -r requirements.yml
+cd TYPO3.Homestead
+sudo ansible-galaxy install -r requirements.yml
 ```
 
 Installation
@@ -59,15 +60,16 @@ git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
 ```
 
-Now setup your shared directory to hold your typo3 sources and sites in your Vagrantfile:
+Now setup your shared directory to hold your TYPO3 sources and sites in your `Vagrantfile`:
 ```ruby
 config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www", create: true, group: "www-data", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
 ```
 
 Then install the requirements and boot the machine:
 ```bash
-ansible-galaxy install -r requirements.yml
-vagrant up
+cd TYPO3.Homestead
+sudo ansible-galaxy install -r requirements.yml
+vagrant up 2>&1 | tee vagrant-up.log.txt
 ```
 
 When the installation process has finished, you can visit [http://typo3.homestead](http://typo3.homestead). And also any of the pre-configured sites or any site you configured. The default sites are:
@@ -81,7 +83,7 @@ When the installation process has finished, you can visit [http://typo3.homestea
 * [1.2.typo3.neos](http://1.2.typo3.neos)
 * [dev-master.typo3.neos](http://dev-master.typo3.neos)
 
-Currently the sites are not fully setup yet. You will need to run through the install tools by hand. This will be simplified later on.
+Currently the sites are not fully set up yet. You will need to run through the install tools by hand. This will be simplified later on.
 
 The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all database. The install tool password is the TYPO3 default.
 

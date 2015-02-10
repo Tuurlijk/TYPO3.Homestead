@@ -4,6 +4,12 @@ nginx_http_params:
   - index index.php index.html
   - charset utf-8
   - fastcgi_read_timeout 240
+  - access_log off
+  - open_file_cache max=1000 inactive=20s
+  - open_file_cache_valid 30s
+  - open_file_cache_min_uses 2
+  - open_file_cache_errors on
+  - keepalive_requests 1000
 
 nginx_snippets:
   php-fpm:

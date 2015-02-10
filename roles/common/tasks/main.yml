@@ -1,6 +1,8 @@
 ---
-# This role contains common plays that will run on all nodes.
-# Update Package List
+
+- name: Disable atime on root filesystem
+  mount: name=/ src=/dev/sda1 fstype=ext4 opts=rw,noatime state=mounted
+
 - name: Update apt package lists
   sudo: yes
   apt:

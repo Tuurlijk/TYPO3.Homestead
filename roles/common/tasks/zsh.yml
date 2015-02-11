@@ -18,7 +18,7 @@
 
 - name: Copy zshrc
   sudo: vagrant
-  copy: src=zshrc dest=~/.zprezto/runcoms/zshrc force=no
+  copy: src=zshrc dest=~/.zprezto/runcoms/zshrc
 
 - name: Copy typofree prompt
   sudo: vagrant

@@ -17,7 +17,5 @@
     - { role: tersmitten.composer, tags: composer }
     - { role: mariadb,             tags: mariadb }
     - { role: typo3,               tags: typo3 }
-# Waiting for the resolution of https://github.com/jdauphant/ansible-role-nginx/pull/33
-#    - { role: jdauphant.nginx,     tags: nginx }
-    - { role: nginx,     tags: nginx }
+    - { role: jdauphant.nginx,     tags: nginx }
     - { role: laggyluke.nodejs,    tags: nodejs }

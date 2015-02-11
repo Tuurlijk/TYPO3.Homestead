@@ -23,8 +23,16 @@ VAGRANTFILE_API_VERSION = 2
 # Boot the box with the gui enabled
 DEBUG = ENV['VAGRANT_DEBUG'] || false
 
-# Generate SSH keys for these known hosts
-# knownHosts = [ 'github.com', 'git.typo3.org' ]
+# Throw an error if required Vagrant plugins are not installed
+plugins = { 'vagrant-hostsupdater' => nil }
+
+plugins.each do |plugin, version|
+	unless Vagrant.has_plugin? plugin
+		error = "The '#{plugin}' plugin is not installed! Try running:\nvagrant plugin install #{plugin}"
+		error += " --plugin-version #{version}" if version
+		raise error
+	end
+end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.hostname = HOSTNAME

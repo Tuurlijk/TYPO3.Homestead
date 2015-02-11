@@ -17,6 +17,7 @@ TYPO3 Homestead comes with the following stack:
 * nodejs
 * php-apcu
 * php-fpm
+* postfix nullmailer (outgoing only)
 * self signed ssl certificates
 * TYPO3 CMS
 * TYPO3 FLOW

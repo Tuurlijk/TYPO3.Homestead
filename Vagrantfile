@@ -1,14 +1,26 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Examples:
-# https://gitlab.com/gitlab-org/cookbook-gitlab/blob/master/Vagrantfile#L80
-# http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html
+# Give VM 1/4 system memory & access to all cpu cores on the host
+host = RbConfig::CONFIG['host_os']
+
+if host =~ /darwin/
+	cpus = `sysctl -n hw.ncpu`.to_i
+	# sysctl returns Bytes and we need to convert to MB
+	mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+elsif host =~ /linux/
+	cpus = `nproc`.to_i
+	# meminfo shows KB and we need to convert to MB
+	mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+else # sorry Windows folks, I can't help you
+	cpus = 2
+	mem = 1024
+end
 
 # You can ask for more memory and cores when creating your Vagrant machine:
 # VAGRANT_MEMORY=2048 VAGRANT_CORES=4 vagrant up
-MEMORY = ENV['VAGRANT_MEMORY'] || 2048
-CORES = ENV['VAGRANT_CORES'] || 1
+MEMORY = ENV['VAGRANT_MEMORY'] || mem
+CORES = ENV['VAGRANT_CORES'] || cpus
 
 # Network
 PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.12.12'
@@ -63,20 +75,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'" # avoids 'stdin: is not a tty' error.
 	config.ssh.forward_agent = true
 	# 	config.vm.provision "shell", inline: "echo -e '#{File.read("#{Dir.home}/.ssh/id_rsa")}' > '/home/vagrant/.ssh/id_rsa'"
-# 	config.ssh.username = "root"
-# 	config.ssh.private_key_path = "phusion.key"
+	# 	config.ssh.username = "root"
+	# 	config.ssh.private_key_path = "phusion.key"
 
 	# Virtualbox
-	config.vm.provider :virtualbox do |v|
-		v.gui = !!DEBUG
-		v.cpus = CORES.to_i
-		v.memory = MEMORY.to_i
-		v.customize [ "modifyvm", :id, "--cpuexecutioncap", "90" ]
-		v.customize [ "modifyvm", :id, "--natdnshostresolver1", "on" ]
-      v.customize [ "modifyvm", :id, "--pae", "on" ]
+	config.vm.provider :virtualbox do |vb|
+		vb.gui = !!DEBUG
+		vb.memory = MEMORY.to_i
+		vb.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
+		vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+		vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      vb.customize ["modifyvm", :id, "--pae", "on"]
+		vb.customize ["modifyvm", :id, "--cpus", cpus]
+      vb.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
 
-		if CORES.to_i > 1
-			v.customize [ "modifyvm", :id, "--ioapic", "on" ]
+		if CORES.to_i > cpus
+			vb.customize [ "modifyvm", :id, "--ioapic", "on" ]
 		end
 	end
 

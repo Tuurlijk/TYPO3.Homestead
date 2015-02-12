@@ -13,6 +13,7 @@ TYPO3 Homestead comes with the following stack:
 * composer
 * hhvm
 * mariadb
+* memcached
 * nginx
 * nodejs
 * php-apcu

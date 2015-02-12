@@ -13,3 +13,7 @@
 - src: laggyluke.nodejs
 #  path: roles
 #  name: nodejs
+
+- src: f500.memcached
+#  path: roles
+#  name: memcached

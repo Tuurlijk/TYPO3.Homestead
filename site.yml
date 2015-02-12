@@ -17,5 +17,6 @@
     - { role: tersmitten.composer, tags: composer }
     - { role: mariadb,             tags: mariadb }
     - { role: typo3,               tags: typo3 }
+    - { role: f500.memcached,      tags: memcached }
     - { role: jdauphant.nginx,     tags: nginx }
     - { role: laggyluke.nodejs,    tags: nodejs }

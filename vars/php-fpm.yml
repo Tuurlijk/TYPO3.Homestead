@@ -4,31 +4,23 @@ php_fpm_config:
     section: "global"
     value: "120s"
 
+php_fpm_pool_defaults:
+  chdir: /
+  user: www-data
+  group: www-data
+  listen.owner: www-data
+  listen.group: www-data
+  pm: dynamic
+  pm.max_children: 5
+  pm.start_servers: 2
+  pm.min_spare_servers: 1
+  pm.max_spare_servers: 3
+
 php_fpm_pools:
   - name: default
-    user: www-data
-    group: www-data
-    listen.owner: www-data
-    listen.group: www-data
     listen: "/var/run/php5-fpm.sock"
-    pm: dynamic
-    pm.max_children: 5
-    pm.start_servers: 2
-    pm.min_spare_servers: 1
-    pm.max_spare_servers: 3
-    chdir: /
   - name: xhprof
-    user: www-data
-    group: www-data
-    listen.owner: www-data
-    listen.group: www-data
     listen: "/var/run/php5-fpm.xhprof.sock"
-    pm: dynamic
-    pm.max_children: 5
-    pm.start_servers: 2
-    pm.min_spare_servers: 1
-    pm.max_spare_servers: 3
-    chdir: /
 
 php_fpm_ini:
   - option: "engine"

@@ -205,13 +205,18 @@ TODO
 
 * Complete the preconfiguration of TYPO3 CMS instances
 * Add installation and configuration of NEOS instances
-* Find a proper solution for git deep-clone (cp -pr ?)
 * Nginx configuration snippets?
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
 * Caching and NFS slowness
   http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html
   https://gitlab.com/gitlab-org/cookbook-gitlab/blob/master/Vagrantfile
 * Setup cronjobs
+* Speed improvement
+  https://laracasts.com/forum/?p=1757-slow-responses-on-homestead/0
+  http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html
+* Make nfs share work with proper permissions
+* Make PHP configuration so flexible it can also handle other versions than the latest available from ppa
+
 
 License
 -------

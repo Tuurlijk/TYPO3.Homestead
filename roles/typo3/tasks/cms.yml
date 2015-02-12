@@ -28,11 +28,20 @@
 
 - name: Clone TYPO3 CMS Sources for branches
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
-  git: repo={{ typo3_cms_src_repository }}
+  # Shallow clones do not contain remotely tracked branches
+  synchronize: src={{ typo3_source_path }}/cms/typo3-cms
        dest={{ typo3_source_path }}/cms/{{ item }}
-       version={{ item }}
   with_items: typo3.cms.sources.branches
   tags: [typo3-cms-branches,branches]
+
+- name: Set TYPO3 CMS branches for cloned sources
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  git: repo={{ typo3_source_path }}/cms/typo3-cms
+       dest={{ typo3_source_path }}/cms/{{ item }}
+       version={{ item }}
+       update=no
+  with_items: typo3.cms.sources.branches
+  tags: [typo3-cms-branches,lala,branches]
 
 - name: "TYPO3 CMS Sources for branches: Setup git push"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"

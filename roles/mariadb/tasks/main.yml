@@ -59,16 +59,13 @@
   lineinfile: dest={{ mariadb.conf_path }} line="character-set-server=utf8" insertafter="^skip-external-locking"
   notify:
    - restart mysql
-  tags: lala
 
 - name: Customize MySQL configuration file - disable bin_log
   lineinfile: dest={{ mariadb.conf_path }} regexp="^(log_bin\s*=\s*.*)" line="#\1" backrefs=yes
   notify:
    - restart mysql
-  tags: lala
 
 - name: Customize MySQL configuration file - disable bin_log_index
   lineinfile: dest={{ mariadb.conf_path }} regexp="^(log_bin_index\s*=\s*.*)" line="#\1" backrefs=yes
   notify:
    - restart mysql
-  tags: lala

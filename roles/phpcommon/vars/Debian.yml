@@ -24,7 +24,10 @@ php_common_packages:
 
 php_disabled_modules:
   - apcu
+  - blackfire
   - redis
+  - xdebug
+  - xhprof
 
 php_enabled_modules:
   - mcrypt

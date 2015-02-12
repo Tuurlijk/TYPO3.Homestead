@@ -31,4 +31,3 @@ php_disabled_modules:
 
 php_enabled_modules:
   - mcrypt
-  - opcache

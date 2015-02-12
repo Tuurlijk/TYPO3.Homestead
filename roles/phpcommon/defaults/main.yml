@@ -80,6 +80,6 @@ php_opcache_ini:
     section: "opcache"
     value: "1"
 
-php_enabled_modules: [ opcache ]
+php_enabled_modules: []
 
 php_disabled_modules: [ apcu ]

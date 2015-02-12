@@ -1,0 +1,10 @@
+---
+
+- name: Customize PHP APCu configuration file
+  lineinfile: dest={{ php_apcu_ini_path }} line="[global]" insertbefore=BOF state=present
+
+- name: Customize PHP APCu configuration file
+  ini_file: dest={{ php_apcu_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
+  with_items: php_apcu_ini
+  notify:
+   - restart php-fpm

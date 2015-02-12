@@ -1,10 +1,12 @@
 ---
-php_ini_path: /etc/php.ini
-php_cli_ini_path: /etc/php5/cli/php.ini
-php_apc_ini_path: /etc/php5/mods-available/apcu.ini
-php_xdebug_ini_path: /etc/php5/mods-available/xdebug.ini
 php_common_ppa: php5
-php_common_enable_blackfire: no
+
+php_fpm_ini_path: /etc/php5/fpm/php.ini
+php_cli_ini_path: /etc/php5/cli/php.ini
+php_apcu_ini_path: /etc/php5/mods-available/apcu.ini
+php_opcache_ini_path: /etc/php5/mods-available/opcache.ini
+php_xdebug_ini_path: /etc/php5/mods-available/xdebug.ini
+
 php_common_packages:
     - 'php-pear'
     - 'php5-apcu'
@@ -15,6 +17,13 @@ php_common_packages:
     - 'php5-mcrypt'
     - 'php5-memcache'
     - 'php5-mysqlnd'
-    - 'php5-redis'
     - 'php5-xdebug'
     - 'php5-xhprof'
+
+php_disabled_modules:
+  - apcu
+  - redis
+
+php_enabled_modules:
+  - mcrypt
+  - opcache

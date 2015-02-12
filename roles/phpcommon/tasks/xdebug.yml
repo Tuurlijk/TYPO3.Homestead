@@ -1,0 +1,10 @@
+---
+
+- name: Customize PHP xdebug configuration file
+  lineinfile: dest={{ php_xdebug_ini_path }} line="[xdebug]" insertbefore=BOF state=present
+
+- name: Customize PHP xdebug configuration file
+  ini_file: dest={{ php_xdebug_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
+  with_items: php_xdebug_ini
+  notify:
+   - restart php-fpm

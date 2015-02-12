@@ -1,0 +1,15 @@
+---
+
+- name: Customize PHP Opcache configuration file
+  lineinfile: dest={{ php_opcache_ini_path }} line="[opcache]" insertbefore=BOF state=present
+
+- name: Customize PHP Opcache configuration file
+  ini_file: dest={{ php_opcache_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
+  with_items: php_opcache_ini
+  notify:
+   - restart php-fpm
+
+- name: Disable loading of opcache.so since it is compiled into php
+  lineinfile: dest={{ php_opcache_ini_path }} regexp="^zend_extension\s*=\sopcache.so" line=";zend_extension = opcache.so" backrefs=yes
+  notify:
+   - restart php-fpm

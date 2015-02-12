@@ -1,8 +1,8 @@
 ---
 
-- name: Add the OS specific varibles
+- name: Add OS specific varibles
   include_vars: "{{ ansible_os_family }}.yml"
-  tags: [ configuration, php, apc, xdebug, blackfire ]
+  tags: [ php-apcu, php-opcache, php-xdebug, php-blackfire ]
 
 - name: Install Some PPAs - software-properties-common
   apt: name=software-properties-common state=present
@@ -16,80 +16,37 @@
   sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: php_common_packages
-  tags: [ php ]
 
-- name: Make mcrypt available
-  #command: php5enmod mcrypt
-  file: src=/etc/php5/mods-available/mcrypt.ini dest=/etc/php5/cli/conf.d/20-mcrypt.ini state=link force=yes
-  tags: [ configuration, php ]
-
-- name: Customize PHP configuration file
-  ini_file: dest={{ php_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
+- name: Customize PHP fpm configuration file
+  ini_file: dest={{ php_fpm_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
   with_items: php_ini
   notify:
    - restart php-fpm
-  tags: [ configuration, php ] 
 
 - name: Customize PHP cli configuration file
   ini_file: dest={{ php_cli_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
   with_items: php_ini
-  tags: [ configuration, php ]
 
-- name: Customize PHP xdebug configuration file
-  lineinfile: dest={{ php_xdebug_ini_path }} line="[global]" insertbefore=BOF state=present
-  tags: [ configuration, php, xdebug ]
-
-- name: Customize PHP xdebug configuration file
-  ini_file: dest={{ php_xdebug_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
-  with_items: php_xdebug_ini
-  notify:
-   - restart php-fpm
-  tags: [ configuration, php, xdebug ]
-
-- name: Enable remote xdebug
-  file: src=../../mods-available/xdebug.ini dest=/etc/php5/fpm/conf.d/20-xdebug.ini state=link force=yes
-  notify:
-    - restart php-fpm
-  tags: [ configuration, php, xdebug ]
-
-- name: Customize PHP APC configuration file
-  lineinfile: dest={{ php_apc_ini_path }} line="[global]" insertbefore=BOF state=present
-  tags: [ configuration, php, apc ]
-
-- name: Customize PHP APC configuration file
-  ini_file: dest={{ php_apc_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
-  with_items: php_apc_ini
-  notify:
-   - restart php-fpm
-  tags: [ configuration, php, apc ]
-
-- name: Enable PHP APC
-  file: src=../../mods-available/apcu.ini dest=/etc/php5/fpm/conf.d/20-apcu.ini state=link force=yes
-  notify:
-    - restart php-fpm
-  tags: [ configuration, php, apc ]
-
-- name: Enable xhprof
-  file: src=../../mods-available/xhprof.ini dest=/etc/php5/fpm/conf.d/20-xhprof.ini state=link force=yes
-  notify:
-    - restart php-fpm
-  tags: [ configuration, php, xhprof ]
-
-- name: Disable blackfire
-  file: src=../../mods-available/blackfire.ini dest=/etc/php5/fpm/conf.d/90-blackfire.ini state=absent force=yes
-  when: not php_common_enable_blackfire
-  notify:
-    - restart php-fpm
-  tags: [ configuration, php, xdebug, xhprof, blackfire ]
+- include: apcu.yml
+  tags: php-apcu
 
 - include: blackfire.yml
-  when: php_common_enable_blackfire
-  tags: blackfire
+  tags: php-blackfire
 
-- name: Disable remote xdebug
-  file: src=../../mods-available/xdebug.ini dest=/etc/php5/fpm/conf.d/20-xdebug.ini state=absent force=yes
-  when: not php_xdebug_enable
+- include: opcache.yml
+  tags: php-opcache
+
+- include: xdebug.yml
+  tags: php-xdebug
+
+- name: Enable php modules
+  command: php5enmod {{ item }}
+  with_items: php_enabled_modules
   notify:
     - restart php-fpm
-  tags: [ configuration, php, xdebug ]
 
+- name: Disable php modules
+  command: php5dismod {{ item }}
+  with_items: php_disabled_modules
+  notify:
+    - restart php-fpm

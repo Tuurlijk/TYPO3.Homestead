@@ -29,8 +29,7 @@
 - name: Clone TYPO3 CMS Sources for branches
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   # Shallow clones do not contain remotely tracked branches
-  synchronize: src={{ typo3_source_path }}/cms/typo3-cms
-       dest={{ typo3_source_path }}/cms/{{ item }}
+  command: rsync -au {{ typo3_source_path }}/cms/typo3-cms {{ typo3_source_path }}/cms/{{ item }}
   with_items: typo3.cms.sources.branches
   tags: [typo3-cms-branches,branches]
 

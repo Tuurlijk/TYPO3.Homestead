@@ -71,21 +71,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.gui = !!DEBUG
 		v.cpus = CORES.to_i
 		v.memory = MEMORY.to_i
-		v.customize [
-			"modifyvm", :id,
-			"--chipset", "ich9",
-			"--cpuexecutioncap", "90",
-			"--natdnshostresolver1", "on"
-			]
+		v.customize [ "modifyvm", :id, "--cpuexecutioncap", "90" ]
+		v.customize [ "modifyvm", :id, "--natdnshostresolver1", "on" ]
+      v.customize [ "modifyvm", :id, "--pae", "on" ]
 
 		if CORES.to_i > 1
-			v.customize [
-				"modifyvm", :id,
-				"--chipset", "ich9",
-				"--cpuexecutioncap", "90",
-				"--ioapic", "on",
-				"--natdnshostresolver1", "on"
-				]
+			v.customize [ "modifyvm", :id, "--ioapic", "on" ]
 		end
 	end
 

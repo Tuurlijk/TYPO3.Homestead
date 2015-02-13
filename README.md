@@ -103,18 +103,6 @@ You can just set the variables when booting the machine:
 VAGRANT_CORES=2 VAGRANT_PRIVATE_NETWORK=192.66.99.11 vagrant up
 ```
 
-Making it faster
-----------------
-
-When you provision the machine, a ramfs based ramdisk will be created. This is a RAM based filesystem that will grow as needed. Fstab entries will be created for each active website. These will mount-bind your typo3temp folders to a corresponding folder on the ramfs based RAM disk. Unfortunately we can not auto-mount these on the next machine boot as they will need the fileshare from the host system to be active.
-
-This means that the disks wil be active when provisioning for the first time, but when you start up the machine again (after it has already been provisioned) you will need to mount the ramdisks manually by running:
- ```bash
- ANSIBLE_ARGS='--tags=typo3-cms-ramdisk' vagrant provision
- ```
-
- You should also run that command when you add a website for which you wish to use a ramdisk based typo3temp folder.
-
 Variables
 ---------
 
@@ -207,11 +195,14 @@ TODO
 * Add installation and configuration of NEOS instances
 * Nginx configuration snippets?
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
-* Caching and NFS slowness
-  http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html
-  https://gitlab.com/gitlab-org/cookbook-gitlab/blob/master/Vagrantfile
-* Speed improvement
+* Speed improvements
   https://laracasts.com/forum/?p=1757-slow-responses-on-homestead/0
+  For use homestead in windows , u can do a little trick to make it fast as Possible.
+  don't let vagrant or homestead handle your files.
+  setup a ftp server in your VM (it is ubuntu in last version of homestead) and upload your files to VM.
+  you can make your ide to upload your files to vm if you changed them.
+  and finally update nginx in your vm like : sudo /vagrant/scripts/serve.sh laravel.app /your/files.
+  with this trick i have a page load in < 70 ms , in a page with 8 queries not cached.
   http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html
 * Make PHP configuration so flexible it can also handle other versions than the latest available from ppa
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead

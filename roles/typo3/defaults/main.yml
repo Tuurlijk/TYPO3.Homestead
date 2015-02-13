@@ -3,6 +3,9 @@
 
   typo3_org_username: anonymous
 
+  # Workaround variable to get a left curly brace next to a pound into a template file
+  typo3_left_curly_brace: '{'
+
   typo3_webroot: '/var/www/'
 
   typo3_source_path: '{{ typo3_webroot }}sources'
@@ -16,19 +19,16 @@
         branches: []
         tags: []
       sites:
-        branches: []
-        tags: []
+        default: default
     flow:
       sources:
         branches: []
         tags: []
       sites:
-        branches: []
-        tags: []
+        default: default
     neos:
       sources:
         branches: []
         tags: []
       sites:
-        branches: []
-        tags: []
+        default: default

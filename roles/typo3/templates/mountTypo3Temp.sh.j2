@@ -1,0 +1,32 @@
+#!/bin/bash
+#{{ ansible_managed }}
+typo3TempDirectories=(
+{% for item in typo3.cms.sites.keys() %}
+	'{{ typo3_webroot }}{{ item }}/typo3temp'
+{% endfor %}
+)
+
+typo3TempRamdiskDirectories=(
+{% for item in typo3.cms.sites.keys() %}
+	'/mnt/typo3cache/{{ item }}'
+{% endfor %}
+)
+
+len=${{ typo3_left_curly_brace }}#typo3TempDirectories[*]}
+
+i=0
+while [ $i -lt $len ];
+do
+	if [ -d "${typo3TempDirectories[$i]}" ];
+	then
+		if [ ! -d "${typo3TempRamdiskDirectories[$i]}" ];
+		then
+			mkdir "${typo3TempRamdiskDirectories[$i]}"
+		fi
+		if ! mountpoint -q ${typo3TempDirectories[$i]};
+		then
+			mount ${typo3TempDirectories[$i]}
+		fi
+	fi
+let i++
+done

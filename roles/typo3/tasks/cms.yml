@@ -120,7 +120,7 @@
   with_dict: typo3.cms.sites
   tags: [typo3-cms-installtool]
 
-- name: Offload typo3temp to ramdisk
+- name: Create ramdisk directories to offload typo3temp to ramdisk
   file: path=/mnt/typo3cache/{{ item }} state=directory owner={{nginx_user}} group={{nginx_group}} mode=0775
   with_items: typo3.cms.sites.keys()
   tags: [typo3-cms-ramdisk]
@@ -133,4 +133,12 @@
 - name: Mount bind TYPO3 CMS typo3temp ramdisks
   command: mount /mnt/typo3cache/{{ item }}
   with_items: typo3.cms.sites.keys()
+  tags: [typo3-cms-ramdisk]
+
+- name: Ensure the root user bin dir exists
+  file: path=/root/bin state=directory mode=0775
+  tags: [typo3-cms-ramdisk]
+
+- name: Create a script that enforces mounting the ramdisks after reboot
+  template: src=mountTypo3Temp.sh.j2 dest=/root/bin/mountTypo3Temp.sh mode=u+rwx
   tags: [typo3-cms-ramdisk]

@@ -23,11 +23,11 @@ php_common_packages:
     - 'php5-xhprof'
 
 php_disabled_modules:
-  - apcu
   - blackfire
   - redis
   - xdebug
   - xhprof
 
 php_enabled_modules:
+  - apcu
   - mcrypt

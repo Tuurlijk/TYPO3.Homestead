@@ -128,7 +128,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
 		id: "~/Projects/TYPO3/Development",
 		:nfs => true,
-		:mount_options => ['nolock,vers=3,udp,noatime']
+		:mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime']
 
 # 	# Register All Of The Configured Shared Folders
 # 	settings["folders"].each do |folder|

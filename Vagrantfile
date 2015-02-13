@@ -121,10 +121,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# Synced Folders
 	config.vm.synced_folder ".", "/vagrant", disabled: true
-	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www", create: true, group: "www-data", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
+# 	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www", create: true, group: "www-data", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
 # 	config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www", group: "www-data", mount_options: ["dmode=775,fmode=664"]
 #mount_options: ["umask=0002,dmask=0002,fmask=0002"]
 
+	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
+		id: "~/Projects/TYPO3/Development",
+		:nfs => true,
+		:mount_options => ['nolock,vers=3,udp,noatime']
+
+# 	# Register All Of The Configured Shared Folders
+# 	settings["folders"].each do |folder|
+# 		config.vm.synced_folder folder["map"], folder["to"],
+# 			id: folder["map"],
+# 			:nfs => true,
+# 			:mount_options => ['nolock,vers=3,udp,noatime']
+# 	end
   # Set no_root_squash to prevent NFS permissions errors on Linux during
   # provisioning, and maproot=0:0 to correctly map the guest root user.
 #   if (/darwin/ =~ RUBY_PLATFORM) != nil

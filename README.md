@@ -214,7 +214,6 @@ TODO
 * Speed improvement
   https://laracasts.com/forum/?p=1757-slow-responses-on-homestead/0
   http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html
-* Make nfs share work with proper permissions
 * Make PHP configuration so flexible it can also handle other versions than the latest available from ppa
 
 

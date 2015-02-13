@@ -65,7 +65,10 @@ cd TYPO3.Homestead
 Now setup your shared directory to hold your TYPO3 sources and sites in your `Vagrantfile`:
 ```ruby
 # tune this setting in 'Vagrantfile':
-config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www", create: true, group: "www-data", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
+config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
+  id: "~/Projects/TYPO3/Development",
+  :nfs => true,
+  :mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime']
 ```
 
 Then install the requirements and boot the machine. A protocol is left in `vagrant-up.log.txt`:

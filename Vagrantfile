@@ -49,7 +49,7 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.hostname = HOSTNAME
 	config.vm.box = "ubuntu/trusty64"
-	config.vm.boot_timeout = 120
+	config.vm.boot_timeout = 180
 	config.hostsupdater.aliases = [
 		'4.5.typo3.cms',
 		'4.5.39.typo3.cms',
@@ -66,7 +66,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	if FORWARD.to_i > 0
 		config.vm.network :forwarded_port, guest: 80, host: 8080
 		config.vm.network :forwarded_port, guest: 3306, host: 33060
-		config.vm.network :forwarded_port, guest: 5432, host: 54320
 		config.vm.network :forwarded_port, guest: 35729, host: 35729
 	end
 

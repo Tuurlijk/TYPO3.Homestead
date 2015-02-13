@@ -24,4 +24,5 @@
 - include: defaultSite.yml
 - include: mariadb.yml
 - include: cms.yml
+- include: cron.yml
 - include: neos.yml

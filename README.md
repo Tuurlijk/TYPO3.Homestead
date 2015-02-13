@@ -210,7 +210,6 @@ TODO
 * Caching and NFS slowness
   http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html
   https://gitlab.com/gitlab-org/cookbook-gitlab/blob/master/Vagrantfile
-* Setup cronjobs
 * Speed improvement
   https://laracasts.com/forum/?p=1757-slow-responses-on-homestead/0
   http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html

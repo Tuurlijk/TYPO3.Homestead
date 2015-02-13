@@ -94,16 +94,24 @@ Currently the sites are not fully set up yet. You will need to run through the i
 The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all database. The install tool password is the TYPO3 default.
 
 You can pass seveal command line options to Vagrant when booting the machine:
-* VAGRANT_CORES - Amount of cpu cores to enable (1)
+* VAGRANT_CORES - Amount of cpu cores to enable
 * VAGRANT_DEBUG - Enable Virtualbox GUI during machine start (false)
 * VAGRANT_HOSTNAME - The hostname the system will use (typo3.homestead)
-* VAGRANT_MEMORY - Amount of memory in megabytes to use (2048
+* VAGRANT_MEMORY - Amount of memory in megabytes to use
 * VAGRANT_PRIVATE_NETWORK - Private network address to use (192.168.12.12)
 
 You can just set the variables when booting the machine:
 
 ```bash
-VAGRANT_CORES=2 VAGRANT_PRIVATE_NETWORK=192.66.99.11 vagrant up
+VAGRANT_PRIVATE_NETWORK=192.66.99.11 vagrant up
+```
+
+By default (Except on Windows) this machine will use as many cores as are available on the host system. It will also use a quarter of the available RAM.
+
+If you don't think this will be enough, you can override that with for example:
+
+```bash
+VAGRANT_MEMORY=4096 vagrant up
 ```
 
 Variables

@@ -52,8 +52,10 @@ nginx_sites:
   1.2.typo3.neos:
     - server_name 1.2.typo3.neos
     - root "{{ typo3_webroot }}1.2.typo3.neos/Web/"
+    - "{{ nginx_typo3_neos_resources }}"
     - "{{ nginx_php_fpm }}"
   dev-master.typo3.neos:
     - server_name dev-master.typo3.neos
     - root "{{ typo3_webroot }}dev-master.typo3.neos/Web/"
+    - "{{ nginx_typo3_neos_resources }}"
     - "{{ nginx_php_fpm }}"

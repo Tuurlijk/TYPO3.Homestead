@@ -47,3 +47,9 @@ nginx_hhvm: |
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     include       fastcgi_params;
   }
+nginx_typo3_neos_resources: |
+  location ~ "^/_Resources/Persistent/" {
+    expires max;
+    rewrite "(.{40})/.+\.(.+)" /_Resources/Persistent/$1.$2 break;
+    rewrite "([a-z0-9]+/(.+/)?[a-f0-9]{40})/.+\.(.+)" /_Resources/Persistent/$1.$2 break;
+  }

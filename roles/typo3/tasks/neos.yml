@@ -11,6 +11,14 @@
   with_dict: typo3.neos.sites
   tags: [typo3-neos-sites]
 
+- name: "TYPO3 NEOS Sources: Setup git push for base distributions"
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  shell: cd {{ typo3_webroot }}{{ item }}; git config remote.origin.push HEAD:refs/for/master
+  args:
+    executable: /bin/bash
+  with_items: typo3.neos.sites.keys()
+  tags: [typo3-git-setup]
+
 - name: "TYPO3 NEOS Sources: Setup git push"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   shell: cd {{ typo3_webroot }}{{ item }}; for d in `find ./ -maxdepth 3 -type d -name "TYPO3.*" | grep -v NeosDemo`; do pushd $d > /dev/null; git config remote.origin.push HEAD:refs/for/master; popd > /dev/null; done

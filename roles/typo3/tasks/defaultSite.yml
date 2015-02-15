@@ -1,7 +1,7 @@
 ---
 
 - name: Create typo3.homestead directory
-  file: path={{ typo3_webroot }}/typo3.homestead state=directory owner={{ typo3.cms.sources.owner | default('vagrant') }} group={{ typo3.cms.sources.group | default('www-data') }} mode=0775
+  file: path={{ typo3_webroot }}/typo3.homestead state=directory mode=0775
 
 - name: Setup homestead default site
   sudo: vagrant

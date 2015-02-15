@@ -124,6 +124,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # 	config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www", group: "www-data", mount_options: ["dmode=775,fmode=664"]
 #mount_options: ["umask=0002,dmask=0002,fmask=0002"]
 
+	# Ensure proper permissions for nfs mounts
+	config.nfs.map_uid = Process.uid
+	config.nfs.map_gid = Process.gid
+
 	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
 		id: "~/Projects/TYPO3/Development",
 		:nfs => true,

@@ -19,16 +19,13 @@
         branches: []
         tags: []
       sites:
-        default: default
+        default: 'default'
     flow:
       sources:
         branches: []
         tags: []
       sites:
-        default: default
+        default: 'default'
     neos:
-      sources:
-        branches: []
-        tags: []
       sites:
-        default: default
+        default: 'default'

@@ -7,7 +7,7 @@
   tags: [typo3-neos-sites]
 
 - name: Setup TYPO3 NEOS sites
-  command: composer create-project typo3/neos-base-distribution {{ typo3_webroot }}{{ item.key }} {{ item.value }}
+  shell: echo "n" | composer create-project typo3/neos-base-distribution {{ typo3_webroot }}{{ item.key }} {{ item.value }}
   with_dict: typo3.neos.sites
   tags: [typo3-neos-sites]
 

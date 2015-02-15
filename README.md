@@ -202,8 +202,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 TODO
 ----
 
-* Complete the preconfiguration of TYPO3 CMS instances
-* Add installation and configuration of NEOS instances
+* Complete the preconfiguration of TYPO3 CMS and NEOS instances
 * Nginx configuration snippets?
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
 * Speed improvements

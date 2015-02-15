@@ -15,5 +15,5 @@ typo3:
       7.0.2.typo3.cms: 'TYPO3_7-0-2'
   neos:
     sites:
-      1.2.typo3.neos: 'no-dev'
+      1.2.typo3.neos: '1.2'
       dev-master.typo3.neos: 'dev-master'

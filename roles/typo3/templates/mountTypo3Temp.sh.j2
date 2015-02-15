@@ -1,8 +1,11 @@
 #!/bin/bash
 #{{ ansible_managed }}
-typo3TempDirectories=(
+typo3TemporaryDirectories=(
 {% for item in typo3.cms.sites.keys() %}
 	'{{ typo3_webroot }}{{ item }}/typo3temp'
+{% endfor %}
+{% for item in typo3.neos.sites.keys() %}
+	'{{ typo3_webroot }}{{ item }}/Data/Temporary'
 {% endfor %}
 )
 
@@ -10,23 +13,26 @@ typo3TempRamdiskDirectories=(
 {% for item in typo3.cms.sites.keys() %}
 	'/mnt/typo3cache/{{ item }}'
 {% endfor %}
+{% for item in typo3.neos.sites.keys() %}
+	'/mnt/typo3cache/{{ item }}'
+{% endfor %}
 )
 
-len=${{ typo3_left_curly_brace }}#typo3TempDirectories[*]}
+len=${{ typo3_left_curly_brace }}#typo3TemporaryDirectories[*]}
 
 i=0
 while [ $i -lt $len ];
 do
-	if [ -d "${typo3TempDirectories[$i]}" ];
+	if [ -d "${typo3TemporaryDirectories[$i]}" ];
 	then
 		if [ ! -d "${typo3TempRamdiskDirectories[$i]}" ];
 		then
 			mkdir "${typo3TempRamdiskDirectories[$i]}"
 			chown www-data:www-data "${typo3TempRamdiskDirectories[$i]}"
 		fi
-		if ! mountpoint -q ${typo3TempDirectories[$i]};
+		if ! mountpoint -q ${typo3TemporaryDirectories[$i]};
 		then
-			mount ${typo3TempDirectories[$i]}
+			mount ${typo3TemporaryDirectories[$i]}
 		fi
 	fi
 let i++

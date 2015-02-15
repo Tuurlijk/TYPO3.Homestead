@@ -26,3 +26,11 @@
 - include: cms.yml
 - include: cron.yml
 - include: neos.yml
+
+- name: Ensure the root user bin dir exists
+  file: path=/root/bin state=directory mode=0775
+  tags: [typo3-ramdisk]
+
+- name: Create a script that enforces mounting the ramdisks after reboot
+  template: src=mountTypo3Temp.sh.j2 dest=/root/bin/mountTypo3Temp.sh mode=u+rwx
+  tags: [typo3-ramdisk]

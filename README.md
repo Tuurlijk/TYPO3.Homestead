@@ -178,26 +178,39 @@ The NEOS configuration is WIP. The TYPO3 CMS configuration sets up an empty data
 Configuration Examples
 ----------------------
 
-You can choose between different PHP backends:
-* php-fpm
-* php-fpm-xhprof (not enabled yet: wip)
-* hhvm
+You can choose between different PHP upstream backends:
+* php: php-fpm
+* xhprof: php-fpm-xhprof (not enabled yet: wip)
+* hhvm: hhvm
 
 ```yaml
 nginx_sites:
-  4.5.typo3.cms:
-    - server_name 4.5.typo3.cms
-    - root "{{ typo3_webroot }}4.5.typo3.cms/"
-    - include snippets/php-fpm.conf
-  4.5.hhvm.typo3.cms:
-    - server_name 4.5.hhvm.typo3.cms
-    - root "{{ typo3_webroot }}4.5.hhvm.typo3.cms/"
-    - include snippets/hhvm.conf
+  default:
+    - set $upstream hhvm
+    - listen 80 default_server
+    - server_name _
+    - root "{{ typo3_webroot }}/typo3.homestead/"
+    - "{{ nginx_fastcgi }}"
+  default-ssl:
+    - set $upstream php
+    - listen 443 default_server
+    - server_name _
+    - root "{{ typo3_webroot }}/typo3.homestead/"
+    - "{{ nginx_fastcgi }}"
+    - ssl on
+    - ssl_certificate /etc/ssl/certs/typo3.homestead.crt
+    - ssl_certificate_key /etc/ssl/private/typo3.homestead.key
+  typo3.cms:
+    - set $upstream php
+    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<project>.*)\.typo3.cms$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
+    - root "{{ typo3_webroot }}${project}.typo3.cms/";
+    - "{{ nginx_fastcgi }}"
 ```
 
-Please take care to add a domain-name to source mapping in the typo3.yml for each site you configure.
+Please take care to add a domain-name to source mapping in the typo3.yml for each site you configure. Unless you manually set up your sites in your shared folder and link to the available sources yourself.
 
-The `typo3_ssl_certificates` variable is an array of domain names for which self signed ssl certificates will be generated.
+The `typo3_ssl_certificates` variable is an array of domain names for which self signed ssl certificates will be generated. Wildcard certificates will be generated for *.typo3.cms and *.typo3.neos.
 
 Contributing
 ------------
@@ -227,7 +240,6 @@ TODO
   http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html
 * Make PHP configuration so flexible it can also handle other versions than the latest available from ppa
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
-* Generate wildcard ssl certificates
 * Use https://www.dotdeb.org/about/ to enable serving from multiple versions of php
 
 License

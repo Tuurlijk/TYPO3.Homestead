@@ -153,7 +153,9 @@ If you prefix your site name with 'hhvm' for example, your request will be serve
 
 You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
 
-If you change any typo3 configuration after you have provisioned your server, you will need to re-provision using:
+You can now 'launch' a new test site just by placing a new folder in your Development directory. If you link to the TYPO3 source yourself, you don't even need a mapping configuration in the typo3.yml file. Your site will be instantly available (if the folder name matches one of the wildcard regexes).
+
+If you change any typo3 configuration (Add new tags / branches) after you have provisioned your server, you will need to re-provision using:
 
 ```bash
 ANSIBLE_ARGS='--tags=typo3' vagrant provision
@@ -226,6 +228,7 @@ TODO
 * Make PHP configuration so flexible it can also handle other versions than the latest available from ppa
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
 * Generate wildcard ssl certificates
+* Use https://www.dotdeb.org/about/ to enable serving from multiple versions of php
 
 License
 -------

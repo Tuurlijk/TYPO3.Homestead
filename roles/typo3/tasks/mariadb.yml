@@ -5,7 +5,6 @@
             state=present
             encoding='utf8'
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-databases]
 
 - name: Grant CMS database privileges
   mysql_user: name={{ mariadb.user }}
@@ -13,14 +12,12 @@
               priv={{ item.key | regex_replace('\\.', '_') }}.*:ALL
               append_privs=yes
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-databases]
 
 - name: Create NEOS databases
   mysql_db: name={{ item.key | regex_replace('\\.', '_') }}
             state=present
             encoding='utf8'
   with_dict: typo3.neos.sites
-  tags: [typo3-neos-databases]
 
 - name: Grant NEOS database privileges
   mysql_user: name={{ mariadb.user }}
@@ -28,4 +25,3 @@
               priv={{ item.key | regex_replace('\\.', '_') }}.*:ALL
               append_privs=yes
   with_dict: typo3.neos.sites
-  tags: [typo3-neos-databases]

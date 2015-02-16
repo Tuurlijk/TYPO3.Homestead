@@ -7,7 +7,7 @@
   tags: [typo3-neos-sites]
 
 - name: Setup TYPO3 NEOS sites
-  shell: echo "n" | composer create-project typo3/neos-base-distribution {{ typo3_webroot }}{{ item.key }} {{ item.value }}
+  shell: if [ ! "$(ls -A $DIR)" ]; then echo "n" | composer create-project typo3/neos-base-distribution {{ typo3_webroot }}{{ item.key }} {{ item.value }}; fi
   with_dict: typo3.neos.sites
   tags: [typo3-neos-sites]
 
@@ -58,6 +58,6 @@
   tags: [typo3-neos-ramdisk]
 
 - name: Mount bind TYPO3 NEOS Data/Temporary ramdisks
-  command: mount /mnt/typo3cache/{{ item }}
+  shell: if ! mountpoint -q {{ typo3_webroot }}{{ item }}/Data/Temporary; then mount /mnt/typo3cache/{{ item }}; fi
   with_items: typo3.neos.sites.keys()
   tags: [typo3-neos-ramdisk]

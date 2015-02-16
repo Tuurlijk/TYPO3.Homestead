@@ -22,10 +22,15 @@
   tags: [typo3-git-setup]
 
 - include: defaultSite.yml
+  tags: [typo3-defaultSite]
 - include: mariadb.yml
+  tags: [typo3-mariadb]
 - include: cms.yml
+  tags: [typo3-cms]
 - include: cron.yml
+  tags: [typo3-cron]
 - include: neos.yml
+  tags: [typo3-neos]
 
 - name: Ensure the root user bin dir exists
   file: path=/root/bin state=directory mode=0775

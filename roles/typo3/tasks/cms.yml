@@ -12,26 +12,32 @@
        dest={{ typo3_source_path }}/cms/{{ item }}
        version={{ item }}
   with_items: typo3.cms.sources.tags
-  tags: [typo3-cms-tags,tags]
+  tags: [typo3-cms-tags]
 
 - name: "TYPO3 CMS Sources for tags: Setup git push"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   shell: cd {{ typo3_source_path }}/cms/{{ item }}; git config remote.origin.push HEAD:refs/for/master;
   with_items: typo3.cms.sources.tags
-  tags: [typo3-git-setup]
+  tags: [typo3-cms-tags]
+
+- name: "TYPO3 CMS Sources for tags: Setup git origin"
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  shell: cd {{ typo3_source_path }}/cms/{{ item }}; git remote set-url origin {{ typo3_cms_src_repository }}
+  with_items: typo3.cms.sources.tags
+  tags: [typo3-cms-tags]
 
 - name: "TYPO3 CMS Sources for tags: Setup git commit message"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   copy: src=git-commit-msg dest={{ typo3_source_path }}/cms/{{ item }}/.git/hooks/commit-msg force=no
   with_items: typo3.cms.sources.tags
-  tags: [typo3-git-setup]
+  tags: [typo3-cms-tags]
 
 - name: Clone TYPO3 CMS Sources for branches
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   # Shallow clones do not contain remotely tracked branches
   command: rsync -au {{ typo3_source_path }}/cms/typo3-cms {{ typo3_source_path }}/cms/{{ item }}
   with_items: typo3.cms.sources.branches
-  tags: [typo3-cms-branches,branches]
+  tags: [typo3-cms-branches]
 
 - name: Set TYPO3 CMS branches for cloned sources and update them
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
@@ -39,13 +45,19 @@
        dest={{ typo3_source_path }}/cms/{{ item }}
        version={{ item }}
   with_items: typo3.cms.sources.branches
-  tags: [typo3-cms-branches,branches]
+  tags: [typo3-cms-branches]
 
 - name: "TYPO3 CMS Sources for branches: Setup git push"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   shell: cd {{ typo3_source_path }}/cms/{{ item }}; git config remote.origin.push HEAD:refs/for/master;
   with_items: typo3.cms.sources.branches
-  tags: [typo3-git-setup]
+  tags: [typo3-cms-branches]
+
+- name: "TYPO3 CMS Sources for branches: Setup git origin"
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  shell: cd {{ typo3_source_path }}/cms/{{ item }}; git remote set-url origin {{ typo3_cms_src_repository }}
+  with_items: typo3.cms.sources.branches
+  tags: [typo3-cms-branches]
 
 - name: "TYPO3 CMS Sources for branches: Setup git commit message"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
@@ -131,6 +143,6 @@
   tags: [typo3-cms-ramdisk]
 
 - name: Mount bind TYPO3 CMS typo3temp ramdisks
-  command: mount /mnt/typo3cache/{{ item }}
+  shell: if ! mountpoint -q "{{ typo3_webroot }}{{ item }}/typo3temp"; then mount "/mnt/typo3cache/{{ item }}"; fi
   with_items: typo3.cms.sites.keys()
   tags: [typo3-cms-ramdisk]

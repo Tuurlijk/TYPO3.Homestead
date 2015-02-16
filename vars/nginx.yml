@@ -11,36 +11,20 @@ nginx_http_params:
   - open_file_cache_errors on
   - keepalive_requests 1000
 
-nginx_php_fpm: |
-  add_header X-TYPO3-Homestead-backend php-fpm;
+nginx_configs:
+  upstream_hhvm:
+    - upstream hhvm { server unix:/var/run/hhvm/sock; }
+  upstream_php:
+    - upstream php { server unix:/var/run/php5-fpm.sock; }
+  upstream_xhprof:
+    - upstream xhprof { server unix:/var/run/php5-fpm.xhprof.sock; }
+
+nginx_fastcgi: |
+  add_header X-TYPO3-Homestead-backend $upstream;
   try_files $uri $uri/ /index.php?$args;
   location ~ \.php$ {
     try_files     $uri =404;
-    fastcgi_pass  unix:/var/run/php5-fpm.sock;
-    fastcgi_index index.php;
-    fastcgi_param FLOW_CONTEXT Development;
-    fastcgi_param FLOW_REWRITEURLS 1;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    include       fastcgi_params;
-  }
-nginx_php_fpm_xhprof: |
-  add_header X-TYPO3-Homestead-backend php-fpm-xhprof;
-  try_files $uri $uri/ /index.php?$args;
-  location ~ \.php$ {
-    try_files     $uri =404;
-    fastcgi_pass  unix:/var/run/php5-fpm-xhprof.sock;
-    fastcgi_index index.php;
-    fastcgi_param FLOW_CONTEXT Development;
-    fastcgi_param FLOW_REWRITEURLS 1;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    include       fastcgi_params;
-  }
-nginx_hhvm: |
-  add_header X-TYPO3-Homestead-backend hhvm;
-  try_files $uri $uri/ /index.php?$args;
-  location ~ \.(hh|php)$ {
-    try_files     $uri =404;
-    fastcgi_pass  unix:/var/run/hhvm/sock;
+    fastcgi_pass  $upstream;
     fastcgi_index index.php;
     fastcgi_param FLOW_CONTEXT Development;
     fastcgi_param FLOW_REWRITEURLS 1;

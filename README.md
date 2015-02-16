@@ -144,6 +144,15 @@ typo3:
       7.0.2.typo3.cms: 'TYPO3_7-0-2'
 ```
 
+TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you don't have to manually add any site configuration (except if you want to test ssl). The request url will determine the document root. The regular site requests will use the default php-fpm backend. The other backends currently available are: *hhvm* and *xhprof*. Xhprof will need further pool configuration though.
+
+If you prefix your site name with 'hhvm' for example, your request will be served by the hhvm backend:
+
+* [http://php.6.2.9.typo3.cms/typo3/](http://php.6.2.9.typo3.cms/typo3/)
+* [http://hhvm.6.2.9.typo3.cms/typo3/](http://hhvm.6.2.9.typo3.cms/typo3/)
+
+You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
+
 If you change any typo3 configuration after you have provisioned your server, you will need to re-provision using:
 
 ```bash
@@ -216,6 +225,7 @@ TODO
   http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html
 * Make PHP configuration so flexible it can also handle other versions than the latest available from ppa
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
+* Generate wildcard ssl certificates
 
 License
 -------

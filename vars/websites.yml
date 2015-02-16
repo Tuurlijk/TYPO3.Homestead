@@ -13,49 +13,30 @@ typo3_ssl_certificates:
 
 nginx_sites:
   default:
+    - set $upstream hhvm
     - listen 80 default_server
     - server_name _
     - root "{{ typo3_webroot }}/typo3.homestead/"
-    - "{{ nginx_hhvm }}"
+    - "{{ nginx_fastcgi }}"
   default-ssl:
+    - set $upstream php
     - listen 443 default_server
     - server_name _
     - root "{{ typo3_webroot }}/typo3.homestead/"
-    - "{{ nginx_php_fpm }}"
+    - "{{ nginx_fastcgi }}"
     - ssl on
     - ssl_certificate {{nginx_conf_dir}}/ssl/typo3.homestead.crt
     - ssl_certificate_key {{nginx_conf_dir}}/ssl/typo3.homestead.key
-  4.5.typo3.cms:
-    - server_name 4.5.typo3.cms
-    - root "{{ typo3_webroot }}4.5.typo3.cms/"
-    - "{{ nginx_php_fpm }}"
-  4.5.39.typo3.cms:
-    - server_name 4.5.39.typo3.cms
-    - root "{{ typo3_webroot }}4.5.39.typo3.cms/"
-    - "{{ nginx_php_fpm }}"
-  6.2.typo3.cms:
-    - server_name 6.2.typo3.cms
-    - root "{{ typo3_webroot }}6.2.typo3.cms/"
-    - "{{ nginx_php_fpm }}"
-  6.2.9.typo3.cms:
-    - server_name 6.2.9.typo3.cms
-    - root "{{ typo3_webroot }}6.2.9.typo3.cms/"
-    - "{{ nginx_php_fpm }}"
-  7.0.typo3.cms:
-    - server_name 7.0.typo3.cms
-    - root "{{ typo3_webroot }}7.0.typo3.cms/"
-    - "{{ nginx_php_fpm }}"
-  7.0.2.typo3.cms:
-    - server_name 7.0.2.typo3.cms
-    - root "{{ typo3_webroot }}7.0.2.typo3.cms/"
-    - "{{ nginx_php_fpm }}"
-  1.2.typo3.neos:
-    - server_name 1.2.typo3.neos
-    - root "{{ typo3_webroot }}1.2.typo3.neos/Web/"
+  typo3.cms:
+    - set $upstream php
+    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<project>.*)\.typo3.cms$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
+    - root "{{ typo3_webroot }}${project}.typo3.cms/";
+    - "{{ nginx_fastcgi }}"
+  typo3.neos:
+    - set $upstream php
+    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<project>.*)\.typo3.neos$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
+    - root "{{ typo3_webroot }}${project}.typo3.neos/Web/";
     - "{{ nginx_typo3_neos_resources }}"
-    - "{{ nginx_php_fpm }}"
-  dev-master.typo3.neos:
-    - server_name dev-master.typo3.neos
-    - root "{{ typo3_webroot }}dev-master.typo3.neos/Web/"
-    - "{{ nginx_typo3_neos_resources }}"
-    - "{{ nginx_php_fpm }}"
+    - "{{ nginx_fastcgi }}"

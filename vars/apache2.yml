@@ -1,0 +1,27 @@
+---
+apache2_modules:
+  - { id: ssl, state: present }
+  - { id: mime, state: present }
+  - { id: headers, state: present }
+  - { id: rewrite, state: present }
+  - { id: alias, state: absent }
+  - { id: access_compat, state: absent }
+
+apache2_remove_default: yes
+
+openssl_self_signed:
+  - { name: 'foobar.local', country: 'DE', state: 'Bavaria', city: 'Munich', organization: 'Foo Bar', email: 'foo@bar.com' }
+
+apache2_sites:
+  - id: typo3.homestead
+    state: present
+    name: typo3.homestead
+    rules: ['mimes', 'expires', 'compression']
+  - id: 4.5.typo3.cms
+    state: present
+    name: 4.5.typo3.cms
+    rules: ['mimes', 'expires', 'compression']
+  - id: 6.2.typo3.cms
+    state: present
+    name: 6.2.typo3.cms
+    rules: ['mimes', 'expires', 'compression']

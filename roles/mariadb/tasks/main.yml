@@ -6,9 +6,6 @@
 - name: Add MariaDB-Repository
   apt_repository: repo='deb http://mirror3.layerjet.com/mariadb/repo/10.1/ubuntu {{ ansible_distribution_release }} main' state=present
 
-- name: Update apt
-  apt: update_cache=yes
-
 - name: Install MariaDB Packages
   apt: pkg={{ item }} state=latest
   with_items:

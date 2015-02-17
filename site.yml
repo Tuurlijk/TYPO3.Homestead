@@ -11,7 +11,7 @@
     - vars/typo3.yml
   roles:
     - { role: common,              tags: common }
-    - { role: nbz4live.php-fpm,    tags: php-fpm }
+#    - { role: nbz4live.php-fpm,    tags: php-fpm }
     - { role: phpcommon,           tags: phpcommon }
     - { role: hhvm,                tags: hhvm }
     - { role: tersmitten.composer, tags: composer }

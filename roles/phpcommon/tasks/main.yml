@@ -2,20 +2,31 @@
 
 - name: Add OS specific varibles
   include_vars: "{{ ansible_os_family }}.yml"
-  tags: [ php-apcu, php-opcache, php-xdebug, php-blackfire ]
+  tags: [ test, php-apcu, php-opcache, php-xdebug, php-blackfire ]
 
-- name: Install Some PPAs - software-properties-common
-  apt: name=software-properties-common state=present
+- name: Phpbrew install build dependancies
+  command: apt-get build-dep -y php5
 
-- name: Add package repositories
-  apt_repository: repo={{ item }}
-  with_items:
-    - "ppa:ondrej/{{ php_common_ppa }}"
+- name: Phpbrew install required packages
+  apt: name={{ item }} state=present
+  with_items: php_brew_required_packages
 
-- name: Install PHP Packages
-  sudo: yes
-  apt: pkg={{ item }} state=latest
-  with_items: php_common_packages
+- name: Phpbrew prevent freetype.h not found configure error
+  shell: mkdir /usr/include/freetype2/freetype; ln -s /usr/include/freetype2/freetype.h /usr/include/freetype2/freetype/freetype.h
+
+- name: Phpbrew install
+  get_url: url=https://github.com/phpbrew/phpbrew/raw/master/phpbrew dest=/usr/bin/phpbrew mode=0755
+  tags: test
+
+- name: Phpbrew init
+  command: phpbrew init
+  tags: test
+
+- name: Phpbrew set lookup prefix
+  command: phpbrew lookup-prefix ubuntu
+  tags: test
+
+#phpbrew install 5.3.29 +default+fpm+mysql+fileinfo+gd+intl+mcrypt+mhash+openssl+pcre+session+soap+zlib
 
 - name: Customize PHP fpm configuration file
   ini_file: dest={{ php_fpm_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes

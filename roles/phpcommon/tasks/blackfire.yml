@@ -6,11 +6,6 @@
 - name: Add PackageCloud repo
   shell: echo deb http://packages.blackfire.io/debian any main | sudo tee /etc/apt/sources.list.d/blackfire.list
 
-- name: Update apt
-  sudo: yes
-  apt: update_cache=yes
-
 - name: Install Blackfire
-  sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: [ blackfire-agent, blackfire-php ]

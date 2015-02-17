@@ -4,7 +4,6 @@
   mount: name=/ src=/dev/sda1 fstype=ext4 opts=rw,noatime state=mounted
 
 - name: Update apt package lists
-  sudo: yes
   apt:
     update_cache: yes
     cache_valid_time: "{{ homestead.cache_valid_time }}"
@@ -15,7 +14,6 @@
   when: homestead.upgrade_packages
 
 - name: Install System Packages
-  sudo: yes
   apt: pkg={{ item }} state=latest
   with_items:
     - curl
@@ -35,12 +33,7 @@
     - "ppa:rwky/redis"
     - "ppa:chris-lea/node.js"
 
-- name: Update apt
-  sudo: yes
-  apt: update_cache=yes
-
 - name: Install Extra Packages
-  sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: sys_packages
 
@@ -48,11 +41,9 @@
   user: name=vagrant groups=www-data append=yes
 
 - name: Configure the timezone
-  sudo: yes
   template: src=timezone.tpl.j2 dest=/etc/timezone
 
 - name: More Configure the timezone
-  sudo: yes
   file: src=/usr/share/zoneinfo/{{timezone}} dest=/etc/localtime state=link force=yes backup=yes
 
 - name: Set the hostname in /etc/hostname
@@ -68,11 +59,9 @@
   when: hostname is defined
 
 - name: Setup dircolors
-  sudo: vagrant
   copy: src=dircolors dest=~/.dircolors force=no
 
 - name: Setup postfix as a null mailer
-  sudo: yes
   copy: src=postfix_main.cf dest=/etc/postfix/main.cf force=no
 
 - name: Start the postfix service
@@ -81,7 +70,7 @@
 
 - name: Make fstab entry for TYPO3 ramdisk
   mount: name=/var/lib/php5/sessions src=tmpfs fstype=tmpfs opts='atime,nosuid,nodev,size=10m' state=mounted
-  tags: test
+  tags: ramdisk
 
 - include: ramdisk.yml
   tags: ramdisk

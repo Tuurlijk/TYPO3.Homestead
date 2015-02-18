@@ -83,12 +83,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		vb.customize ["modifyvm", :id, "--cpuexecutioncap", "90"]
 		vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 		vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-      vb.customize ["modifyvm", :id, "--pae", "on"]
-		vb.customize ["modifyvm", :id, "--cpus", cpus]
-      vb.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
+		vb.customize ["modifyvm", :id, "--pae", "on"]
+		vb.customize ["modifyvm", :id, "--cpus", CORES.to_i]
+		vb.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
 
+		# If more cpu's are requested than are available; enable ioapic
 		if CORES.to_i > cpus
-			vb.customize [ "modifyvm", :id, "--ioapic", "on" ]
+			vb.customize ["modifyvm", :id, "--ioapic", "on"]
 		end
 	end
 
@@ -119,43 +120,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# Synced Folders
 	config.vm.synced_folder ".", "/vagrant", disabled: true
-# 	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www", create: true, group: "www-data", owner: "vagrant", mount_options: ["dmode=775,fmode=664"]
-# 	config.vm.synced_folder "~/Projects/DonationBasedHosting", "/var/www", group: "www-data", mount_options: ["dmode=775,fmode=664"]
-#mount_options: ["umask=0002,dmask=0002,fmask=0002"]
 
 	# Ensure proper permissions for nfs mounts
 	config.nfs.map_uid = Process.uid
 	config.nfs.map_gid = Process.gid
 
+#   if host =~ /(darwin|linux)/
 	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
 		id: "~/Projects/TYPO3/Development",
 		:nfs => true,
-		:mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime']
-
-# 	# Register All Of The Configured Shared Folders
-# 	settings["folders"].each do |folder|
-# 		config.vm.synced_folder folder["map"], folder["to"],
-# 			id: folder["map"],
-# 			:nfs => true,
-# 			:mount_options => ['nolock,vers=3,udp,noatime']
-# 	end
-  # Set no_root_squash to prevent NFS permissions errors on Linux during
-  # provisioning, and maproot=0:0 to correctly map the guest root user.
-#   if (/darwin/ =~ RUBY_PLATFORM) != nil
-#     config.vm.synced_folder "./www", "/var/www", type: "nfs", :bsd__nfs_options => ["maproot=0:0"]
+		:mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime'],
+		:linux__nfs_options => ['no_root_squash']
 #   else
 #     config.vm.synced_folder "./www", "/var/www", type: "nfs", :linux__nfs_options => ["no_root_squash"]
 #   end
 
-  	# Use NFS for the shared folder
-# 	config.nfs.map_uid = 1000
-# 	config.nfs.map_gid = 33
-#  	config.vm.synced_folder '~/Projects/DonationBasedHosting', '/var/www2',
-# 		id: 'core',
-# 		:nfs => true,
-# 		:mount_options => ['rw,nolock,noatime'],
-# 		:bsd__nfs_options => ['no_root_squash,maproot=0:0'],
-# 		:map_uid => 0,
-# 		:map_gid => 0,
-# 		:export_options => ['async,insecure,no_subtree_check,no_acl,no_root_squash,noatime']
 end

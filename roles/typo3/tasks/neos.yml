@@ -52,6 +52,11 @@
   with_items: typo3.neos.sites.keys()
   tags: [typo3-neos-ramdisk]
 
+- name: Ensure Data/Temporary directories exist
+  file: path={{ typo3_webroot }}{{ item }}/Data/Temporary/ state=directory mode=0775
+  with_items: typo3.neos.sites.keys()
+  tags: [typo3-neos-ramdisk]
+
 - name: Make fstab entries for TYPO3 NEOS Data/Temporary
   mount: src=/mnt/typo3cache/{{ item }} name={{ typo3_webroot }}{{ item }}/Data/Temporary/ fstype=none opts=bind,noauto state=present
   with_items: typo3.neos.sites.keys()

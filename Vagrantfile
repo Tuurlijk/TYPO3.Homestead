@@ -70,7 +70,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	end
 
 	# SSH
-	config.ssh.forward_agent = true
 	config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'" # avoids 'stdin: is not a tty' error.
 	config.ssh.forward_agent = true
 	# 	config.vm.provision "shell", inline: "echo -e '#{File.read("#{Dir.home}/.ssh/id_rsa")}' > '/home/vagrant/.ssh/id_rsa'"

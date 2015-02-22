@@ -118,6 +118,6 @@ galaxy_info:
     - web
 dependencies:
   - { role: tersmitten.composer }
-#  - { role: nbz4live.php-fpm }
+  - { role: nbz4live.php-fpm }
   - { role: jdauphant.nginx }
   - { role: laggyluke.nodejs }

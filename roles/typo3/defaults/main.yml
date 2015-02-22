@@ -1,5 +1,5 @@
 ---
-  typo3_cms_src_repository: 'git://git.typo3.org/Packages/TYPO3.CMS.git'
+  typo3_cms_src_repository: 'https://git.typo3.org/Packages/TYPO3.CMS.git'
 
   typo3_org_username: anonymous
 

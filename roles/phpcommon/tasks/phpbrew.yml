@@ -1,0 +1,24 @@
+---
+
+- name: Phpbrew install build dependancies
+  command: apt-get build-dep -y php5
+
+- name: Phpbrew install required packages
+  apt: name={{ item }} state=present
+  with_items: php_brew_required_packages
+
+- name: Check if freetype symlink exists
+  stat: path=/usr/include/freetype2/freetype/freetype.h
+  register: freetype_link_check
+
+- name: Phpbrew prevent freetype.h not found configure error
+  shell: mkdir /usr/include/freetype2/freetype; ln -s /usr/include/freetype2/freetype.h /usr/include/freetype2/freetype/freetype.h
+  when: not freetype_link_check.stat.exists
+
+- name: Phpbrew install
+  get_url: url=https://github.com/phpbrew/phpbrew/raw/master/phpbrew dest=/usr/bin/phpbrew mode=0755
+
+- name: Phpbrew init
+  command: phpbrew init
+
+#phpbrew install 5.3.29 +default+fpm+mysql+fileinfo+gd+intl+mcrypt+mhash+openssl+pcre+session+soap+zlib

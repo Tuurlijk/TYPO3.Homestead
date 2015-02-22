@@ -11,11 +11,11 @@
     - vars/typo3.yml
   roles:
     - { role: common,              tags: common }
-#    - { role: nbz4live.php-fpm,    tags: php-fpm }
+    - { role: nbz4live.php-fpm,    tags: php-fpm }
+    - { role: mariadb,             tags: mariadb }
     - { role: phpcommon,           tags: phpcommon }
     - { role: hhvm,                tags: hhvm }
     - { role: tersmitten.composer, tags: composer }
-    - { role: mariadb,             tags: mariadb }
     - { role: typo3,               tags: typo3 }
     - { role: f500.memcached,      tags: memcached }
     - { role: jdauphant.nginx,     tags: nginx }

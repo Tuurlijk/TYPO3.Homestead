@@ -12,32 +12,32 @@
        dest={{ typo3_source_path }}/cms/{{ item }}
        version={{ item }}
   with_items: typo3.cms.sources.tags
-  tags: [typo3-cms-tags]
+  tags: typo3-cms-tags
 
 - name: "TYPO3 CMS Sources for tags: Setup git push"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   shell: cd {{ typo3_source_path }}/cms/{{ item }}; git config remote.origin.push HEAD:refs/for/master;
   with_items: typo3.cms.sources.tags
-  tags: [typo3-cms-tags]
+  tags: typo3-cms-tags
 
 - name: "TYPO3 CMS Sources for tags: Setup git origin"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   shell: cd {{ typo3_source_path }}/cms/{{ item }}; git remote set-url origin {{ typo3_cms_src_repository }}
   with_items: typo3.cms.sources.tags
-  tags: [typo3-cms-tags]
+  tags: typo3-cms-tags
 
 - name: "TYPO3 CMS Sources for tags: Setup git commit message"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   copy: src=git-commit-msg dest={{ typo3_source_path }}/cms/{{ item }}/.git/hooks/commit-msg force=no
   with_items: typo3.cms.sources.tags
-  tags: [typo3-cms-tags]
+  tags: typo3-cms-tags
 
 - name: Clone TYPO3 CMS Sources for branches
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   # Shallow clones do not contain remotely tracked branches
   command: rsync -au {{ typo3_source_path }}/cms/typo3-cms/ {{ typo3_source_path }}/cms/{{ item }}
   with_items: typo3.cms.sources.branches
-  tags: [typo3-cms-branches]
+  tags: typo3-cms-branches
 
 - name: Set TYPO3 CMS branches for cloned sources
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
@@ -45,45 +45,45 @@
        dest={{ typo3_source_path }}/cms/{{ item }}
        version={{ item }}
   with_items: typo3.cms.sources.branches
-  tags: [typo3-cms-branches]
+  tags: typo3-cms-branches
 
 - name: "TYPO3 CMS Sources for branches: Setup git push"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   shell: cd {{ typo3_source_path }}/cms/{{ item }}; git config remote.origin.push HEAD:refs/for/master;
   with_items: typo3.cms.sources.branches
-  tags: [typo3-cms-branches]
+  tags: typo3-cms-branches
 
 - name: "TYPO3 CMS Sources for branches: Setup git origin"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   shell: cd {{ typo3_source_path }}/cms/{{ item }}; git remote set-url origin {{ typo3_cms_src_repository }}
   with_items: typo3.cms.sources.branches
-  tags: [typo3-cms-branches]
+  tags: typo3-cms-branches
 
 - name: "TYPO3 CMS Sources for branches: Setup git commit message"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   copy: src=git-commit-msg dest={{ typo3_source_path }}/cms/{{ item }}/.git/hooks/commit-msg force=no
   with_items: typo3.cms.sources.branches
-  tags: [typo3-git-setup]
+  tags: typo3-git-setup
 
 - name: Setup TYPO3 CMS site directories
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: path={{ typo3_webroot }}{{ item }} state=directory mode=0775
   with_items: typo3.cms.sites.keys()
-  tags: [typo3-cms-sites]
+  tags: typo3-cms-sites
 
 - name: Symlink TYPO3 CMS Sources into site roots
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: src=../sources/cms/{{ item.value }}
         dest={{ typo3_webroot }}{{ item.key }}/typo3_src state=link
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-symlink]
+  tags: typo3-cms-symlink
 
 - name: Symlink to typo3 folder in site roots
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: src=typo3_src/typo3
         dest={{ typo3_webroot }}{{ item.key }}/typo3 state=link
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-symlink]
+  tags: typo3-cms-symlink
 
 - name: Symlink to t3lib folder in site roots
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
@@ -91,58 +91,88 @@
         dest={{ typo3_webroot }}{{ item.key }}/t3lib state=link
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-symlink]
+  tags: typo3-cms-symlink
 
 - name: Symlink to typo3/index.php file in site roots
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: src=typo3_src/index.php
         dest={{ typo3_webroot }}{{ item.key }}/index.php state=link
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-symlink]
+  tags: typo3-cms-symlink
 
 - name: Create fileadmin directories
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: path={{ typo3_webroot }}{{ item.key }}/fileadmin state=directory mode=0775
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-directories]
+  tags: typo3-cms-directories
 
 - name: Create typo3conf directories
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: path={{ typo3_webroot }}{{ item.key }}/typo3conf state=directory mode=0775
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-directories]
+  tags: typo3-cms-directories
 
 - name: Create typo3temp directories
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: path={{ typo3_webroot }}{{ item.key }}/typo3temp state=directory mode=0775
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-directories]
+  tags: typo3-cms-directories
 
 - name: Create localconf.php
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
-  file: src=typo3_src/t3lib/
-        path={{ typo3_webroot }}{{ item.key }}/typo3conf/localconf.php state=touch mode=0664
+  file: path={{ typo3_webroot }}{{ item.key }}/typo3conf/localconf.php state=touch mode=0664
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-localconf]
+  tags: typo3-cms-localconf
+
+- name: Create AdditionalConfiguration.php
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  file: path={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php state=touch mode=0664
+  when: item.key | match('^(6|7)\\.(\d)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-localconf
 
 - name: Enable install tool
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: path={{ typo3_webroot }}{{ item.key }}/typo3conf/ENABLE_INSTALL_TOOL state=touch mode=0664
   with_dict: typo3.cms.sites
-  tags: [typo3-cms-installtool]
+  tags: typo3-cms-installtool
+
+- name: Ensure localconf.php contains starting php tag
+  lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/localconf.php line="<?php" insertbefore=BOF
+  when: item.key | match('^4\\.(5|6|7)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-localconf
+
+- name: Add trustedHostsPattern to localconf.php
+  lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/localconf.php line="$GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';" insertafter="<\?php"
+  when: item.key | match('^4\\.(5|6|7)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-localconf
+
+- name: Ensure AdditionalConfiguration.php contains starting php tag
+  lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php line="<?php" insertbefore=BOF
+  when: item.key | match('^(6|7)\\.(\d)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-localconf
+
+- name: Add trustedHostsPattern to AdditionalConfiguration.php
+  lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php line="$GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';" insertafter="<\?php"
+  when: item.key | match('^(6|7)\\.(\d)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-localconf
 
 - name: Create ramdisk directories to offload typo3temp to ramdisk
   file: path=/mnt/typo3cache/{{ item }} state=directory owner={{nginx_user}} group={{nginx_group}} mode=0775
   with_items: typo3.cms.sites.keys()
-  tags: [typo3-cms-ramdisk]
+  tags: typo3-cms-ramdisk
 
 - name: Make fstab entries for TYPO3 CMS typo3temp
   mount: src=/mnt/typo3cache/{{ item }} name={{ typo3_webroot }}{{ item }}/typo3temp/ fstype=none opts=bind,noauto state=present
   with_items: typo3.cms.sites.keys()
-  tags: [typo3-cms-ramdisk]
+  tags: typo3-cms-ramdisk
 
 - name: Mount bind TYPO3 CMS typo3temp ramdisks
   shell: if ! mountpoint -q "{{ typo3_webroot }}{{ item }}/typo3temp"; then mount "/mnt/typo3cache/{{ item }}"; fi
   with_items: typo3.cms.sites.keys()
-  tags: [typo3-cms-ramdisk]
+  tags: typo3-cms-ramdisk

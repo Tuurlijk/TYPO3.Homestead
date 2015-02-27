@@ -22,8 +22,13 @@ end
 MEMORY = ENV['VAGRANT_MEMORY'] || mem
 CORES = ENV['VAGRANT_CORES'] || cpus
 
+# Enforce lower bound of memory to 1024 MB
+if MEMORY < 1024
+	MEMORY = 1024
+end
+
 # Network
-PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.12.12'
+PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.144.120'
 HOSTNAME = ENV['VAGRANT_HOSTNAME'] || 'typo3.homestead'
 
 # Determine if we need to forward ports
@@ -50,16 +55,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.hostname = HOSTNAME
 	config.vm.box = "ubuntu/trusty64"
 	config.vm.boot_timeout = 180
-	config.hostsupdater.aliases = [
-		'4.5.typo3.cms',
-		'4.5.39.typo3.cms',
-		'6.2.typo3.cms',
-		'6.2.9.typo3.cms',
-		'7.0.typo3.cms',
-		'7.0.2.typo3.cms',
-		'1.2.typo3.neos',
-		'dev-master.typo3.neos'
-		]
+# If you have no Internet access (can not resolve *.local.typo3.org), you can use host aliases:
+# 	config.hostsupdater.aliases = [
+# 		'4.5.cms.local.typo3.org',
+# 		'4.5.39.cms.local.typo3.org',
+# 		'6.2.cms.local.typo3.org',
+# 		'6.2.9.cms.local.typo3.org',
+# 		'7.0.cms.local.typo3.org',
+# 		'7.0.2.cms.local.typo3.org',
+# 		'1.2.neos.local.typo3.org',
+# 		'dev-master.neos.local.typo3.org'
+# 		]
 
 	# Network
 	config.vm.network :private_network, ip: PRIVATE_NETWORK

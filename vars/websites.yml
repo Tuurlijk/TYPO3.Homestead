@@ -2,8 +2,7 @@
 
 typo3_ssl_certificates:
   - "typo3.homestead"
-  - "*.typo3.cms"
-  - "*.typo3.neos"
+  - "*.local.typo3.org"
 
 nginx_sites:
   typo3.homestead:
@@ -23,34 +22,35 @@ nginx_sites:
     - ssl_certificate_key /etc/ssl/private/typo3.homestead.key
   typo3.cms:
     - set $upstream php
-    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<project>.*)\.typo3.cms$
+    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<version>.*)\.cms.local.typo3.org$
     - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
-    - root "{{ typo3_webroot }}${project}.typo3.cms/";
+    - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
     - "{{ nginx_fastcgi }}"
 #  typo3.cms.ssl:
 #    - set $upstream php
 #    - listen 443
-#    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<project>.*)\.typo3.cms$
+#    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<version>.*)\.cms.local.typo3.org$
 #    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
-#    - root "{{ typo3_webroot }}${project}.typo3.cms/";
+#    - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
 #    - ssl on
 #    - ssl_certificate /etc/ssl/certs/typo3.cms.crt
 #    - ssl_certificate_key /etc/ssl/private/typo3.cms.key
 #    - "{{ nginx_fastcgi }}"
   typo3.neos:
     - set $upstream php
-    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<project>.*)\.typo3.neos$
+    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<version>.*)\.neos.local.typo3.org$
     - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
-    - root "{{ typo3_webroot }}${project}.typo3.neos/Web/";
+    - root "{{ typo3_webroot }}${version}.neos.local.typo3.org/Web/";
     - "{{ nginx_typo3_neos_resources }}"
     - "{{ nginx_fastcgi }}"
 #  typo3.neos.ssl:
 #    - set $upstream php
 #    - listen 443
-#    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<project>.*)\.typo3.neos$
+#    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<version>.*)\.neos.local.typo3.org$
 #    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
-#    - root "{{ typo3_webroot }}${project}.typo3.neos/Web/";
+#    - root "{{ typo3_webroot }}${version}.neos.local.typo3.org/Web/";
 #    - "{{ nginx_typo3_neos_resources }}"
+#    - "{{ nginx_fastcgi }}"
 #    - ssl on
 #    - ssl_certificate /etc/ssl/certs/typo3.neos.crt
 #    - ssl_certificate_key /etc/ssl/private/typo3.neos.key

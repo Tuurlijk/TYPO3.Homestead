@@ -7,13 +7,13 @@ typo3:
       tags: ['TYPO3_4-5-39', 'TYPO3_6-2-9', 'TYPO3_7-0-2']
       branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0']
     sites:
-      4.5.typo3.cms: 'TYPO3_4-5'
-      4.5.39.typo3.cms: 'TYPO3_4-5-39'
-      6.2.typo3.cms: 'TYPO3_6-2'
-      6.2.9.typo3.cms: 'TYPO3_6-2-9'
-      7.0.typo3.cms: 'TYPO3_7-0'
-      7.0.2.typo3.cms: 'TYPO3_7-0-2'
+      4.5.cms.local.typo3.org: 'TYPO3_4-5'
+      4.5.39.cms.local.typo3.org: 'TYPO3_4-5-39'
+      6.2.cms.local.typo3.org: 'TYPO3_6-2'
+      6.2.9.cms.local.typo3.org: 'TYPO3_6-2-9'
+      7.0.cms.local.typo3.org: 'TYPO3_7-0'
+      7.0.2.cms.local.typo3.org: 'TYPO3_7-0-2'
   neos:
     sites:
-      1.2.typo3.neos: '1.2'
-      dev-master.typo3.neos: 'dev-master'
+      1.2.neos.local.typo3.org: '1.2'
+      dev-master.neos.local.typo3.org: 'dev-master'

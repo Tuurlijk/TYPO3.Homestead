@@ -128,7 +128,7 @@ typo3:
   cms:
     sources:
       tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
-      branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0']
+      branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0', 'HEAD']
 ```
 
 You can then 'map' the available TYPO3 sources to a domain name. TYPO3 Homestead will then know what source to link to what domain name during the provisioning step.
@@ -138,14 +138,15 @@ typo3:
   cms:
     sources:
       tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
-      branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0']
+      branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0', 'HEAD']
     sites:
       4.5.cms.local.typo3.org: 'TYPO3_4-5'
-      4.5.39.cms.local.typo3.org: 'TYPO3_4-5-40'
+      4.5.40.cms.local.typo3.org: 'TYPO3_4-5-40'
       6.2.cms.local.typo3.org: 'TYPO3_6-2'
-      6.2.9.cms.local.typo3.org: 'TYPO3_6-2-10'
+      6.2.10.cms.local.typo3.org: 'TYPO3_6-2-10'
       7.0.cms.local.typo3.org: 'TYPO3_7-0'
-      7.0.2.cms.local.typo3.org: 'TYPO3_7-1-0'
+      7.1.0.cms.local.typo3.org: 'TYPO3_7-1-0'
+      7.2.cms.local.typo3.org: 'HEAD'
 ```
 
 TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you don't have to manually add any site configuration (except if you want to test ssl). The request url will determine the document root. The regular site requests will use the default php-fpm backend. The other backends currently available are: *hhvm* and *xhprof*. Xhprof will need further pool configuration though.
@@ -241,10 +242,8 @@ TODO
   you can make your ide to upload your files to vm if you changed them.
   and finally update nginx in your vm like : sudo /vagrant/scripts/serve.sh laravel.app /your/files.
   with this trick i have a page load in < 70 ms , in a page with 8 queries not cached.
-  http://www.tomaz.me/2013/10/14/solution-for-ansible-git-module-getting-stuck-on-clone.html
-* Make PHP configuration so flexible it can also handle other versions than the latest available from ppa
+* Make PHP configuration so flexible it can also handle any recent php version (https://github.com/phpbrew/phpbrew)
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
-* Use https://www.dotdeb.org/about/ to enable serving from multiple versions of php
 
 License
 -------

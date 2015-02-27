@@ -31,6 +31,7 @@ nginx_fastcgi: |
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     include       fastcgi_params;
   }
+
 nginx_typo3_neos_resources: |
   location ~ "^/_Resources/Persistent/" {
     expires max;

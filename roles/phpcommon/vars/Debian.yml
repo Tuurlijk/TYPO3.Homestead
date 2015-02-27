@@ -7,7 +7,7 @@ php_apcu_ini_path: /etc/php5/mods-available/apcu.ini
 php_opcache_ini_path: /etc/php5/mods-available/opcache.ini
 php_xdebug_ini_path: /etc/php5/mods-available/xdebug.ini
 
-php_blackfire_enable: no
+php_brew_enable: no
 
 # This list is probably too long since most of these will be pulled in by atp-get build-dep php5
 php_brew_required_packages:

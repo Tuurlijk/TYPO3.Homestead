@@ -31,6 +31,7 @@
   tags: php-xdebug
 
 - include: phpbrew.yml
+  when: php_brew_enable
   tags: php-phpbrew
 
 - name: Enable php modules

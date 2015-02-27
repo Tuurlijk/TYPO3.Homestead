@@ -163,19 +163,19 @@ You can now 'launch' a new test site just by placing a new folder in your Develo
 If you change any typo3 configuration (Add new tags / branches) after you have provisioned your server, you will need to re-provision using:
 
 ```bash
-ANSIBLE_ARGS='--tags=typo3' vagrant provision
+ANSIBLE_ARGS='--tags=typo3,nginx' vagrant provision
 ```
 
-If you change any nginx configuration after you have provisioned your server, you will need to re-provision using:
+Please note that typo3 needs to run first because the ssl certificates and web directories need to be available for nginx to pass the configuration check. If you change only nginx configuration after you have provisioned your server, you can re-provision using:
 
 ```bash
 ANSIBLE_ARGS='--tags=nginx' vagrant provision
 ```
 
-You can also do both at once. Please not that typo3 needs to run first because the ssl certificates and web directories need to be available for nginx to pass the configuration check:
+Need to enable an install tool? The following command will create the **ENABLE_INSTALL_TOOL** files in all TYPO3 CMS instances:
 
 ```bash
-ANSIBLE_ARGS='--tags=typo3,nginx' vagrant provision
+ANSIBLE_ARGS='--tags=typo3-cms-installtool' vagrant provision
 ```
 
 The NEOS configuration is WIP. The TYPO3 CMS configuration sets up an empty database and an empty site. So you will need to run through the install tool and set things up.

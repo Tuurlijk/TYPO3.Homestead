@@ -91,7 +91,7 @@ When the installation process has finished, you can visit [http://typo3.homestea
 
 Currently the sites are not fully set up yet. You will need to run through the install tools by hand. This will be simplified later on.
 
-The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all database. The install tool password is the TYPO3 default.
+The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
 
 The amount of cpu's avaialble on the host machine will also be available on the guest machine. A quarter of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be envforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
 

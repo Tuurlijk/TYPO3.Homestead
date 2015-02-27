@@ -1,7 +1,7 @@
 ---
 
 - name: Make fstab entry for php sessions ramdisk
-  mount: name=/var/lib/php5/sessions src=tmpfs fstype=tmpfs opts='atime,nosuid,nodev,size=10m' state=mounted
+  mount: name=/var/lib/php5 src=tmpfs fstype=tmpfs opts='atime,nosuid,nodev,size=10m' state=mounted
 
 - name: Create mountpoint for TYPO3 ramdisk
   file: path=/mnt/typo3cache state=directory owner=vagrant group={{nginx_group}} mode=0755

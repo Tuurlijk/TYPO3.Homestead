@@ -73,10 +73,6 @@
   service: name=postfix state=started enabled=yes
   tags: [service,postfix]
 
-- name: Make fstab entry for TYPO3 ramdisk
-  mount: name=/var/lib/php5/sessions src=tmpfs fstype=tmpfs opts='atime,nosuid,nodev,size=10m' state=mounted
-  tags: test
-
 - include: ramdisk.yml
   tags: ramdisk
 

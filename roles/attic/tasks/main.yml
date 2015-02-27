@@ -3,4 +3,4 @@
 - replace: dest=/etc/default/hhvm regexp='#RUN_AS_USER="www-data"' replace='RUN_AS_USER="vagrant"'
   notify:
     - restart hhvm
-  tags: [hhvm]
+  tags: hhvm

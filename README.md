@@ -127,7 +127,7 @@ You can override any of the role variables in the configuration files in the `/v
 typo3:
   cms:
     sources:
-      tags: ['TYPO3_4-5-39', 'TYPO3_6-2-9', 'TYPO3_7-0-2']
+      tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
       branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0']
 ```
 
@@ -137,15 +137,15 @@ You can then 'map' the available TYPO3 sources to a domain name. TYPO3 Homestead
 typo3:
   cms:
     sources:
-      tags: ['TYPO3_4-5-39', 'TYPO3_6-2-9', 'TYPO3_7-0-2']
+      tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
       branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0']
     sites:
       4.5.cms.local.typo3.org: 'TYPO3_4-5'
-      4.5.39.cms.local.typo3.org: 'TYPO3_4-5-39'
+      4.5.39.cms.local.typo3.org: 'TYPO3_4-5-40'
       6.2.cms.local.typo3.org: 'TYPO3_6-2'
-      6.2.9.cms.local.typo3.org: 'TYPO3_6-2-9'
+      6.2.9.cms.local.typo3.org: 'TYPO3_6-2-10'
       7.0.cms.local.typo3.org: 'TYPO3_7-0'
-      7.0.2.cms.local.typo3.org: 'TYPO3_7-0-2'
+      7.0.2.cms.local.typo3.org: 'TYPO3_7-1-0'
 ```
 
 TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you don't have to manually add any site configuration (except if you want to test ssl). The request url will determine the document root. The regular site requests will use the default php-fpm backend. The other backends currently available are: *hhvm* and *xhprof*. Xhprof will need further pool configuration though.

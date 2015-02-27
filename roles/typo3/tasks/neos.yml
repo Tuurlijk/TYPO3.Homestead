@@ -4,12 +4,12 @@
   sudo: "{{ typo3.neos.sources.owner | default('vagrant') }}"
   file: path={{ typo3_webroot }}{{ item }} state=directory mode=0775
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-neos-sites]
+  tags: typo3-neos-sites
 
 - name: Setup TYPO3 NEOS sites
   shell: if [ ! "$(ls -A {{ typo3_webroot }}{{ item.key }})" ]; then composer create-project --keep-vcs --no-dev typo3/neos-base-distribution {{ typo3_webroot }}{{ item.key }} {{ item.value }}; fi
   with_dict: typo3.neos.sites
-  tags: [typo3-neos-sites]
+  tags: typo3-neos-sites
 
 - name: "TYPO3 NEOS Sources: Setup git push for base distributions"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
@@ -17,7 +17,7 @@
   args:
     executable: /bin/bash
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-git-setup]
+  tags: typo3-git-setup
 
 - name: "TYPO3 NEOS Sources: Setup git push"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
@@ -25,19 +25,19 @@
   args:
     executable: /bin/bash
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-git-setup]
+  tags: typo3-git-setup
 
 - name: "TYPO3 NEOS Sources: Setup git hook directory for base distributions"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: path={{ typo3_webroot }}{{ item }}/.git/hooks state=directory recurse=yes mode=0775
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-git-setup]
+  tags: typo3-git-setup
 
 - name: "TYPO3 NEOS Sources: Setup git commit message for base distributions"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   copy: src=git-commit-msg dest={{ typo3_webroot }}{{ item }}/.git/hooks/commit-msg force=no
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-git-setup]
+  tags: typo3-git-setup
 
 - name: "TYPO3 NEOS Sources: Setup git commit message for packages"
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
@@ -45,24 +45,34 @@
   args:
     executable: /bin/bash
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-git-setup]
+  tags: typo3-git-setup
 
 - name: Create ramdisk directories to offload Data/Temporary to ramdisk
   file: path=/mnt/typo3cache/{{ item }} state=directory owner={{nginx_user}} group={{nginx_group}} mode=0775
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-neos-ramdisk]
+  tags: typo3-neos-ramdisk
 
 - name: Ensure Data/Temporary directories exist
   file: path={{ typo3_webroot }}{{ item }}/Data/Temporary/ state=directory mode=0775
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-neos-ramdisk]
+  tags: typo3-neos-ramdisk
 
 - name: Make fstab entries for TYPO3 NEOS Data/Temporary
   mount: src=/mnt/typo3cache/{{ item }} name={{ typo3_webroot }}{{ item }}/Data/Temporary/ fstype=none opts=bind,noauto state=present
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-neos-ramdisk]
+  tags: typo3-neos-ramdisk
 
 - name: Mount bind TYPO3 NEOS Data/Temporary ramdisks
   shell: if ! mountpoint -q {{ typo3_webroot }}{{ item }}/Data/Temporary; then mount /mnt/typo3cache/{{ item }}; fi
   with_items: typo3.neos.sites.keys()
-  tags: [typo3-neos-ramdisk]
+  tags: typo3-neos-ramdisk
+
+- name: Ensure Configuration directory exitst
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  file: path={{ typo3_webroot }}{{ item }}/Configuration/ state=directory mode=0775
+  with_items: typo3.neos.sites.keys()
+
+- name: Copy memcached Caches.yaml to Configuration
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  copy: src=neos/Configuration/Caches.yaml dest={{ typo3_webroot }}{{ item }}/Configuration/Caches.yaml force=no
+  with_items: typo3.neos.sites.keys()

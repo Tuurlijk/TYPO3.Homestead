@@ -1,0 +1,49 @@
+Flow_Core:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+Flow_Monitor:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+Flow_Mvc_Routing_Route:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+Flow_Mvc_Routing_Resolve:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+Flow_Object_Configuration:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+Flow_Reflection_CompileTimeData:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+Flow_Reflection_Status:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+TYPO3_Media_ImageSize:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+TYPO3_Neos_Configuration_Version:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']
+
+TYPO3_Neos_TypoScript:
+  backend: TYPO3\Flow\Cache\Backend\MemcachedBackend
+  backendOptions:
+    servers: ['unix:///var/run/memcached/memcached.sock']

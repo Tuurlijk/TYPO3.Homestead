@@ -4,15 +4,15 @@ typo3_org_username: tuurlijk
 typo3:
   cms:
     sources:
-      tags: ['TYPO3_4-5-39', 'TYPO3_6-2-9', 'TYPO3_7-0-2']
+      tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
       branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0']
     sites:
       4.5.cms.local.typo3.org: 'TYPO3_4-5'
-      4.5.39.cms.local.typo3.org: 'TYPO3_4-5-39'
+      4.5.39.cms.local.typo3.org: 'TYPO3_4-5-40'
       6.2.cms.local.typo3.org: 'TYPO3_6-2'
-      6.2.9.cms.local.typo3.org: 'TYPO3_6-2-9'
+      6.2.9.cms.local.typo3.org: 'TYPO3_6-2-10'
       7.0.cms.local.typo3.org: 'TYPO3_7-0'
-      7.0.2.cms.local.typo3.org: 'TYPO3_7-0-2'
+      7.0.2.cms.local.typo3.org: 'TYPO3_7-1-0'
   neos:
     sites:
       1.2.neos.local.typo3.org: '1.2'

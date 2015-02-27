@@ -23,7 +23,7 @@ MEMORY = ENV['VAGRANT_MEMORY'] || mem
 CORES = ENV['VAGRANT_CORES'] || cpus
 
 # Enforce lower bound of memory to 1024 MB
-if MEMORY < 1024
+if MEMORY.to_i < 1024
 	MEMORY = 1024
 end
 

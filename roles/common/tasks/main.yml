@@ -33,6 +33,10 @@
     - "ppa:rwky/redis"
     - "ppa:chris-lea/node.js"
 
+- name: Update apt
+  sudo: yes
+  apt: update_cache=yes
+
 - name: Install Extra Packages
   apt: pkg={{ item }} state=latest
   with_items: sys_packages
@@ -59,6 +63,7 @@
   when: hostname is defined
 
 - name: Setup dircolors
+  sudo: vagrant
   copy: src=dircolors dest=~/.dircolors force=no
 
 - name: Setup postfix as a null mailer
@@ -68,9 +73,9 @@
   service: name=postfix state=started enabled=yes
   tags: [service,postfix]
 
-- name: Make fstab entry for PHP session storage ramdisk
-  mount: name=/var/lib/php5 src=tmpfs fstype=tmpfs opts='atime,nosuid,nodev,size=10m' state=mounted
-  tags: ramdisk
+- name: Make fstab entry for TYPO3 ramdisk
+  mount: name=/var/lib/php5/sessions src=tmpfs fstype=tmpfs opts='atime,nosuid,nodev,size=10m' state=mounted
+  tags: test
 
 - include: ramdisk.yml
   tags: ramdisk

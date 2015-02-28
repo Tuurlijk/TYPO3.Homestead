@@ -1,8 +1,8 @@
 ---
 
-- name: Create typo3.homestead directory
-  file: path={{ typo3_webroot }}/typo3.homestead state=directory mode=0775
+- name: Create homestead.local.typo3.org directory
+  file: path={{ typo3_webroot }}/homestead.local.typo3.org state=directory mode=0775
 
 - name: Setup homestead default site
   sudo: vagrant
-  copy: src=index.html dest={{ typo3_webroot }}/typo3.homestead/index.html force=no
+  copy: src=index.html dest={{ typo3_webroot }}/homestead.local.typo3.org/index.html force=no

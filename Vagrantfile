@@ -1,9 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Give VM 1/4 system memory & access to all cpu cores on the host
 host = RbConfig::CONFIG['host_os']
 
+# Give VM 1/4 system memory & access to all cpu cores on the host
 if host =~ /darwin/
 	cpus = `sysctl -n hw.ncpu`.to_i
 	# sysctl returns Bytes and we need to convert to MB
@@ -29,13 +29,15 @@ end
 
 # Network
 PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.144.120'
-HOSTNAME = ENV['VAGRANT_HOSTNAME'] || 'typo3.homestead'
 
 # Determine if we need to forward ports
 FORWARD = ENV['VAGRANT_FORWARD'] || 1
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = 2
+
+# The folder that will contain the sources and your TYPO3 installations
+SYNCEDFOLDER = ENV['VAGRANT_SYNCEDFOLDER'] || '~/Projects/TYPO3/Development'
 
 # Boot the box with the gui enabled
 DEBUG = ENV['VAGRANT_DEBUG'] || false
@@ -52,8 +54,7 @@ plugins.each do |plugin, version|
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-	config.vm.hostname = HOSTNAME
-	config.vm.box = "ubuntu/trusty64"
+	config.vm.box = 'ubuntu/trusty64'
 	config.vm.boot_timeout = 180
 # If you have no Internet access (can not resolve *.local.typo3.org), you can use host aliases:
 # 	config.hostsupdater.aliases = [
@@ -120,25 +121,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		ansible.raw_arguments = ENV['ANSIBLE_ARGS']
 		ansible.extra_vars = {
 			ansible_ssh_user: 'vagrant',
-			hostname: HOSTNAME
+			hostname: 'local.typo3.org'
 		}
 	end
 
-	# Synced Folders
+	# Setup synced folder
+	if host =~ /(darwin|linux)/
+		config.vm.synced_folder SYNCEDFOLDER, "/var/www",
+			id: SYNCEDFOLDER,
+			:nfs => true,
+			:mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime'],
+			:linux__nfs_options => ['no_root_squash']
+	else
+		cfg.vm.synced_folder SYNCEDFOLDER, "/var/www/"
+	end
+
+	# Disable default shared folder
 	config.vm.synced_folder ".", "/vagrant", disabled: true
 
 	# Ensure proper permissions for nfs mounts
 	config.nfs.map_uid = Process.uid
 	config.nfs.map_gid = Process.gid
-
-#   if host =~ /(darwin|linux)/
-	config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
-		id: "~/Projects/TYPO3/Development",
-		:nfs => true,
-		:mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime'],
-		:linux__nfs_options => ['no_root_squash']
-#   else
-#     config.vm.synced_folder "./www", "/var/www", type: "nfs", :linux__nfs_options => ["no_root_squash"]
-#   end
 
 end

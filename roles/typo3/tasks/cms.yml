@@ -114,7 +114,7 @@
 
 - name: Create typo3temp directories
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
-  file: path={{ typo3_webroot }}{{ item.key }}/typo3temp state=directory mode=0775
+  file: path={{ typo3_webroot }}{{ item.key }}/typo3temp state=directory
   with_dict: typo3.cms.sites
   tags: typo3-cms-directories
 

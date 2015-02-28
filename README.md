@@ -46,23 +46,41 @@ TYPO3 Homestead uses several roles from the ansible-galaxy:
 * [geerlingguy.composer](https://galaxy.ansible.com/list#/roles/429)
 * [laggyluke.nodejs](https://galaxy.ansible.com/list#/roles/285)
 
-Later you will need to install these roles before you can run the playbook.
+These roles need to be installed before you can run the playbook.
+
+You can use the requirements.yml you find in the root of your freshly cloned TYPO3.Homestead:
 
 ```bash
+git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
 sudo ansible-galaxy install -r requirements.yml
+```
+
+Or you can install them manually:
+
+```bash
+sudo ansible-galaxy install nbz4live.php-fpm
+sudo ansible-galaxy install jdauphant.nginx
+sudo ansible-galaxy install geerlingguy.composer
+sudo ansible-galaxy install laggyluke.nodejs
 ```
 
 Installation
 ------------
 
-Installation is pretty straight forward:
+Installation is pretty straight forward. You're just a few steps away from 'great success'.
+1. Clone TYPO3.Homestead and cd into it:
 ```bash
 git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
 ```
 
-Now setup your shared directory to hold your TYPO3 sources and sites in your `Vagrantfile`:
+2. Install the required ansible-galaxy roles:
+```bash
+sudo ansible-galaxy install -r requirements.yml
+```
+
+2. Setup a shared directory to hold your TYPO3 sources and sites in the `Vagrantfile`:
 ```ruby
 # tune this setting in 'Vagrantfile':
 config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
@@ -71,23 +89,23 @@ config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
   :mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime']
 ```
 
-Then install the requirements and boot the machine. A protocol is left in `vagrant-up.log.txt`:
+3. Then install the requirements and boot the machine. A protocol is left in `vagrant-up.log.txt`:
 ```bash
 cd TYPO3.Homestead
 sudo ansible-galaxy install -r requirements.yml
 vagrant up 2>&1 | tee vagrant-up.log.txt
 ```
 
-When the installation process has finished, you can visit [http://typo3.homestead](http://typo3.homestead). And also any of the pre-configured sites or any site you configured. The default sites are:
+When the installation process has finished, you can visit [http://homestead.local.typo3.org](http://homestead.local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
 
-* [4.5.cms.local.typo3.org](http://4.5.cms.local.typo3.org)
-* [4.5.39.cms.local.typo3.org](http://4.5.39.cms.local.typo3.org)
-* [6.2.cms.local.typo3.org](http://6.2.cms.local.typo3.org)
-* [6.2.9.cms.local.typo3.org](http://6.2.9.cms.local.typo3.org)
-* [7.0.cms.local.typo3.org](http://7.0.cms.local.typo3.org)
-* [7.0.2.cms.local.typo3.org](http://7.0.2.cms.local.typo3.org)
-* [1.2.neos.local.typo3.org](http://1.2.neos.local.typo3.org)
-* [dev-master.neos.local.typo3.org](http://dev-master.neos.local.typo3.org)
+* [4.5.cms.local.typo3.org/typo3/install/](http://4.5.cms.local.typo3.org/typo3/install/)
+* [4.5.39.cms.local.typo3.org/typo3/install/](http://4.5.39.cms.local.typo3.org/typo3/install/)
+* [6.2.cms.local.typo3.org/typo3/install/](http://6.2.cms.local.typo3.org/typo3/install/)
+* [6.2.9.cms.local.typo3.org/typo3/install/](http://6.2.9.cms.local.typo3.org/typo3/install/)
+* [7.0.cms.local.typo3.org/typo3/install/](http://7.0.cms.local.typo3.org/typo3/install/)
+* [7.0.2.cms.local.typo3.org/typo3/install/](http://7.0.2.cms.local.typo3.org/typo3/install/)
+* [1.2.neos.local.typo3.org/typo3/install/](http://1.2.neos.local.typo3.org/typo3/install/)
+* [dev-master.neos.local.typo3.org/typo3/install/](http://dev-master.neos.local.typo3.org/typo3/install/)
 
 Currently the sites are not fully set up yet. You will need to run through the install tools by hand. This will be simplified later on.
 
@@ -100,10 +118,9 @@ The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you w
 But if you realy realy need to, you can override several parameters when booting the machine:
 * VAGRANT_CORES - Amount of cpu cores to enable
 * VAGRANT_DEBUG - Enable Virtualbox GUI during machine start (false)
-* VAGRANT_HOSTNAME - The hostname the system will use (typo3.homestead)
 * VAGRANT_MEMORY - Amount of memory in megabytes to use
 * VAGRANT_PRIVATE_NETWORK - Private network address to use (192.168.144.120)
-
+* VAGRANT_SYNCEDFOLDER - The directory on the host system that will contain all the sites and sources
 You can just set the variables when booting the machine:
 
 ```bash
@@ -194,17 +211,17 @@ nginx_sites:
     - set $upstream hhvm
     - listen 80 default_server
     - server_name _
-    - root "{{ typo3_webroot }}/typo3.homestead/"
+    - root "{{ typo3_webroot }}/homestead.local.typo3.org/"
     - "{{ nginx_fastcgi }}"
   default-ssl:
     - set $upstream php
     - listen 443 default_server
     - server_name _
-    - root "{{ typo3_webroot }}/typo3.homestead/"
+    - root "{{ typo3_webroot }}/homestead.local.typo3.org/"
     - "{{ nginx_fastcgi }}"
     - ssl on
-    - ssl_certificate /etc/ssl/certs/typo3.homestead.crt
-    - ssl_certificate_key /etc/ssl/private/typo3.homestead.key
+    - ssl_certificate /etc/ssl/certs/homestead.local.typo3.org.crt
+    - ssl_certificate_key /etc/ssl/private/homestead.local.typo3.org.key
   typo3.cms:
     - set $upstream php
     - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<version>.*)\.cms.local.typo3.org$

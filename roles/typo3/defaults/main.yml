@@ -11,7 +11,8 @@
   typo3_source_path: '{{ typo3_webroot }}sources'
 
   typo3_ssl_certificates:
-    - 'typo3.homestead'
+    - 'homestead.local.typo3.org'
+    - '*.local.typo3.org'
 
   typo3:
     cms:

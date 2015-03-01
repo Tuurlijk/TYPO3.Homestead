@@ -2,9 +2,8 @@
 - hosts: all
   gather_facts: true
   sudo: yes
-  vars:
-    timezone: Europe/Amsterdam
   vars_files:
+    - Configuration/main.yml
     - Configuration/nginx.yml
     - Configuration/php-fpm.yml
     - Configuration/websites.yml

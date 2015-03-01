@@ -80,19 +80,24 @@ cd TYPO3.Homestead
 sudo ansible-galaxy install -r requirements.yml
 ```
 
-2. Setup a shared directory to hold your TYPO3 sources and sites in the `Vagrantfile`:
-```ruby
-# tune this setting in 'Vagrantfile':
-config.vm.synced_folder "~/Projects/TYPO3/Development", "/var/www",
-  id: "~/Projects/TYPO3/Development",
-  :nfs => true,
-  :mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime']
+2. Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
+
+```yaml
+synced_folders:
+  - name: Development
+    src: ~/Projects/TYPO3/Development
+    target: /var/www
 ```
 
-3. Then install the requirements and boot the machine. A protocol is left in `vagrant-up.log.txt`:
+3. Then boot the machine:
 ```bash
-cd TYPO3.Homestead
-sudo ansible-galaxy install -r requirements.yml
+vagrant up
+```
+
+It will take some time to install all needed packages and sources. So now is a good time to get a nice drink for yourself.
+
+If you wish to look back at what happened during provisioning, you can log the output:
+```bash
 vagrant up 2>&1 | tee vagrant-up.log.txt
 ```
 
@@ -115,30 +120,10 @@ The amount of cpu's avaialble on the host machine will also be available on the 
 
 The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you will have magic auto-resolving hostnames. So if you change the IP, you will need to take care of your hostname resolving yourself, either by hardcoding all the hostnames you wish to use or by some other means.
 
-But if you realy realy need to, you can override several parameters when booting the machine:
-* VAGRANT_CORES - Amount of cpu cores to enable
-* VAGRANT_DEBUG - Enable Virtualbox GUI during machine start (false)
-* VAGRANT_MEMORY - Amount of memory in megabytes to use
-* VAGRANT_PRIVATE_NETWORK - Private network address to use (192.168.144.120)
-* VAGRANT_SYNCEDFOLDER - The directory on the host system that will contain all the sites and sources
-You can just set the variables when booting the machine:
-
-```bash
-VAGRANT_PRIVATE_NETWORK=192.66.99.11 vagrant up
-```
-
-By default (Except on Windows) this machine will use as many cores as are available on the host system. It will also use a quarter of the available RAM.
-
-If you don't think this will be enough, you can override that with for example:
-
-```bash
-VAGRANT_MEMORY=4096 vagrant up
-```
-
 Variables
 ---------
 
-You can override any of the role variables in the configuration files in the `/vars/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and also what versions of TYPO3 source you wish to have available. You can specify an array of tags (`git tag`) and branches (`git branch -r`) to checkout from git:
+You can override any of the role variables in the configuration files in the `/Configuration/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and also what versions of TYPO3 source you wish to have available. You can specify an array of tags (`git tag`) and branches (`git branch -r`) to checkout from git:
 
 ```yaml
 typo3:

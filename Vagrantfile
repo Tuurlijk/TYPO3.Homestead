@@ -1,6 +1,28 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require 'yaml'
+
+path = "#{File.dirname(__FILE__)}"
+
+# Get machine configuration
+configuration = YAML::load(File.read(path + '/Configuration/vagrant.yml'))
+
+# Setup defaults
+sets = ['synced_folders']
+sets.each do |element|
+	unless configuration.has_key?(element)
+		configuration[element] = {}
+	end
+end
+booleans = ['cores', 'debug', 'memory', 'forward_ports', 'private_interface']
+booleans.each do |element|
+	unless configuration.has_key?(element)
+		configuration[element] = false
+	end
+end
+
+# Get host os type
 host = RbConfig::CONFIG['host_os']
 
 # Give VM 1/4 system memory & access to all cpu cores on the host
@@ -18,9 +40,8 @@ else # sorry Windows folks, I can't help you
 end
 
 # You can ask for more memory and cores when creating your Vagrant machine:
-# VAGRANT_MEMORY=2048 VAGRANT_CORES=4 vagrant up
-MEMORY = ENV['VAGRANT_MEMORY'] || mem
-CORES = ENV['VAGRANT_CORES'] || cpus
+MEMORY = configuration['memory'] || mem
+CORES = configuration['cores'] || cpus
 
 # Enforce lower bound of memory to 1024 MB
 if MEMORY.to_i < 1024
@@ -28,19 +49,13 @@ if MEMORY.to_i < 1024
 end
 
 # Network
-PRIVATE_NETWORK = ENV['VAGRANT_PRIVATE_NETWORK'] || '192.168.144.120'
+PRIVATE_NETWORK = configuration['private_interface'] || '192.168.144.120'
 
 # Determine if we need to forward ports
-FORWARD = ENV['VAGRANT_FORWARD'] || 1
-
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = 2
-
-# The folder that will contain the sources and your TYPO3 installations
-SYNCEDFOLDER = ENV['VAGRANT_SYNCEDFOLDER'] || '~/Projects/TYPO3/Development'
+FORWARD = configuration['forward_ports'] || 0
 
 # Boot the box with the gui enabled
-DEBUG = ENV['VAGRANT_DEBUG'] || false
+DEBUG = !!configuration['debug'] || false
 
 # Throw an error if required Vagrant plugins are not installed
 plugins = { 'vagrant-hostsupdater' => nil }
@@ -52,6 +67,9 @@ plugins.each do |plugin, version|
 		raise error
 	end
 end
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = 2
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = 'ubuntu/trusty64'
@@ -125,15 +143,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		}
 	end
 
-	# Setup synced folder
-	if host =~ /(darwin|linux)/
-		config.vm.synced_folder SYNCEDFOLDER, "/var/www",
-			id: SYNCEDFOLDER,
-			:nfs => true,
-			:mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime'],
-			:linux__nfs_options => ['no_root_squash']
-	else
-		cfg.vm.synced_folder SYNCEDFOLDER, "/var/www/"
+	# Setup synced folders
+	configuration['synced_folders'].each do |folder|
+		if host =~ /(darwin|linux)/
+			config.vm.synced_folder folder['src'], folder['target'],
+				id: folder['name'],
+				:nfs => true,
+				:mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime'],
+				:linux__nfs_options => ['no_root_squash']
+		else
+			cfg.vm.synced_folder folder['src'], folder['target']
+		end
 	end
 
 	# Disable default shared folder

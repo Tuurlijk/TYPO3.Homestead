@@ -5,10 +5,10 @@
   vars:
     timezone: Europe/Amsterdam
   vars_files:
-    - vars/nginx.yml
-    - vars/php-fpm.yml
-    - vars/websites.yml
-    - vars/typo3.yml
+    - Configuration/nginx.yml
+    - Configuration/php-fpm.yml
+    - Configuration/websites.yml
+    - Configuration/typo3.yml
   roles:
     - { role: common,              tags: common }
     - { role: nbz4live.php-fpm,    tags: php-fpm }

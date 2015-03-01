@@ -95,9 +95,9 @@ synced_folders:
 vagrant up
 ```
 
-It will take some time to install all needed packages and sources. So now is a good time to get a nice drink for yourself.
+The first time it boots it will take some time to install all needed packages and sources. So now is a good time to get a nice drink for yourself.
 
-If you wish to look back at what happened during provisioning, you can log the output:
+If you wish to look back at what happened during provisioning, you should have logged the output:
 ```bash
 vagrant up 2>&1 | tee vagrant-up.log.txt
 ```
@@ -117,7 +117,7 @@ Currently the sites are not fully set up yet. You will need to run through the i
 
 The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
 
-The amount of cpu's avaialble on the host machine will also be available on the guest machine. A quarter of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be envforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
+The amount of cpu's avaialble on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be envforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
 
 The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you will have magic auto-resolving hostnames. So if you change the IP, you will need to take care of your hostname resolving yourself, either by hardcoding all the hostnames you wish to use or by some other means.
 

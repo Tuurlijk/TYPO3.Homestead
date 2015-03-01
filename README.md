@@ -69,18 +69,19 @@ Installation
 ------------
 
 Installation is pretty straight forward. You're just a few steps away from 'great success'.
-1. Clone TYPO3.Homestead and cd into it:
+
+1). Clone TYPO3.Homestead and cd into it:
 ```bash
 git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
 ```
 
-2. Install the required ansible-galaxy roles:
+2). Install the required ansible-galaxy roles:
 ```bash
 sudo ansible-galaxy install -r requirements.yml
 ```
 
-2. Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
+3). Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
 
 ```yaml
 synced_folders:
@@ -89,7 +90,7 @@ synced_folders:
     target: /var/www
 ```
 
-3. Then boot the machine:
+4). Then boot the machine:
 ```bash
 vagrant up
 ```

@@ -14,8 +14,8 @@ nginx_sites:
     - root "{{ typo3_webroot }}/homestead.local.typo3.org/"
     - "{{ nginx_fastcgi }}"
     - ssl on
-    - ssl_certificate /etc/ssl/certs/homestead.local.typo3.org.crt
-    - ssl_certificate_key /etc/ssl/private/homestead.local.typo3.org.key
+    - ssl_certificate /etc/ssl/certs/local.typo3.org.crt
+    - ssl_certificate_key /etc/ssl/private/local.typo3.org.key
   typo3.cms:
     - set $upstream php
     - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<version>.*)\.cms.local.typo3.org$
@@ -29,8 +29,8 @@ nginx_sites:
 #    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
 #    - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
 #    - ssl on
-#    - ssl_certificate /etc/ssl/certs/typo3.cms.crt
-#    - ssl_certificate_key /etc/ssl/private/typo3.cms.key
+#    - ssl_certificate /etc/ssl/certs/local.typo3.org.crt
+#    - ssl_certificate_key /etc/ssl/private/local.typo3.org.key
 #    - "{{ nginx_fastcgi }}"
   typo3.neos:
     - set $upstream php
@@ -48,6 +48,6 @@ nginx_sites:
 #    - "{{ nginx_typo3_neos_resources }}"
 #    - "{{ nginx_fastcgi }}"
 #    - ssl on
-#    - ssl_certificate /etc/ssl/certs/typo3.neos.crt
-#    - ssl_certificate_key /etc/ssl/private/typo3.neos.key
+#    - ssl_certificate /etc/ssl/certs/local.typo3.org.crt
+#    - ssl_certificate_key /etc/ssl/private/local.typo3.org.key
 #    - "{{ nginx_fastcgi }}"

@@ -3,7 +3,7 @@ TYPO3 Homestead
 
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be built with all the packages and configuration needed to start development right away.
 
-This environment is inteded as as a local environment. Security-wise it is in no way fit for production.
+This environment is intended as as a local environment. Security-wise it is in no way fit for production.
 
 Features
 --------
@@ -53,16 +53,16 @@ You can use the requirements.yml you find in the root of your freshly cloned TYP
 ```bash
 git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
-sudo ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml
 ```
 
 Or you can install them manually:
 
 ```bash
-sudo ansible-galaxy install nbz4live.php-fpm
-sudo ansible-galaxy install jdauphant.nginx
-sudo ansible-galaxy install geerlingguy.composer
-sudo ansible-galaxy install laggyluke.nodejs
+ansible-galaxy install nbz4live.php-fpm
+ansible-galaxy install jdauphant.nginx
+ansible-galaxy install geerlingguy.composer
+ansible-galaxy install laggyluke.nodejs
 ```
 
 Installation
@@ -78,7 +78,7 @@ cd TYPO3.Homestead
 
 2). Install the required ansible-galaxy roles:
 ```bash
-sudo ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml
 ```
 
 3). Copy any configuration files you wish to change from `Defaults/` to `Configuration/`. Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:

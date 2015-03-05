@@ -1,19 +1,19 @@
 - src: nbz4live.php-fpm
-#  path: roles
-#  name: php-fpm
+  path: roles
+  name: php-fpm
 
 - src: jdauphant.nginx
-#  path: roles
-#  name: nginx
+  path: roles
+  name: nginx
 
 - src: tersmitten.composer
-#  path: roles
-#  name: composer
+  path: roles
+  name: composer
 
 - src: laggyluke.nodejs
-#  path: roles
-#  name: nodejs
+  path: roles
+  name: nodejs
 
 - src: f500.memcached
-#  path: roles
-#  name: memcached
+  path: roles
+  name: memcached

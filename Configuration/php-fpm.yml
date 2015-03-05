@@ -3,7 +3,7 @@
 php_fpm_config:
   - option: "request_terminate_timeout"
     section: "global"
-    value: "120s"
+    value: "240s"
 
 php_fpm_pool_defaults:
   chdir: /

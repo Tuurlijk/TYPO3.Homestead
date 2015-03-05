@@ -53,16 +53,7 @@ You can use the requirements.yml you find in the root of your freshly cloned TYP
 ```bash
 git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
-sudo ansible-galaxy install -r requirements.yml
-```
-
-Or you can install them manually:
-
-```bash
-sudo ansible-galaxy install nbz4live.php-fpm
-sudo ansible-galaxy install jdauphant.nginx
-sudo ansible-galaxy install geerlingguy.composer
-sudo ansible-galaxy install laggyluke.nodejs
+ansible-galaxy install -r requirements.yml
 ```
 
 Installation
@@ -78,7 +69,7 @@ cd TYPO3.Homestead
 
 2). Install the required ansible-galaxy roles:
 ```bash
-sudo ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml
 ```
 
 3). Copy any configuration files you wish to change from `Defaults/` to `Configuration/`. Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:

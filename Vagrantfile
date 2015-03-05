@@ -6,7 +6,10 @@ require 'yaml'
 path = "#{File.dirname(__FILE__)}"
 
 # Get machine configuration
-configuration = YAML::load(File.read(path + '/Configuration/vagrant.yml'))
+configuration = {}
+if File.exist?(path + '/Configuration/vagrant.yml')
+	configuration = YAML::load(File.read(path + '/Configuration/vagrant.yml')) || {}
+end
 
 # Setup defaults
 sets = ['synced_folders']

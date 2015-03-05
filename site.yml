@@ -3,11 +3,12 @@
   gather_facts: true
   sudo: yes
   vars_files:
-    - Configuration/main.yml
-    - Configuration/nginx.yml
-    - Configuration/php-fpm.yml
-    - Configuration/websites.yml
-    - Configuration/typo3.yml
+    - Defaults/main.yml
+    - Defaults/nginx.yml
+    - Defaults/php-fpm.yml
+    - Defaults/websites.yml
+    - Defaults/typo3.yml
+    - [ 'Configuration/main.yml', 'Configuration/nginx.yml', 'Configuration/php-fpm.yml', 'Configuration/websites.yml', 'Configuration/typo3.yml' ]
   roles:
     - { role: common,              tags: common }
     - { role: nbz4live.php-fpm,    tags: php-fpm }

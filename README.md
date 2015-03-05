@@ -81,7 +81,7 @@ cd TYPO3.Homestead
 sudo ansible-galaxy install -r requirements.yml
 ```
 
-3). Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
+3). Copy any configuration files you wish to change from `Defaults/` to `Configuration/`. Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
 
 ```yaml
 synced_folders:

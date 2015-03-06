@@ -1,4 +1,10 @@
 .vagrant
+Configuration/main.yml
+Configuration/nginx.yml
+Configuration/php-fpm.yml
+Configuration/websites.yml
+Configuration/vagrant.yml
+Configuration/typo3.yml
 roles/composer
 roles/memcached
 roles/nginx

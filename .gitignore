@@ -1,7 +1,7 @@
 .vagrant
 Configuration/main.yml
 Configuration/nginx.yml
-Configuration/php-fpm.yml
+Configuration/php.yml
 Configuration/websites.yml
 Configuration/vagrant.yml
 Configuration/typo3.yml

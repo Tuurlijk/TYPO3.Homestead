@@ -10,13 +10,13 @@
     - Defaults/typo3.yml
     - [ 'Configuration/main.yml', 'Configuration/nginx.yml', 'Configuration/php-fpm.yml', 'Configuration/websites.yml', 'Configuration/typo3.yml' ]
   roles:
-    - { role: common,              tags: common }
-    - { role: nbz4live.php-fpm,    tags: php-fpm }
-    - { role: mariadb,             tags: mariadb }
-    - { role: phpcommon,           tags: phpcommon }
-    - { role: hhvm,                tags: hhvm }
-    - { role: tersmitten.composer, tags: composer }
-    - { role: typo3,               tags: typo3 }
-    - { role: f500.memcached,      tags: memcached }
-    - { role: jdauphant.nginx,     tags: nginx }
-    - { role: laggyluke.nodejs,    tags: nodejs }
+    - { role: common,    tags: common }
+    - { role: php-fpm,   tags: php-fpm }
+    - { role: mariadb,   tags: mariadb }
+    - { role: phpcommon, tags: phpcommon }
+    - { role: hhvm,      tags: hhvm }
+    - { role: composer,  tags: composer }
+    - { role: typo3,     tags: typo3 }
+    - { role: memcached, tags: memcached }
+    - { role: nginx,     tags: nginx }
+    - { role: nodejs,    tags: nodejs }

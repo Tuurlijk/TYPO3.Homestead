@@ -83,3 +83,35 @@ php_opcache_ini:
 php_enabled_modules: []
 
 php_disabled_modules: [ apcu ]
+
+php_brew_enable: no
+
+php_brew_required_packages:
+  - 'libmariadbclient-dev'
+  - 'libmariadbd-dev'
+  - 'libmcrypt-dev'
+  - 'libreadline-dev'
+  - 'libxml2-dev'
+
+php_common_packages:
+  - 'php-pear'
+  - 'php5-apcu'
+  - 'php5-cli'
+  - 'php5-curl'
+  - 'php5-gd'
+  - 'php5-json'
+  - 'php5-mcrypt'
+  - 'php5-memcache'
+  - 'php5-mysqlnd'
+  - 'php5-xdebug'
+  - 'php5-xhprof'
+
+php_disabled_modules:
+  - blackfire
+  - redis
+  - xdebug
+  - xhprof
+
+php_enabled_modules:
+  - apcu
+  - mcrypt

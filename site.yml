@@ -8,7 +8,7 @@
     - Defaults/php.yml
     - Defaults/websites.yml
     - Defaults/typo3.yml
-    - [ 'Configuration/main.yml', 'Configuration/nginx.yml', 'Configuration/php.yml', 'Configuration/websites.yml', 'Configuration/typo3.yml' ]
+    - [ 'Configuration/main.yml', 'Configuration/nginx.yml', 'Configuration/php.yml', 'Configuration/websites.yml', 'Configuration/typo3.yml', 'Defaults/main.yml' ]
   roles:
     - { role: common,    tags: common }
     - { role: php-fpm,   tags: php-fpm }

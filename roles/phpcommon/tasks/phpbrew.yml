@@ -26,4 +26,4 @@
 
 #https://github.com/phpbrew/phpbrew
 #https://github.com/phpbrew/phpbrew/wiki
-#phpbrew install 5.3.29 +default+fpm+mysql+fileinfo+gd+intl+mcrypt+mhash+openssl+pcre+session+soap+zlib
+#phpbrew install 5.3 +default+fpm+mysql+fileinfo+gd+intl+mcrypt+mhash+openssl+pcre+session+soap+zlib

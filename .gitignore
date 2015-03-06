@@ -1,1 +1,6 @@
 .vagrant
+roles/composer
+roles/memcached
+roles/nginx
+roles/nodejs
+roles/php-fpm

@@ -38,8 +38,8 @@ elsif host =~ /linux/
 	# meminfo shows KB and we need to convert to MB
 	mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
 else # sorry Windows folks, I can't help you
-	cpus = 2
-	mem = 1024
+	error = "The Vagrantfile is not supported on Windows-hosts because no ansible for windows available"
+	raise error
 end
 
 # You can ask for more memory and cores when creating your Vagrant machine:

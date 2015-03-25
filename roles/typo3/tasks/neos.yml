@@ -7,6 +7,7 @@
   tags: typo3-neos-sites
 
 - name: Setup TYPO3 NEOS sites
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   shell: if [ ! "$(ls -A {{ typo3_webroot }}{{ item.key }})" ]; then composer create-project --keep-vcs --no-dev typo3/neos-base-distribution {{ typo3_webroot }}{{ item.key }} {{ item.value }}; fi
   with_dict: typo3.neos.sites
   tags: typo3-neos-sites

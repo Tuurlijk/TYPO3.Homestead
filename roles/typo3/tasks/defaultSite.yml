@@ -1,6 +1,10 @@
 ---
 
+- name: Make sure vagrant can write to the webroot
+  file: path={{ typo3_webroot }} state=directory group=vagrant mode=0775
+
 - name: Create homestead.local.typo3.org directory
+  sudo: vagrant
   file: path={{ typo3_webroot }}/homestead.local.typo3.org state=directory mode=0775
 
 - name: Setup homestead default site

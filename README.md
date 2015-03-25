@@ -5,6 +5,8 @@ TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) development environme
 
 This environment is inteded as as a local environment. Security-wise it is in no way fit for production.
 
+*[You must have a Linux / OSX control machine to run ansible.](http://docs.ansible.com/intro_windows.html#reminder-you-must-have-a-linux-control-machine)*
+
 Features
 --------
 

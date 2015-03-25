@@ -58,6 +58,14 @@ cd TYPO3.Homestead
 ansible-galaxy install -r requirements.yml
 ```
 
+Ansible versions lower than 1.8 do not support yaml markup in the requirements file. If you have an old version of ansible, you can run:
+
+```bash
+git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
+cd TYPO3.Homestead
+ansible-galaxy install -r requirements_pre-1.8.txt
+```
+
 Installation
 ------------
 

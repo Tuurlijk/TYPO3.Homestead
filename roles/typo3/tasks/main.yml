@@ -1,5 +1,13 @@
 ---
 
+- name: Make sure vagrant can write to the webroot
+  file: path={{ typo3_webroot }} state=directory group=vagrant mode=0775
+  tags: [typo3-configuration]
+
+- name: Set recursive ACL on web root
+  command: setfacl -m g:{{nginx_group}}:rwX,d:g:{{nginx_group}}:rwX {{typo3_webroot}}
+  tags: [typo3-configuration]
+
 - name: Create base directories
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: path={{ typo3_source_path }}/{{ item }} state=directory mode=0775

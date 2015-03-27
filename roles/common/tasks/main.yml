@@ -1,7 +1,7 @@
 ---
 
-- name: Disable atime on root filesystem
-  mount: name=/ src=/dev/sda1 fstype=ext4 opts=rw,noatime state=mounted
+- name: Disable atime, enable acl on root filesystem
+  mount: name=/ src=/dev/sda1 fstype=ext4 opts=rw,noatime,acl state=mounted
 
 - name: Update apt package lists
   apt:

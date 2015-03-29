@@ -36,7 +36,7 @@ Requirements
 
 * [Virtualbox](https://www.virtualbox.org/) or another virtualization product - Free!
 * [Vagrant](http://www.vagrantup.com/) - Free!
-* [Ansible](http://docs.ansible.com/intro_installation.html) - Free! (only the Tower ui will cost you)
+* [Ansible v1.7+](http://docs.ansible.com/intro_installation.html) - Free! (only the Tower ui will cost you)
 
 Dependencies
 ------------
@@ -64,6 +64,13 @@ Ansible versions lower than 1.8 do not support yaml markup in the requirements f
 git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
 ansible-galaxy install -r requirements_pre-1.8.txt
+# After that you will need to move the roles:
+cd roles
+mv nbz4live.php-fpm php-fpm
+mv jdauphant.nginx nginx
+mv tersmitten.composer composer
+mv laggyluke.nodejs nodejs
+mv f500.memcached memcached
 ```
 
 Installation

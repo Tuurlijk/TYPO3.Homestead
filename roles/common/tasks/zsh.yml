@@ -26,8 +26,8 @@
 
 - name: Enable typofree prompt
   sudo: vagrant
-  replace: dest=~/.zpreztorc regexp="zstyle ':prezto:module:prompt' theme .*$" replace="zstyle ':prezto:module:prompt' theme 'typofree'"
+  lineinfile: dest=~/.zpreztorc regexp="zstyle ':prezto:module:prompt' theme .*$" line="zstyle ':prezto:module:prompt' theme 'typofree'" backrefs=yes
 
 - name: Add Git module to Prezto
   sudo: vagrant
-  replace: dest=~/.zpreztorc regexp="  'prompt'$" replace="  'prompt' 'git'"
+  lineinfile: dest=~/.zpreztorc regexp="^  'prompt'$" line="  'prompt' 'git'" backrefs=yes

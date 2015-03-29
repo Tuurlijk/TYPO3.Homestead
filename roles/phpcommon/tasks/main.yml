@@ -18,6 +18,15 @@
   ini_file: dest={{ php_cli_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
   with_items: php_ini
 
+- name: Customize hhvm configuration file
+  lineinfile: dest={{ hhvm_ini_path }} line="[global]" insertbefore=BOF state=present
+
+- name: Customize hhvm configuration file
+  ini_file: dest={{ hhvm_ini_path }} section="{{ item.section }}" option="{{ item.option }}" value="{{ item.value }}" backup=yes
+  with_items: php_ini
+  notify:
+   - restart hhvm
+
 - include: apcu.yml
   tags: php-apcu
 

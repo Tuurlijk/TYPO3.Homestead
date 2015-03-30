@@ -118,8 +118,8 @@ When the installation process has finished, you can visit [http://homestead.loca
 * [6.2.9.cms.local.typo3.org/typo3/install/](http://6.2.9.cms.local.typo3.org/typo3/install/)
 * [7.0.cms.local.typo3.org/typo3/install/](http://7.0.cms.local.typo3.org/typo3/install/)
 * [7.0.2.cms.local.typo3.org/typo3/install/](http://7.0.2.cms.local.typo3.org/typo3/install/)
-* [1.2.neos.local.typo3.org/typo3/install/](http://1.2.neos.local.typo3.org/typo3/install/)
-* [dev-master.neos.local.typo3.org/typo3/install/](http://dev-master.neos.local.typo3.org/typo3/install/)
+* [1.2.neos.local.typo3.org/setup/](http://1.2.neos.local.typo3.org/setup/)
+* [dev-master.neos.local.typo3.org/setup/](http://dev-master.neos.local.typo3.org/setup/)
 
 Currently the sites are not fully set up yet. You will need to run through the install tools by hand. This will be simplified later on.
 

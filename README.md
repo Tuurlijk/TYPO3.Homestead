@@ -36,7 +36,7 @@ Requirements
 
 * [Virtualbox](https://www.virtualbox.org/) or another virtualization product - Free!
 * [Vagrant](http://www.vagrantup.com/) - Free!
-* [Ansible v1.7+](http://docs.ansible.com/intro_installation.html) - Free! (only the Tower ui will cost you)
+* [Ansible](http://docs.ansible.com/intro_installation.html) - Free! (only the Tower ui will cost you)
 
 Dependencies
 ------------

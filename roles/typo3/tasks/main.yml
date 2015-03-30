@@ -1,11 +1,18 @@
 ---
 
 - name: Make sure vagrant can write to the webroot
-  file: path={{ typo3_webroot }} state=directory group=vagrant mode=0775
+  file: path={{ typo3_webroot }} state=directory mode=0775
   tags: [typo3-configuration]
 
+- name: Are there any shares enabled?
+  shell: cat /etc/mtab | grep "nfs\|smbfs" | grep "{{ typo3_webroot | regex_replace('/$', '') }}" | wc -l
+  register: shared_webroot
+
+- debug: var=shared_webroot
+
 - name: Set recursive ACL on web root
-  command: setfacl -m g:{{nginx_group}}:rwX,d:g:{{nginx_group}}:rwX {{typo3_webroot}}
+  command: setfacl -m g:{{nginx_group}}:rwX,d:g:{{nginx_group}}:rwX,g:vagrant:rwX,d:g:vagrant:rwX {{typo3_webroot}}
+  when: shared_webroot.stdout != '1'
   tags: [typo3-configuration]
 
 - name: Create base directories
@@ -28,12 +35,16 @@
 
 - include: defaultSite.yml
   tags: [typo3-defaultSite]
+
 - include: mariadb.yml
   tags: [typo3-mariadb]
+
 - include: cms.yml
   tags: [typo3-cms]
+
 - include: cron.yml
   tags: [typo3-cron]
+
 - include: neos.yml
   tags: [typo3-neos]
 

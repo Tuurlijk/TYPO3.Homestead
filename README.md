@@ -134,7 +134,7 @@ Variables
 
 You can override any of the role variables in the configuration files in the `/Configuration/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and what TYPO3 versions you wish to have available.
 
-The site *key* will be the domain name under which you can access the site. The site *value* is the TYPO3 version that will be checked out for that site. For TYPO3 4.x sites, you can specify a git branch or tag to checkout. For TYPO3 versions from 6.2.6 and up, we use [https://github.com/helhum/typo3_console](TYPO3 console) to install TYPO3. This means you can use [https://getcomposer.org/](composer) notation to specify a TYPO3 tag.
+The site *key* will be the domain name under which you can access the site. The site *value* is the TYPO3 version that will be checked out for that site. For TYPO3 4.x sites, you can specify a git branch or tag to checkout. For TYPO3 versions from 6.2.6 and up, we use [TYPO3 console](https://github.com/helhum/typo3_console) to install TYPO3. This means you can use (https://getcomposer.org/)[composer] notation to specify a TYPO3 tag.
 
 ```yaml
 typo3:

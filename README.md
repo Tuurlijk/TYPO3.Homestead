@@ -132,32 +132,21 @@ The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you w
 Variables
 ---------
 
-You can override any of the role variables in the configuration files in the `/Configuration/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and also what versions of TYPO3 source you wish to have available. You can specify an array of tags (`git tag`) and branches (`git branch -r`) to checkout from git:
+You can override any of the role variables in the configuration files in the `/Configuration/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and what TYPO3 versions you wish to have available.
+
+The site *key* will be the domain name under which you can access the site. The site *value* is the TYPO3 version that will be checked out for that site. For TYPO3 4.x sites, you can specify a git branch or tag to checkout. For TYPO3 versions from 6.2.6 and up, we use [https://github.com/helhum/typo3_console](TYPO3 console) to install TYPO3. This means you can use [https://getcomposer.org/](composer) notation to specify a TYPO3 tag.
 
 ```yaml
 typo3:
   cms:
-    sources:
-      tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
-      branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0', 'HEAD']
-```
-
-You can then 'map' the available TYPO3 sources to a domain name. TYPO3 Homestead will then know what source to link to what domain name during the provisioning step.
-
-```yaml
-typo3:
-  cms:
-    sources:
-      tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
-      branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0', 'HEAD']
     sites:
       4.5.cms.local.typo3.org: 'TYPO3_4-5'
       4.5.40.cms.local.typo3.org: 'TYPO3_4-5-40'
-      6.2.cms.local.typo3.org: 'TYPO3_6-2'
-      6.2.10.cms.local.typo3.org: 'TYPO3_6-2-10'
-      7.0.cms.local.typo3.org: 'TYPO3_7-0'
-      7.1.0.cms.local.typo3.org: 'TYPO3_7-1-0'
-      7.2.cms.local.typo3.org: 'HEAD'
+      6.2.cms.local.typo3.org: '6.2.*'
+      6.2.10.cms.local.typo3.org: '6.2.10'
+      7.0.cms.local.typo3.org: '7.1.*'
+      7.1.0.cms.local.typo3.org: '7.1.0'
+      dev-master.cms.local.typo3.org: '*'
 ```
 
 TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you don't have to manually add any site configuration (except if you want to test ssl). The request url will determine the document root. The regular site requests will use the default php-fpm backend. The other backends currently available are: *hhvm* and *xhprof*. Xhprof will need further pool configuration though.

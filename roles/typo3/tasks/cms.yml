@@ -141,6 +141,27 @@
   with_dict: typo3.cms.sites
   tags: typo3-cms-composer
 
+- name: Setup git push for typo3_console CMS Sources
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  shell: cd {{ typo3_webroot }}{{ item.key }}/typo3_src; git config remote.origin.push HEAD:refs/for/master;
+  when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-legacy
+
+- name: Setup git origin for typo3_console CMS Sources
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  shell: cd {{ typo3_webroot }}{{ item.key }}/typo3_src; git remote set-url origin {{ typo3_cms_src_repository }}
+  when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-legacy
+
+- name: Setup git commit message for typo3_console CMS Sources
+  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  copy: src=git-commit-msg dest={{ typo3_webroot }}{{ item.key }}/typo3_src/.git/hooks/commit-msg force=no
+  when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-legacy
+
 - name: Create AdditionalConfiguration.php
   sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
   file: path={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php state=touch mode=0664

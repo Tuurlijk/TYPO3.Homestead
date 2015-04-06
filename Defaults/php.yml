@@ -48,3 +48,7 @@ php_fpm_ini:
   - option: "pdo_mysql.cache_size"
     section: "Pdo_mysql"
     value: "2000"
+
+php_brew_enable: no
+
+php_brew_versions: []

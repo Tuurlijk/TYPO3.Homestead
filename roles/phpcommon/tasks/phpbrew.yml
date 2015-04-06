@@ -24,6 +24,61 @@
 - name: Phpbrew profile setup
   shell: echo '# phpbrew setup' > /etc/profile.d/phpbrew.sh; echo 'export PHPBREW_ROOT=/usr/local/phpbrew' >> /etc/profile.d/phpbrew.sh; echo 'export PHPBREW_SET_PROMPT=1' >> /etc/profile.d/phpbrew.sh; echo 'source ~/.phpbrew/bashrc' >> /etc/profile.d/phpbrew.sh; executable=/bin/bash
 
+- name: Brew php versions
+  shell: if [ ! -f /usr/local/phpbrew/php/php-{{ item }}/bin/php ]; then phpbrew install {{ item }} {{ php_brew_options }}; fi
+  with_items: php_brew_versions
+
+- name: Customize PHP brew configuration files
+  ini_file: dest=/usr/local/phpbrew/php/php-{{ item[0] }}/etc/php.ini section="{{ item[1].section }}" option="{{ item[1].option }}" value="{{ item[1].value }}" backup=yes
+  with_nested:
+    - php_brew_versions
+    - php_ini
+
+- name: Copy default FPM configuration file
+  template: dest=/usr/local/phpbrew/php/php-{{ item }}/etc src=php-fpm.conf.j2
+  with_items: php_brew_versions
+
+- name: Copy the FPM configuration
+  ini_file: >
+    dest=/usr/local/phpbrew/php/php-{{ item[0] }}/etc/php-fpm.conf
+    section="{{ item[1].section }}"
+    option="{{ item[1].option }}"
+    value="{{ item[1].value }}"
+    backup=yes
+  with_nested:
+    - php_brew_versions
+    - php_fpm_config
+
+- name: Setup pool.d directories
+  file: path=/usr/local/phpbrew/php/php-{{ item }}/etc/pool.d state=directory mode=0775
+  with_items: php_brew_versions
+
+- name: Delete the default POOL configuration file
+  file: >
+    path=/usr/local/phpbrew/php/php-{{ item[0] }}/etc/pool.d/{{ php_fpm_default_pool.name }}
+    state=absent
+  with_items: php_brew_versions
+  when: php_fpm_default_pool.delete
+
+- name: Copy the POOL configurations
+  template: >
+    src=pool.conf.j2
+    dest=/usr/local/phpbrew/php/php-{{ item[0] }}/etc/pool.d/{{ item[1]['name'] }}.conf
+    backup=yes
+  with_nested:
+    - php_brew_versions
+    - php_fpm_pools
+  when: php_fpm_pools|lower != 'none'
+
+- name: Set correct listening sockets
+  lineinfile: >
+    dest=/usr/local/phpbrew/php/php-{{ item[0] }}/etc/pool.d/{{ item[1]['name'] }}.conf
+    regexp="^\s*listen\s*=\s/var/run/php5-fpm(.{{ item[1]['name'] }})?.sock"
+    line="listen = /var/run/php-fpm.{{ item[0] }}.{{ item[1]['name'] }}.sock"
+    backrefs=yes
+  with_nested:
+    - php_brew_versions
+    - php_fpm_pools
+
 #https://github.com/phpbrew/phpbrew
 #https://github.com/phpbrew/phpbrew/wiki
-#phpbrew install 5.3 +default+fpm+mysql+fileinfo+gd+intl+mcrypt+mhash+openssl+pcre+session+soap+zlib

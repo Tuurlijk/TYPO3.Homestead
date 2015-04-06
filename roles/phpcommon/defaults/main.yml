@@ -93,6 +93,8 @@ php_brew_required_packages:
   - 'libreadline-dev'
   - 'libxml2-dev'
 
+php_brew_options: +default+fpm+mysql+fileinfo+gd+intl+mcrypt+mhash+openssl+pcre+session+soap+zlib
+
 php_common_packages:
   - 'php-pear'
   - 'php5-apcu'

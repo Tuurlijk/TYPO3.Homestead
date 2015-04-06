@@ -1,0 +1,11 @@
+;{{ ansible_managed }}
+
+[{{ item[1].name }}]
+{% for directive, value in item[1].iteritems() if directive != "name" %}
+  {{ directive }} = {{ value }}
+{% endfor %} 
+
+; Defaults
+{% for directive, value in php_fpm_pool_defaults.iteritems() %}
+  {{ directive }} = {{ value }}
+{% endfor %}

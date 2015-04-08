@@ -113,11 +113,10 @@ vagrant up 2>&1 | tee vagrant-up.log.txt
 When the installation process has finished, you can visit [http://homestead.local.typo3.org](http://homestead.local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
 
 * [4.5.cms.local.typo3.org/typo3/install/](http://4.5.cms.local.typo3.org/typo3/install/)
-* [4.5.39.cms.local.typo3.org/typo3/install/](http://4.5.39.cms.local.typo3.org/typo3/install/)
+* [4.5.40.cms.local.typo3.org/typo3/install/](http://4.5.40.cms.local.typo3.org/typo3/install/)
 * [6.2.cms.local.typo3.org/typo3/install/](http://6.2.cms.local.typo3.org/typo3/install/)
-* [6.2.9.cms.local.typo3.org/typo3/install/](http://6.2.9.cms.local.typo3.org/typo3/install/)
+* [6.2.10.cms.local.typo3.org/typo3/install/](http://6.2.10.cms.local.typo3.org/typo3/install/)
 * [7.0.cms.local.typo3.org/typo3/install/](http://7.0.cms.local.typo3.org/typo3/install/)
-* [7.0.2.cms.local.typo3.org/typo3/install/](http://7.0.2.cms.local.typo3.org/typo3/install/)
 * [1.2.neos.local.typo3.org/setup/](http://1.2.neos.local.typo3.org/setup/)
 * [dev-master.neos.local.typo3.org/setup/](http://dev-master.neos.local.typo3.org/setup/)
 
@@ -164,8 +163,8 @@ TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you d
 
 If you prefix your site name with 'hhvm' for example, your request will be served by the hhvm backend:
 
-* [http://php.6.2.9.cms.local.typo3.org/typo3/](http://php.6.2.9.cms.local.typo3.org/typo3/)
-* [http://hhvm.6.2.9.cms.local.typo3.org/typo3/](http://hhvm.6.2.9.cms.local.typo3.org/typo3/)
+* [http://php.6.2.10.cms.local.typo3.org/typo3/](http://php.6.2.10.cms.local.typo3.org/typo3/)
+* [http://hhvm.6.2.10.cms.local.typo3.org/typo3/](http://hhvm.6.2.10.cms.local.typo3.org/typo3/)
 
 You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
 

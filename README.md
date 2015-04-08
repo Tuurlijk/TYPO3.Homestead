@@ -114,13 +114,14 @@ When the installation process has finished, you can visit [http://homestead.loca
 
 * [4.5.cms.local.typo3.org/typo3/install/](http://4.5.cms.local.typo3.org/typo3/install/)
 * [4.5.40.cms.local.typo3.org/typo3/install/](http://4.5.40.cms.local.typo3.org/typo3/install/)
-* [6.2.cms.local.typo3.org/typo3/install/](http://6.2.cms.local.typo3.org/typo3/install/)
-* [6.2.10.cms.local.typo3.org/typo3/install/](http://6.2.10.cms.local.typo3.org/typo3/install/)
-* [7.0.cms.local.typo3.org/typo3/install/](http://7.0.cms.local.typo3.org/typo3/install/)
+* [6.2.cms.local.typo3.org/typo3/](http://6.2.cms.local.typo3.org/typo3/)
+* [6.2.10.cms.local.typo3.org/typo3/](http://6.2.10.cms.local.typo3.org/typo3/)
+* [7.1.cms.local.typo3.org/typo3/](http://7.1.cms.local.typo3.org/typo3/)
+* [dev-master.cms.local.typo3.org/typo3/](http://dev-master.cms.local.typo3.org/typo3/)
 * [1.2.neos.local.typo3.org/setup/](http://1.2.neos.local.typo3.org/setup/)
 * [dev-master.neos.local.typo3.org/setup/](http://dev-master.neos.local.typo3.org/setup/)
 
-Currently the sites are not fully set up yet (check out the [typo3_console branch](https://github.com/Tuurlijk/TYPO3.Homestead/tree/typo3-console) of this repository if you want to help test automated setup). You will need to run through the install tools by hand. This will be simplified later on.
+All CMS installations (except 4.5.*) are fully set-up. You can login to the backend with: `admin`/`supersecret`.
 
 The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 
@@ -133,32 +134,20 @@ The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you w
 Variables
 ---------
 
-You can override any of the role variables in the configuration files in the `/Configuration/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and also what versions of TYPO3 source you wish to have available. You can specify an array of tags (`git tag`) and branches (`git branch -r`) to checkout from git:
+You can override any of the role variables in the configuration files in the `/Configuration/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and what TYPO3 versions you wish to have available.
+
+The site *key* will be the domain name under which you can access the site. The site *value* is the TYPO3 version that will be checked out for that site. For TYPO3 4.x sites, you can specify a git branch or tag to checkout. For TYPO3 versions from 6.2.6 and up, we use [TYPO3 console](https://github.com/helhum/typo3_console) to install TYPO3. This means you can use [composer](https://getcomposer.org/) notation to specify a TYPO3 tag.
 
 ```yaml
 typo3:
   cms:
-    sources:
-      tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
-      branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0', 'HEAD']
-```
-
-You can then 'map' the available TYPO3 sources to a domain name. TYPO3 Homestead will then know what source to link to what domain name during the provisioning step.
-
-```yaml
-typo3:
-  cms:
-    sources:
-      tags: ['TYPO3_4-5-40', 'TYPO3_6-2-10', 'TYPO3_7-1-0']
-      branches: ['TYPO3_4-5', 'TYPO3_6-2', 'TYPO3_7-0', 'HEAD']
     sites:
       4.5.cms.local.typo3.org: 'TYPO3_4-5'
       4.5.40.cms.local.typo3.org: 'TYPO3_4-5-40'
-      6.2.cms.local.typo3.org: 'TYPO3_6-2'
-      6.2.10.cms.local.typo3.org: 'TYPO3_6-2-10'
-      7.0.cms.local.typo3.org: 'TYPO3_7-0'
-      7.1.0.cms.local.typo3.org: 'TYPO3_7-1-0'
-      7.2.cms.local.typo3.org: 'HEAD'
+      6.2.cms.local.typo3.org: '6.2.*'
+      6.2.10.cms.local.typo3.org: '6.2.10'
+      7.1.0.cms.local.typo3.org: '7.1.0'
+      dev-master.cms.local.typo3.org: '*'
 ```
 
 TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you don't have to manually add any site configuration (except if you want to test ssl). The request url will determine the document root. The regular site requests will use the default php-fpm backend. The other backends currently available are: *hhvm* and *xhprof*. Xhprof will need further pool configuration though.
@@ -243,17 +232,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 TODO
 ----
 
-* Complete the preconfiguration of TYPO3 CMS and NEOS instances
+* Complete the preconfiguration of TYPO3 NEOS instances
 * Nginx configuration snippets?
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
-* Speed improvements
-  https://laracasts.com/forum/?p=1757-slow-responses-on-homestead/0
-  For use homestead in windows , u can do a little trick to make it fast as Possible.
-  don't let vagrant or homestead handle your files.
-  setup a ftp server in your VM (it is ubuntu in last version of homestead) and upload your files to VM.
-  you can make your ide to upload your files to vm if you changed them.
-  and finally update nginx in your vm like : sudo /vagrant/scripts/serve.sh laravel.app /your/files.
-  with this trick i have a page load in < 70 ms , in a page with 8 queries not cached.
 * Make PHP configuration so flexible it can also handle any recent php version (https://github.com/phpbrew/phpbrew)
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
 

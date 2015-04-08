@@ -8,7 +8,7 @@ typo3:
       4.5.cms.local.typo3.org: 'TYPO3_4-5'
       4.5.40.cms.local.typo3.org: 'TYPO3_4-5-40'
       6.2.cms.local.typo3.org: '6.2.*'
-      6.2.10.cms.local.typo3.org: '6.2.10'
+      6.2.11.cms.local.typo3.org: '6.2.11'
       7.1.cms.local.typo3.org: '7.1.*'
       dev-master.cms.local.typo3.org: '*'
   neos:

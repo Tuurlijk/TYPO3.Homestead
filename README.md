@@ -120,7 +120,9 @@ When the installation process has finished, you can visit [http://homestead.loca
 * [1.2.neos.local.typo3.org/setup/](http://1.2.neos.local.typo3.org/setup/)
 * [dev-master.neos.local.typo3.org/setup/](http://dev-master.neos.local.typo3.org/setup/)
 
-Currently the sites are not fully set up yet. You will need to run through the install tools by hand. This will be simplified later on.
+Currently the sites are not fully set up yet (check out the [typo3_console branch](https://github.com/Tuurlijk/TYPO3.Homestead/tree/typo3-console) of this repository if you want to help test automated setup). You will need to run through the install tools by hand. This will be simplified later on.
+
+The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 
 The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
 

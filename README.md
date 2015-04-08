@@ -113,15 +113,17 @@ vagrant up 2>&1 | tee vagrant-up.log.txt
 When the installation process has finished, you can visit [http://homestead.local.typo3.org](http://homestead.local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
 
 * [4.5.cms.local.typo3.org/typo3/install/](http://4.5.cms.local.typo3.org/typo3/install/)
-* [4.5.39.cms.local.typo3.org/typo3/install/](http://4.5.39.cms.local.typo3.org/typo3/install/)
-* [6.2.cms.local.typo3.org/typo3/install/](http://6.2.cms.local.typo3.org/typo3/install/)
-* [6.2.9.cms.local.typo3.org/typo3/install/](http://6.2.9.cms.local.typo3.org/typo3/install/)
-* [7.0.cms.local.typo3.org/typo3/install/](http://7.0.cms.local.typo3.org/typo3/install/)
-* [7.0.2.cms.local.typo3.org/typo3/install/](http://7.0.2.cms.local.typo3.org/typo3/install/)
+* [4.5.40.cms.local.typo3.org/typo3/install/](http://4.5.40.cms.local.typo3.org/typo3/install/)
+* [6.2.cms.local.typo3.org/typo3/](http://6.2.cms.local.typo3.org/typo3/)
+* [6.2.10.cms.local.typo3.org/typo3/](http://6.2.10.cms.local.typo3.org/typo3/)
+* [7.1.cms.local.typo3.org/typo3/](http://7.1.cms.local.typo3.org/typo3/)
+* [dev-master.cms.local.typo3.org/typo3/](http://dev-master.cms.local.typo3.org/typo3/)
 * [1.2.neos.local.typo3.org/setup/](http://1.2.neos.local.typo3.org/setup/)
 * [dev-master.neos.local.typo3.org/setup/](http://dev-master.neos.local.typo3.org/setup/)
 
-Currently the sites are not fully set up yet. You will need to run through the install tools by hand. This will be simplified later on.
+All CMS installations (except 4.5.*) are fully set-up. You can login to the backend with: `admin`/`supersecret`.
+
+The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 
 The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
 
@@ -144,7 +146,6 @@ typo3:
       4.5.40.cms.local.typo3.org: 'TYPO3_4-5-40'
       6.2.cms.local.typo3.org: '6.2.*'
       6.2.10.cms.local.typo3.org: '6.2.10'
-      7.0.cms.local.typo3.org: '7.1.*'
       7.1.0.cms.local.typo3.org: '7.1.0'
       dev-master.cms.local.typo3.org: '*'
 ```
@@ -153,8 +154,8 @@ TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you d
 
 If you prefix your site name with 'hhvm' for example, your request will be served by the hhvm backend:
 
-* [http://php.6.2.9.cms.local.typo3.org/typo3/](http://php.6.2.9.cms.local.typo3.org/typo3/)
-* [http://hhvm.6.2.9.cms.local.typo3.org/typo3/](http://hhvm.6.2.9.cms.local.typo3.org/typo3/)
+* [http://php.6.2.10.cms.local.typo3.org/typo3/](http://php.6.2.10.cms.local.typo3.org/typo3/)
+* [http://hhvm.6.2.10.cms.local.typo3.org/typo3/](http://hhvm.6.2.10.cms.local.typo3.org/typo3/)
 
 You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
 
@@ -231,17 +232,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 TODO
 ----
 
-* Complete the preconfiguration of TYPO3 CMS and NEOS instances
+* Complete the preconfiguration of TYPO3 NEOS instances
 * Nginx configuration snippets?
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
-* Speed improvements
-  https://laracasts.com/forum/?p=1757-slow-responses-on-homestead/0
-  For use homestead in windows , u can do a little trick to make it fast as Possible.
-  don't let vagrant or homestead handle your files.
-  setup a ftp server in your VM (it is ubuntu in last version of homestead) and upload your files to VM.
-  you can make your ide to upload your files to vm if you changed them.
-  and finally update nginx in your vm like : sudo /vagrant/scripts/serve.sh laravel.app /your/files.
-  with this trick i have a page load in < 70 ms , in a page with 8 queries not cached.
 * Make PHP configuration so flexible it can also handle any recent php version (https://github.com/phpbrew/phpbrew)
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
 

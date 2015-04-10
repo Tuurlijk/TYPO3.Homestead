@@ -14,7 +14,7 @@
   tags: [typo3-configuration]
 
 - name: Create base directories
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_source_path }}/{{ item }} state=directory mode=0775
   with_items: typo3.keys()
   tags: [typo3-configuration]
@@ -27,7 +27,7 @@
   tags: [typo3-configuration,nginx,ssl]
 
 - name: Setup push url to review.typo3.org
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: git config --global url."ssh://{{ typo3_org_username }}@review.typo3.org:29418".pushInsteadOf git://git.typo3.org
   tags: [typo3-git-setup]
 

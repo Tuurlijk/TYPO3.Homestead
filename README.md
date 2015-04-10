@@ -118,10 +118,10 @@ When the installation process has finished, you can visit [http://homestead.loca
 * [6.2.11.cms.local.typo3.org/typo3/](http://6.2.11.cms.local.typo3.org/typo3/)
 * [7.1.cms.local.typo3.org/typo3/](http://7.1.cms.local.typo3.org/typo3/)
 * [dev-master.cms.local.typo3.org/typo3/](http://dev-master.cms.local.typo3.org/typo3/)
-* [1.2.neos.local.typo3.org/setup/](http://1.2.neos.local.typo3.org/setup/)
-* [dev-master.neos.local.typo3.org/setup/](http://dev-master.neos.local.typo3.org/setup/)
+* [1.2.neos.local.typo3.org/neos/](http://1.2.neos.local.typo3.org/neos/)
+* [dev-master.neos.local.typo3.org/neos/](http://dev-master.neos.local.typo3.org/neos/)
 
-All CMS installations (except 4.5.*) are fully set-up. You can login to the backend with: `admin`/`supersecret`.
+All CMS (except 4.5.*) and Neos installation are fully set-up. You can login to the backend with: `admin`/`supersecret`.
 
 The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 

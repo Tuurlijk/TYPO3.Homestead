@@ -1,19 +1,19 @@
 ---
 
 - name: Setup TYPO3 NEOS site directories
-  sudo: "{{ typo3.neos.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item }} state=directory mode=0775
   with_items: typo3.neos.sites.keys()
   tags: typo3-neos-sites
 
 - name: Setup TYPO3 NEOS sites
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: if [ ! "$(ls -A {{ typo3_webroot }}{{ item.key }})" ]; then composer create-project --keep-vcs --no-dev typo3/neos-base-distribution {{ typo3_webroot }}{{ item.key }} {{ item.value }}; fi
   with_dict: typo3.neos.sites
   tags: typo3-neos-sites
 
 - name: "TYPO3 NEOS Sources: Setup git push for base distributions"
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: cd {{ typo3_webroot }}{{ item }}; git config remote.origin.push HEAD:refs/for/master
   args:
     executable: /bin/bash
@@ -21,7 +21,7 @@
   tags: typo3-git-setup
 
 - name: "TYPO3 NEOS Sources: Setup git push"
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: cd {{ typo3_webroot }}{{ item }}; for d in `find ./ -maxdepth 3 -type d -name "TYPO3.*" | grep -v NeosDemo`; do pushd $d > /dev/null; git config remote.origin.push HEAD:refs/for/master; popd > /dev/null; done
   args:
     executable: /bin/bash
@@ -29,19 +29,19 @@
   tags: typo3-git-setup
 
 - name: "TYPO3 NEOS Sources: Setup git hook directory for base distributions"
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item }}/.git/hooks state=directory recurse=yes mode=0775
   with_items: typo3.neos.sites.keys()
   tags: typo3-git-setup
 
 - name: "TYPO3 NEOS Sources: Setup git commit message for base distributions"
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   copy: src=git-commit-msg dest={{ typo3_webroot }}{{ item }}/.git/hooks/commit-msg force=no
   with_items: typo3.neos.sites.keys()
   tags: typo3-git-setup
 
 - name: "TYPO3 NEOS Sources: Setup git commit message for packages"
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: cd {{ typo3_webroot }}{{ item }}; for d in `find ./ -maxdepth 3 -type d -name "TYPO3.*" | grep -v NeosDemo`; do pushd $d > /dev/null; mkdir -p {{ typo3_webroot }}{{ item }}/$d/.git/hooks/; cp {{ typo3_webroot }}{{ item }}/.git/hooks/commit-msg {{ typo3_webroot }}{{ item }}/$d/.git/hooks/commit-msg; popd > /dev/null; done
   args:
     executable: /bin/bash
@@ -68,12 +68,29 @@
   with_items: typo3.neos.sites.keys()
   tags: typo3-neos-ramdisk
 
+- name: Set recursive ACL on Data/Temporary
+  command: setfacl -m g:{{nginx_group}}:rwX,d:g:{{nginx_group}}:rwX,g:vagrant:rwX,d:g:vagrant:rwX /mnt/typo3cache/{{ item }}
+  with_items: typo3.neos.sites.keys()
+  tags: typo3-neos-ramdisk
+
 - name: Ensure Configuration directory exitst
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item }}/Configuration/ state=directory mode=0775
   with_items: typo3.neos.sites.keys()
 
+- name: Copy Settings.yaml to Configuration
+  sudo: vagrant
+  template: src=neos/Settings.yaml dest={{ typo3_webroot }}{{ item }}/Configuration/Settings.yaml
+  with_items: typo3.neos.sites.keys()
+
+- name: Setup demo sites on NEOS
+  sudo: vagrant
+  shell: if [ ! -f {{ typo3_webroot }}{{ item[0] }}/Configuration/Caches.yaml ]; then {{ typo3_webroot }}{{ item[0] }}/flow {{ item[1] }}; fi
+  with_nested:
+    - typo3.neos.sites.keys()
+    - ['doctrine:migrate', 'site:import --package-key TYPO3.NeosDemoTypo3Org', "user:create admin {{ mariadb.password }} Admin Istrator --roles TYPO3.Neos:Administrator"]
+
 - name: Copy memcached Caches.yaml to Configuration
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   copy: src=neos/Configuration/Caches.yaml dest={{ typo3_webroot }}{{ item }}/Configuration/Caches.yaml force=no
   with_items: typo3.neos.sites.keys()

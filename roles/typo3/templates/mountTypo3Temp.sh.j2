@@ -33,6 +33,7 @@ do
 		if ! mountpoint -q ${typo3TemporaryDirectories[$i]};
 		then
 			mount ${typo3TemporaryDirectories[$i]}
+         setfacl -m g:{{nginx_group}}:rwX,d:g:{{nginx_group}}:rwX,g:vagrant:rwX,d:g:vagrant:rwX ${typo3TemporaryDirectories[$i]}
 		fi
 	fi
 let i++

@@ -1,19 +1,19 @@
 ---
 
 - name: Clone TYPO3 CMS
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   git: repo={{ typo3_cms_src_repository }}
        dest={{ typo3_source_path }}/cms/typo3-cms
   tags: typo3-cms-sites
 
 - name: Setup TYPO3 CMS site directories
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item }} state=directory mode=0775
   with_items: typo3.cms.sites.keys()
   tags: typo3-cms-sites
 
 - name: Clone TYPO3 4.x CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   git: repo={{ typo3_cms_src_repository }}
        reference={{ typo3_source_path }}/cms/typo3-cms
        dest={{ typo3_webroot }}{{ item.key }}/typo3_src
@@ -23,28 +23,28 @@
   tags: typo3-cms-legacy
 
 - name: Setup git push for TYPO3 4.x CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: cd {{ typo3_webroot }}{{ item.key }}/typo3_src; git config remote.origin.push HEAD:refs/for/master;
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-legacy
 
 - name: Setup git origin for TYPO3 4.x CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: cd {{ typo3_webroot }}{{ item.key }}/typo3_src; git remote set-url origin {{ typo3_cms_src_repository }}
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-legacy
 
 - name: Setup git commit message for TYPO3 4.x CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   copy: src=git-commit-msg dest={{ typo3_webroot }}{{ item.key }}/typo3_src/.git/hooks/commit-msg force=no
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-legacy
 
 - name: Symlink to typo3 folder in site roots for TYPO3 4.x CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: src=typo3_src/typo3
         dest={{ typo3_webroot }}{{ item.key }}/typo3 state=link
   when: item.key | match('^4\\.(5|6|7)\\.')
@@ -52,7 +52,7 @@
   tags: typo3-cms-symlink
 
 - name: Symlink to t3lib folder in site roots for TYPO3 4.x CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: src=typo3_src/t3lib
         dest={{ typo3_webroot }}{{ item.key }}/t3lib state=link
   when: item.key | match('^4\\.(5|6|7)\\.')
@@ -60,7 +60,7 @@
   tags: typo3-cms-symlink
 
 - name: Symlink to typo3/index.php file in site roots for TYPO3 4.x CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: src=typo3_src/index.php
         dest={{ typo3_webroot }}{{ item.key }}/index.php state=link
   when: item.key | match('^4\\.(5|6|7)\\.')
@@ -68,121 +68,137 @@
   tags: typo3-cms-symlink
 
 - name: Create fileadmin directories
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item.key }}/fileadmin state=directory mode=0775
   with_dict: typo3.cms.sites
   tags: typo3-cms-directories
 
 - name: Create typo3conf directories
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item.key }}/typo3conf state=directory mode=0775
   with_dict: typo3.cms.sites
   tags: typo3-cms-directories
 
 - name: Create typo3temp directories
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item.key }}/typo3temp state=directory
   with_dict: typo3.cms.sites
   tags: typo3-cms-directories
 
 - name: Create localconf.php for TYPO3 4.x CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item.key }}/typo3conf/localconf.php state=touch mode=0664
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-localconf
 
 - name: Ensure localconf.php contains starting php tag for TYPO3 4.x CMS Sources
+  sudo: vagrant
   lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/localconf.php line="<?php" insertbefore=BOF
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-localconf
 
 - name: Add trustedHostsPattern to localconf.php for TYPO3 4.x CMS Sources
+  sudo: vagrant
   lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/localconf.php line="$GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';" insertafter="<\?php"
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-localconf
 
 - name: Set default install tool password in localconf.php for TYPO3 4.x CMS Sources
+  sudo: vagrant
   lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/localconf.php line="$TYPO3_CONF_VARS['BE']['installToolPassword'] = 'bacb98acf97e0b6112b1d1b650b84971';" insertafter="<\?php"
   when: item.key | match('^4\\.(5|6|7)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-localconf
 
-- name: Add composer.json to TYPO3 CMS 6.x and 7.x web roots
+- name: Add typo3_console composer.json to TYPO3 CMS 6.x and 7.x web roots
+  sudo: vagrant
   template: src=cms/composer.json dest={{ typo3_webroot }}{{ item.key }}/composer.json
-  when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
+  when: item.key | match('^(6|7)\\.(\d)\\.')
+  with_dict: typo3.cms.sites
+  tags: typo3-cms-composer
+
+- name: Add typo3_console composer.json to TYPO3 CMS 7.2 and up web roots
+  sudo: vagrant
+  template: src=cms/composer.7.2.plus.json dest={{ typo3_webroot }}{{ item.key }}/composer.json
+  when: item.key | match('^((7)\\.(2|3|4|5|6|7|8|9|1\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-composer
 
 - name: Composer install typo3_console for TYPO3 CMS 6.x and 7.x web roots
+  sudo: vagrant
   composer: command=install working_dir={{ typo3_webroot }}{{ item.key }}
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-composer
 
-- name: Composer install TYPO3 CMS 7.3 and up
+- name: Composer install TYPO3 CMS 7.2 and up
+  sudo: vagrant
   composer: command=install no_dev=yes working_dir={{ typo3_webroot }}{{ item.key }}/typo3_src
-  when: item.key | match('^((7)\\.(3|4|5|6|7|8|9|1\d)|dev-master)\\.')
+  when: item.key | match('^((7)\\.(2|3|4|5|6|7|8|9|1\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-composer
 
 - name: typo3_console installation of TYPO3
+  sudo: vagrant
   shell: if [ ! -f {{ typo3_webroot }}{{ item.key }}/typo3conf/LocalConfiguration.php ]; then {{ typo3_webroot }}{{ item.key }}/typo3cms install:setup --non-interactive --database-user-name=typo3 --database-user-password="{{ mariadb.password }}" --database-host-name=localhost --database-port=3306 --database-name={{ item.key | regex_replace('\\.', '_') }} --database-create=0 --admin-user-name=admin --admin-password="{{ mariadb.password }}" --site-name="TYPO3 Homestead"; fi
-  when: item.key | match('^(6|7)\\.(\d)\\.')
+  when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-composer
 
 - name: typo3_console cache warmup
   command: >
     {{ typo3_webroot }}{{ item.key }}/typo3cms cache:warmup
-  when: item.key | match('^(6|7)\\.(\d)\\.')
+  when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-composer
 
 - name: Setup git push for typo3_console CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: cd {{ typo3_webroot }}{{ item.key }}/typo3_src; git config remote.origin.push HEAD:refs/for/master;
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-legacy
 
 - name: Setup git origin for typo3_console CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   shell: cd {{ typo3_webroot }}{{ item.key }}/typo3_src; git remote set-url origin {{ typo3_cms_src_repository }}
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-legacy
 
 - name: Setup git commit message for typo3_console CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   copy: src=git-commit-msg dest={{ typo3_webroot }}{{ item.key }}/typo3_src/.git/hooks/commit-msg force=no
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-legacy
 
 - name: Create AdditionalConfiguration.php
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php state=touch mode=0664
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-localconf
 
 - name: Ensure AdditionalConfiguration.php contains starting php tag
+  sudo: vagrant
   lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php line="<?php" insertbefore=BOF
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-localconf
 
 - name: Add trustedHostsPattern to AdditionalConfiguration.php
+  sudo: vagrant
   lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php line="$GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*';" insertafter="<\?php"
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
   tags: typo3-cms-localconf
 
 - name: Enable install tool for CMS Sources
-  sudo: "{{ typo3.cms.sources.owner | default('vagrant') }}"
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item.key }}/typo3conf/ENABLE_INSTALL_TOOL state=touch mode=0664
   with_dict: typo3.cms.sites
   tags: typo3-cms-installtool

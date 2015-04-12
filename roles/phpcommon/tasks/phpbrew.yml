@@ -26,6 +26,8 @@
 
 - name: Brew php versions
   shell: if [ ! -f /usr/local/phpbrew/php/php-{{ item }}/bin/php ]; then phpbrew install {{ item }} {{ php_brew_options }}; fi
+  environment:
+    PHPBREW_ROOT: /usr/local/phpbrew
   with_items: php_brew_versions
 
 - name: Customize PHP brew configuration files

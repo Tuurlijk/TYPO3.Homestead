@@ -87,12 +87,15 @@ php_disabled_modules: [ apcu ]
 php_brew_enable: no
 
 php_brew_required_packages:
-  - 'libmariadbclient-dev'
-  - 'libmariadbd-dev'
-  - 'libmemcache-dev'
+  - 'php5-dev'
+  - 'libbz2-dev'
+  - 'libicu-dev'
+  - 'libfreetype6-dev'
   - 'libmcrypt-dev'
+  - 'libmysqlclient-dev'
   - 'libreadline-dev'
   - 'libxml2-dev'
+  - 'libxslt1-dev'
   - 'ccache'
 
 php_brew_options: "+default +fpm +mysql +fileinfo +gd +intl +mcrypt +mhash +openssl +pcre +session +soap +zlib -- --with-mysqli=/usr/bin/mysql_config --with-freetype-dir=/usr/include/freetype2"

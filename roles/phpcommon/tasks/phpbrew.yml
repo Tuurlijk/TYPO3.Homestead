@@ -1,8 +1,5 @@
 ---
 
-- name: Phpbrew install build dependancies
-  command: apt-get build-dep -y php5
-
 - name: Phpbrew install required packages
   apt: name={{ item }} state=present
   with_items: php_brew_required_packages
@@ -22,10 +19,15 @@
   get_url: url=https://github.com/phpbrew/phpbrew/raw/master/phpbrew dest=/usr/bin/phpbrew mode=0755
 
 - name: Phpbrew init
-  command: phpbrew init
+  shell: phpbrew init
+  args:
+    executable: /bin/bash
 
 - name: Phpbrew profile setup
   shell: echo '# phpbrew setup' > /etc/profile.d/phpbrew.sh; echo 'export PHPBREW_ROOT=/usr/local/phpbrew' >> /etc/profile.d/phpbrew.sh; echo 'export PHPBREW_SET_PROMPT=1' >> /etc/profile.d/phpbrew.sh; echo 'source ~/.phpbrew/bashrc' >> /etc/profile.d/phpbrew.sh; executable=/bin/bash
+
+- name: Ensure the root user bin dir exists
+  file: path=/root/bin state=directory mode=0775
 
 - name: Enable ccache
   file: src=/usr/bin/ccache dest=/root/bin/{{ item }} state=link

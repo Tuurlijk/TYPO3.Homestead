@@ -31,7 +31,7 @@
 ; in a local file.
 ; Note: the default prefix is /var
 ; Default Value: log/php-fpm.log
-error_log = /var/log/php5-fpm.log
+error_log = /var/log/php{{ item | regex_replace('\\.', '_') }}-fpm.log
 
 ; syslog_facility is used to specify what type of program is logging the
 ; message. This lets syslogd specify that messages from different facilities
@@ -128,4 +128,4 @@ error_log = /var/log/php5-fpm.log
 
 ; To configure the pools it is recommended to have one .conf file per
 ; pool in the following directory:
-include=/usr/local/phpbrew/php/php-{{ item[0] }}/etc/pool.d/*.conf
+include=/usr/local/phpbrew/php/php-{{ item }}/etc/pool.d/*.conf

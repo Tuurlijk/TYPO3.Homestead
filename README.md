@@ -208,8 +208,8 @@ nginx_sites:
     - ssl_certificate_key /etc/ssl/private/homestead.local.typo3.org.key
   typo3.cms:
     - set $upstream php
-    - server_name ~(?<serverNameUpstream>php|xhprof|blackfire|hhvm)?\.?(?<version>.*)\.cms.local.typo3.org$
-    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm)) { set $upstream $serverNameUpstream; }
+    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?)?\.?(?<version>.*)\.cms.local.typo3.org$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?)) { set $upstream $serverNameUpstream; }
     - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
     - "{{ nginx_fastcgi }}"
 ```

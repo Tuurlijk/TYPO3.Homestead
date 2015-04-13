@@ -5,6 +5,11 @@ php_fpm_config:
     section: "global"
     value: "240s"
 
+php_brew_fpm_config:
+  - option: "group"
+    section: "www"
+    value: "www-data"
+
 php_fpm_pool_defaults:
   chdir: /
   user: www-data

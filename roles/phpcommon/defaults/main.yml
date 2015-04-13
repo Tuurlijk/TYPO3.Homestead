@@ -89,12 +89,18 @@ php_brew_enable: no
 php_brew_required_packages:
   - 'libmariadbclient-dev'
   - 'libmariadbd-dev'
+  - 'libmemcache-dev'
   - 'libmcrypt-dev'
   - 'libreadline-dev'
   - 'libxml2-dev'
   - 'ccache'
 
-php_brew_options: +default+fpm+mysql+fileinfo+gd+intl+mcrypt+mhash+openssl+pcre+session+soap+zlib
+php_brew_options: "+default +fpm +mysql +fileinfo +gd +intl +mcrypt +mhash +openssl +pcre +session +soap +zlib -- --with-mysqli=/usr/bin/mysql_config --with-freetype-dir=/usr/include/freetype2"
+
+php_brew_extensions:
+  - memcache
+#  - gd
+#  - mysqli
 
 php_common_packages:
   - 'php-pear'

@@ -232,10 +232,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 TODO
 ----
 
-* Complete the preconfiguration of TYPO3 NEOS instances
 * Nginx configuration snippets?
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
-* Make PHP configuration so flexible it can also handle any recent php version (https://github.com/phpbrew/phpbrew)
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
 
 License

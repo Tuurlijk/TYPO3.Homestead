@@ -80,19 +80,19 @@ php_opcache_ini:
     section: "opcache"
     value: "1"
 
-php_enabled_modules: []
-
-php_disabled_modules: [ apcu ]
-
 php_brew_enable: no
 
 php_brew_required_packages:
+  - 'bison'
   - 'php5-dev'
   - 'libbz2-dev'
   - 'libicu-dev'
+  - 'libfreetype6'
   - 'libfreetype6-dev'
+  - 'libjpeg-dev'
   - 'libmcrypt-dev'
   - 'libmysqlclient-dev'
+  - 'libpng12-dev'
   - 'libreadline-dev'
   - 'libxml2-dev'
   - 'libxslt1-dev'
@@ -102,8 +102,7 @@ php_brew_options: "+default +fpm +mysql +fileinfo +gd +intl +mcrypt +mhash +open
 
 php_brew_extensions:
   - memcache
-#  - gd
-#  - mysqli
+  - gd
 
 php_common_packages:
   - 'php-pear'

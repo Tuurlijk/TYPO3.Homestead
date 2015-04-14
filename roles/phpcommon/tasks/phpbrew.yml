@@ -113,5 +113,9 @@
   template: src=etc/init.d/php-fpm.j2 dest=/etc/init.d/php{{ item | regex_replace('\\.', '_') }}-fpm mode=ug+x
   with_items: php_brew_versions
 
+- name: Start php-fpm services
+  command: service php{{ item | regex_replace('\\.', '_') }}-fpm restart
+  with_items: php_brew_versions
+
 #https://github.com/phpbrew/phpbrew
 #https://github.com/phpbrew/phpbrew/wiki

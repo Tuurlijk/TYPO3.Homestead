@@ -302,4 +302,4 @@ References
 - [konomae/ansible-laravel-settler](https://github.com/konomae/ansible-laravel-settler)
 - [laravel/homestead](https://github.com/laravel/homestead)
 - [laravel/settler](https://github.com/laravel/settler)
-- [https://github.com/phpbrew/phpbrew]
+- [phpbrew](https://github.com/phpbrew/phpbrew)

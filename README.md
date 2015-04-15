@@ -5,6 +5,8 @@ TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) development environme
 
 This environment is inteded as as a local environment. Security-wise it is in no way fit for production.
 
+Effortlessly test one site against multiple PHP versions and hhvm.
+
 *[You must have a Linux / OSX control machine to run ansible.](http://docs.ansible.com/intro_windows.html#reminder-you-must-have-a-linux-control-machine)*
 
 Features
@@ -14,6 +16,7 @@ TYPO3 Homestead comes with the following stack:
 
 * composer
 * hhvm
+* multiple PHP versions
 * mariadb
 * memcached
 * nginx
@@ -181,6 +184,58 @@ ANSIBLE_ARGS='--tags=typo3-cms-installtool' vagrant provision
 
 The NEOS configuration is WIP. The TYPO3 CMS configuration sets up an empty database and an empty site. So you will need to run through the install tool and set things up.
 
+Multiple PHP versions
+---------------------
+
+If you want to test against multiple PHP versions, you can enable phpbrew and build any of the available PHP versions. You can see the available versions by executing:
+
+```bash
+phpbrew known
+```
+
+To test against the latest versions of the major branches, you can add the following configuration snippet to your `Configuration/php.yml` file:
+
+```yaml
+php_brew_enable: yes
+php_brew_versions: ['5.3.29', '5.4.38', '5.5.22', '5.6.6']
+```
+To build the versions and activate the sockets, you must run:
+
+```bash
+ANSIBLE_ARGS='--tags=php-brew' vagrant provision
+```
+
+If you prefix your site name with 'php5_3_29', 'php5_4_38', 'php5_5_22' or 'php5_6_6', your request will be served by that backend:
+
+* [http://php5_3_29.6.2.11.cms.local.typo3.org/typo3/](http://php5_3_29.6.2.11.cms.local.typo3.org/typo3/)
+* [http://php5_6_6.6.2.11.cms.local.typo3.org/typo3/](http://php5_6_6.6.2.11.cms.local.typo3.org/typo3/)
+
+You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
+
+Please note that each php socket must be made available to nginx by changing the `nginx_configs` variable. The default value (found in `Defaults/nginx.yml) contains:
+
+```yaml
+nginx_configs:
+  upstream_hhvm:
+    - upstream hhvm { server unix:/var/run/hhvm/sock; }
+  upstream_php:
+    - upstream php { server unix:/var/run/php5-fpm.sock; }
+  upstream_php5_3_29:
+    - upstream php5_3_29 { server unix:/var/run/php-fpm.5.3.29.default.sock; }
+  upstream_php5_4_38:
+    - upstream php5_4_38 { server unix:/var/run/php-fpm.5.4.38.default.sock; }
+  upstream_php5_5_22:
+    - upstream php5_5_22 { server unix:/var/run/php-fpm.5.5.22.default.sock; }
+  upstream_php5_6_6:
+    - upstream php5_6_6 { server unix:/var/run/php-fpm.5.6.6.default.sock; }
+  upstream_xhprof:
+    - upstream xhprof { server unix:/var/run/php5-fpm.xhprof.sock; }
+```
+
+I you wish to add your own php versions, please adjust this variable accordingly in your `Configuration/nginx.yml`.
+
+Learn more about phpbrew on [the phpbrew project page](https://github.com/phpbrew/phpbrew).
+
 Configuration Examples
 ----------------------
 
@@ -247,3 +302,4 @@ References
 - [konomae/ansible-laravel-settler](https://github.com/konomae/ansible-laravel-settler)
 - [laravel/homestead](https://github.com/laravel/homestead)
 - [laravel/settler](https://github.com/laravel/settler)
+- [https://github.com/phpbrew/phpbrew]

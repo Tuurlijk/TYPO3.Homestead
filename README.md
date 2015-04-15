@@ -212,7 +212,7 @@ If you prefix your site name with 'php5_3_29', 'php5_4_38', 'php5_5_22' or 'php5
 
 You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
 
-Please note that each php socket must be made available to nginx by changing the `nginx_configs` variable. The default value (found in `Defaults/nginx.yml) contains:
+Please note that each php socket must be made available to nginx by changing the `nginx_configs` variable. The default value (found in `Defaults/nginx.yml`) contains:
 
 ```yaml
 nginx_configs:

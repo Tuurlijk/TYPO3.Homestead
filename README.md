@@ -118,7 +118,7 @@ When the installation process has finished, you can visit [http://homestead.loca
 * [4.5.cms.local.typo3.org/typo3/install/](http://4.5.cms.local.typo3.org/typo3/install/)
 * [4.5.40.cms.local.typo3.org/typo3/install/](http://4.5.40.cms.local.typo3.org/typo3/install/)
 * [6.2.cms.local.typo3.org/typo3/](http://6.2.cms.local.typo3.org/typo3/)
-* [6.2.11.cms.local.typo3.org/typo3/](http://6.2.11.cms.local.typo3.org/typo3/)
+* [6.2.12.cms.local.typo3.org/typo3/](http://6.2.12.cms.local.typo3.org/typo3/)
 * [7.1.cms.local.typo3.org/typo3/](http://7.1.cms.local.typo3.org/typo3/)
 * [dev-master.cms.local.typo3.org/typo3/](http://dev-master.cms.local.typo3.org/typo3/)
 * [1.2.neos.local.typo3.org/neos/](http://1.2.neos.local.typo3.org/neos/)
@@ -148,7 +148,7 @@ typo3:
       4.5.cms.local.typo3.org: 'TYPO3_4-5'
       4.5.40.cms.local.typo3.org: 'TYPO3_4-5-40'
       6.2.cms.local.typo3.org: '6.2.*'
-      6.2.11.cms.local.typo3.org: '6.2.11'
+      6.2.12.cms.local.typo3.org: '6.2.12'
       7.1.0.cms.local.typo3.org: '7.1.0'
       dev-master.cms.local.typo3.org: '*'
 ```
@@ -157,8 +157,8 @@ TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you d
 
 If you prefix your site name with 'hhvm' for example, your request will be served by the hhvm backend:
 
-* [http://php.6.2.11.cms.local.typo3.org/typo3/](http://php.6.2.11.cms.local.typo3.org/typo3/)
-* [http://hhvm.6.2.11.cms.local.typo3.org/typo3/](http://hhvm.6.2.11.cms.local.typo3.org/typo3/)
+* [http://php.6.2.12.cms.local.typo3.org/typo3/](http://php.6.2.12.cms.local.typo3.org/typo3/)
+* [http://hhvm.6.2.12.cms.local.typo3.org/typo3/](http://hhvm.6.2.12.cms.local.typo3.org/typo3/)
 
 You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
 
@@ -207,8 +207,8 @@ ANSIBLE_ARGS='--tags=php-brew' vagrant provision
 
 If you prefix your site name with 'php5_3_29', 'php5_4_38', 'php5_5_22' or 'php5_6_6', your request will be served by that backend:
 
-* [http://php5_3_29.6.2.11.cms.local.typo3.org/typo3/](http://php5_3_29.6.2.11.cms.local.typo3.org/typo3/)
-* [http://php5_6_6.6.2.11.cms.local.typo3.org/typo3/](http://php5_6_6.6.2.11.cms.local.typo3.org/typo3/)
+* [http://php5_3_29.6.2.12.cms.local.typo3.org/typo3/](http://php5_3_29.6.2.12.cms.local.typo3.org/typo3/)
+* [http://php5_6_6.6.2.12.cms.local.typo3.org/typo3/](http://php5_6_6.6.2.12.cms.local.typo3.org/typo3/)
 
 You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
 

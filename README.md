@@ -291,6 +291,12 @@ TODO
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
 
+Known Problems
+--------------
+
+* The sources that are fetched from github may be hard to reach when github is under a DDOS
+* The mariadb mirror I had set up crapped out and had to be replaced. If this happens to you, please pick another mirror from here: [https://downloads.mariadb.org/mariadb/repositories/](https://downloads.mariadb.org/mariadb/repositories/#mirror=digitalocean-ams&distro=Ubuntu&distro_release=trusty--ubuntu_trusty&version=5.5). And put that into `roles/mariadb/tasks/main.yml`. And then submit a pull request ;-).
+
 License
 -------
 

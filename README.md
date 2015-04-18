@@ -101,6 +101,8 @@ synced_folders:
     target: /var/www
 ```
 
+If you don't do this, you may want to add your public ssh key to the authorized_keys file of the vagrant user. Read the section SSH Access below.
+
 4). Then boot the machine:
 ```bash
 vagrant up
@@ -133,6 +135,18 @@ The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo
 The amount of cpu's avaialble on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be envforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
 
 The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you will have magic auto-resolving hostnames. So if you change the IP, you will need to take care of your hostname resolving yourself, either by hardcoding all the hostnames you wish to use or by some other means.
+
+SSH Access
+----------
+
+If you set up a box without a file share, you will want to access the box using ssh. To add your public ssh key to the authorized_keys file of the vagrant user, you can add the following configuration snippet to your `Configuration/main.yml` file:
+
+```yaml
+authorized_keys:
+  vagrant: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAuWg3UvHGxmtqoBKKJ18jY+23HFnbXfp8r3KubwTp/cRdrkMa+mXQyRK5b1rOIThJHO2u36SWUP78hvoDCqonDy8wjdkW/spQ2gZBSAg0s15o3gnWmdVWguguDD+ff3lS9/uh9V78DcoqFaDuUJPy2v9aZhm31vV7oNqAAsHuWCqZx1pLpTjjAJ/8qIGQiCXUcdsCDV6qouCvOcsGfPJhzUnXMD+Ov3miL8eH5otQn8WVtALANPgd+RHDHQxV88ecMJLIJ99rnt0WXhOl9QC7AXcqrl7CGZnqo44oSqCC7MHrKfaD12GupvBN60x+rJntdJypRcbTwZsOW5TX6cVLQw== michiel@Food.local
+```
+
+The part before the colon is the username of whom the authorized_keys file is changed. You can add as many keys to as many users as you like.
 
 Variables
 ---------

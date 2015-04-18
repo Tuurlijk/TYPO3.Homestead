@@ -1,3 +1,5 @@
 ---
 
 timezone: Europe/Amsterdam
+
+authorized_keys: {}

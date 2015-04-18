@@ -10,3 +10,8 @@
   lineinfile: create=yes dest=/etc/ssh/ssh_known_hosts line='{{ item.stdout }}' state=present
   with_items: ssh_keyscan_results.results
   tags: ssh-keys
+
+- name: Add authorized_keys
+  authorized_key: user={{ item.key }} key="{{ item.value }}"
+  with_dict: authorized_keys
+  tags: ssh-keys

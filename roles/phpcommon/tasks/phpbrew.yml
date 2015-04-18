@@ -20,6 +20,9 @@
 
 - name: Phpbrew init
   shell: phpbrew init
+  environment:
+    PHPBREW_ROOT: /usr/local/phpbrew
+    PATH: /root/bin:{{ ansible_env.PATH }}
   args:
     executable: /bin/bash
 

@@ -1,7 +1,7 @@
 ---
 
-- name: Disable atime, enable acl on root filesystem
-  mount: name=/ src=/dev/sda1 fstype=ext4 opts=rw,noatime,acl state=mounted
+- name: Disable atime on root filesystem
+  mount: name=/ src=/dev/sda1 fstype=ext4 opts=rw,noatime state=mounted
 
 - name: Update apt package lists
   apt:
@@ -40,9 +40,6 @@
 - name: Install Extra Packages
   apt: pkg={{ item }} state=latest
   with_items: sys_packages
-
-- name: Put vagrant user in www-data group
-  user: name=vagrant groups=www-data append=yes
 
 - name: Configure the timezone
   template: src=timezone.tpl.j2 dest=/etc/timezone

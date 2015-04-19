@@ -8,14 +8,14 @@ php_fpm_config:
 php_brew_fpm_config:
   - option: "group"
     section: "www"
-    value: "www-data"
+    value: "vagrant"
 
 php_fpm_pool_defaults:
   chdir: /
-  user: www-data
-  group: www-data
-  listen.owner: www-data
-  listen.group: www-data
+  user: vagrant
+  group: vagrant
+  listen.owner: vagrant
+  listen.group: vagrant
   pm: dynamic
   pm.max_children: 5
   pm.start_servers: 2

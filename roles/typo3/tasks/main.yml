@@ -1,16 +1,7 @@
 ---
 
 - name: Make sure vagrant can write to the webroot
-  file: path={{ typo3_webroot }} state=directory mode=0775
-  tags: [typo3-configuration]
-
-- name: Are there any shares enabled?
-  shell: cat /etc/mtab | grep "nfs\|smbfs" | grep "{{ typo3_webroot | regex_replace('/$', '') }}" | wc -l
-  register: shared_webroot
-
-- name: Set recursive ACL on web root
-  command: setfacl -m g:{{nginx_group}}:rwX,d:g:{{nginx_group}}:rwX,g:vagrant:rwX,d:g:vagrant:rwX {{typo3_webroot}}
-  when: shared_webroot.stdout != '1'
+  shell: if ! mountpoint -q {{ typo3_webroot }}; then chown vagrant:vagrant {{ typo3_webroot }}; fi
   tags: [typo3-configuration]
 
 - name: Create base directories

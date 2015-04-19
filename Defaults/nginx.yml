@@ -1,5 +1,7 @@
 ---
 
+nginx_user: vagrant
+
 nginx_http_params:
   - index index.php index.html
   - charset utf-8

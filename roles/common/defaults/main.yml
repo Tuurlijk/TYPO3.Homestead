@@ -13,7 +13,6 @@ homestead_ssh_known_hosts:
   - '-p 29418 91.184.35.13'
 
 sys_packages:
-  - 'acl'
   - 'byobu'
   - 'curl'
   - 'dos2unix'

@@ -2,7 +2,7 @@
 
 - name: Setup cron scheduler tasks for TYPO3 CMS
   cron: name="Scheduler task for {{ item.key }}"
-        user=www-data
+        user=vagrant
         job="php {{ typo3_webroot }}{{ item.key }}/typo3/cli_dispatch.phpsh scheduler 2>/dev/null > /dev/null "
   with_dict: typo3.cms.sites
 

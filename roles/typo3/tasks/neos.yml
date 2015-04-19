@@ -54,6 +54,7 @@
   tags: typo3-neos-ramdisk
 
 - name: Ensure Data/Temporary directories exist
+  sudo: vagrant
   file: path={{ typo3_webroot }}{{ item }}/Data/Temporary/ state=directory mode=0775
   with_items: typo3.neos.sites.keys()
   tags: typo3-neos-ramdisk
@@ -65,11 +66,6 @@
 
 - name: Mount bind TYPO3 NEOS Data/Temporary ramdisks
   shell: if ! mountpoint -q {{ typo3_webroot }}{{ item }}/Data/Temporary; then mount /mnt/typo3cache/{{ item }}; fi
-  with_items: typo3.neos.sites.keys()
-  tags: typo3-neos-ramdisk
-
-- name: Set recursive ACL on Data/Temporary
-  command: setfacl -m g:{{nginx_group}}:rwX,d:g:{{nginx_group}}:rwX,g:vagrant:rwX,d:g:vagrant:rwX /mnt/typo3cache/{{ item }}
   with_items: typo3.neos.sites.keys()
   tags: typo3-neos-ramdisk
 

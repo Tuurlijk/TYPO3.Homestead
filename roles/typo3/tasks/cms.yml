@@ -149,6 +149,7 @@
   tags: typo3-cms-composer
 
 - name: typo3_console cache warmup
+  sudo: vagrant
   command: >
     {{ typo3_webroot }}{{ item.key }}/typo3cms cache:warmup
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')

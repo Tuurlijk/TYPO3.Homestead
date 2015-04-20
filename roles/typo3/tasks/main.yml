@@ -1,17 +1,21 @@
 ---
 
 - name: Make the webroot exists
-  file: path={{ typo3_webroot }} state=directory mode=0755
+  file: path={{ typo3_webroot }} state=directory mode=0775
   tags: [typo3-configuration]
 
 - name: Is the webroot a mountpoint (web share enabled)?
-  shell: mountpoint -q {{ typo3_webroot }}
+  command: mountpoint {{ typo3_webroot }}
+  ignore_errors: yes
   register: shared_webroot
   tags: [typo3-configuration]
 
+- debug: var=shared_webroot
+  tags: [typo3-configuration]
+
 - name: Make sure vagrant can write to the webroot
-  file: path={{ typo3_webroot }} state=directory owner=vagrant group={{nginx_group}} mode=0755
-  when: shared_webroot.stdout == '0'
+  file: path={{ typo3_webroot }} state=directory owner=vagrant group={{nginx_group}} mode=0775
+  when: "'is not a mountpoint' in shared_webroot.stdout"
   tags: [typo3-configuration]
 
 - name: Create base directories

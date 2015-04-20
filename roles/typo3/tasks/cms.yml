@@ -1,11 +1,5 @@
 ---
 
-- name: Clone TYPO3 CMS
-  sudo: vagrant
-  git: repo={{ typo3_cms_src_repository }}
-       dest={{ typo3_source_path }}/cms/typo3-cms
-  tags: typo3-cms-sites
-
 - name: Setup TYPO3 CMS site directories
   sudo: vagrant
   file: path={{ typo3_webroot }}{{ item }} state=directory mode=0775
@@ -15,7 +9,6 @@
 - name: Clone TYPO3 4.x CMS Sources
   sudo: vagrant
   git: repo={{ typo3_cms_src_repository }}
-       reference={{ typo3_source_path }}/cms/typo3-cms
        dest={{ typo3_webroot }}{{ item.key }}/typo3_src
        version={{ item.value }}
   when: item.key | match('^4\\.(5|6|7)\\.')

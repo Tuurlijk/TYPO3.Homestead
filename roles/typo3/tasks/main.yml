@@ -5,7 +5,7 @@
   tags: [typo3-configuration]
 
 - name: Is the webroot a mountpoint (web share enabled)?
-  shell: mountpoint {{ typo3_webroot }}
+  shell: mountpoint -q {{ typo3_webroot }}
   register: shared_webroot
   tags: [typo3-configuration]
 

@@ -16,6 +16,9 @@
 - name: Run service as group vagrant
   lineinfile: dest=/etc/default/hhvm regexp="#RUN_AS_GROUP=\"www-data\"" line="RUN_AS_GROUP=\"{{ nginx_user }}\"" backrefs=yes
 
+- name: Make sure vagrant has access to /var/run/hhvm (is owned by www-data after initial setup)
+  file: path=/var/run/hhvm state=directory owner=vagrant group={{nginx_group}} mode=0775 recurse=yes
+
 - name: write server.ini
   copy: src=server.ini dest=/etc/hhvm/server.ini
   notify:

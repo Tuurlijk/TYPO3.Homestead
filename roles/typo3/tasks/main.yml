@@ -10,18 +10,9 @@
   register: shared_webroot
   tags: [typo3-configuration]
 
-- debug: var=shared_webroot
-  tags: [typo3-configuration]
-
 - name: Make sure vagrant can write to the webroot
   file: path={{ typo3_webroot }} state=directory owner=vagrant group={{nginx_group}} mode=0775
   when: "'is not a mountpoint' in shared_webroot.stdout"
-  tags: [typo3-configuration]
-
-- name: Create base directories
-  sudo: vagrant
-  file: path={{ typo3_source_path }}/{{ item }} state=directory mode=0775
-  with_items: typo3.keys()
   tags: [typo3-configuration]
 
 - name: Generate ssl certificates for nginx sites (needs to run before nginx role)

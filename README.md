@@ -117,8 +117,6 @@ vagrant up 2>&1 | tee vagrant-up.log.txt
 
 When the installation process has finished, you can visit [http://homestead.local.typo3.org](http://homestead.local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
 
-* [4.5.cms.local.typo3.org/typo3/install/](http://4.5.cms.local.typo3.org/typo3/install/)
-* [4.5.40.cms.local.typo3.org/typo3/install/](http://4.5.40.cms.local.typo3.org/typo3/install/)
 * [6.2.cms.local.typo3.org/typo3/](http://6.2.cms.local.typo3.org/typo3/)
 * [6.2.12.cms.local.typo3.org/typo3/](http://6.2.12.cms.local.typo3.org/typo3/)
 * [7.1.cms.local.typo3.org/typo3/](http://7.1.cms.local.typo3.org/typo3/)
@@ -277,8 +275,8 @@ nginx_sites:
     - ssl_certificate_key /etc/ssl/private/homestead.local.typo3.org.key
   typo3.cms:
     - set $upstream php
-    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?)?\.?(?<version>.*)\.cms.local.typo3.org$
-    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?)) { set $upstream $serverNameUpstream; }
+    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)?\.?(?<version>.*)\.cms.local.typo3.org$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)) { set $upstream $serverNameUpstream; }
     - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
     - "{{ nginx_fastcgi }}"
 ```

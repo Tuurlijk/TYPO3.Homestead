@@ -8,22 +8,14 @@
 
   typo3_webroot: '/var/www/'
 
-  typo3_source_path: '{{ typo3_webroot }}sources'
-
   typo3_ssl_certificates:
     - '*.local.typo3.org'
 
   typo3:
     cms:
-      sources:
-        branches: []
-        tags: []
       sites:
         default: 'default'
     flow:
-      sources:
-        branches: []
-        tags: []
       sites:
         default: 'default'
     neos:

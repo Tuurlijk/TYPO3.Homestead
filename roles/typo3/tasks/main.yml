@@ -1,10 +1,13 @@
 ---
 
-- name: Create TYPO3 webroot
-  file: path={{ typo3_webroot }} state=directory owner=vagrant group={{nginx_group}} mode=0755
+- name: Is the webroot a mountpoint (web share enabled)?
+  shell: mountpoint {{ typo3_webroot }}
+  register: shared_webroot
+  tags: [typo3-configuration]
 
 - name: Make sure vagrant can write to the webroot
-  shell: if ! mountpoint -q {{ typo3_webroot }}; then chown vagrant:vagrant {{ typo3_webroot }}; fi
+  file: path={{ typo3_webroot }} state=directory owner=vagrant group={{nginx_group}} mode=0755
+  when: shared_webroot.stdout == '0'
   tags: [typo3-configuration]
 
 - name: Create base directories

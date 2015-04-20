@@ -10,6 +10,12 @@
   apt: pkg=hhvm state=latest update_cache=yes
   tags: hhvm
 
+- name: Run service as user vagrant
+  lineinfile: dest=/etc/default/hhvm regexp="#RUN_AS_USER=\"www-data\"" line="RUN_AS_USER=\"{{ nginx_user }}\"" backrefs=yes
+
+- name: Run service as group vagrant
+  lineinfile: dest=/etc/default/hhvm regexp="#RUN_AS_GROUP=\"www-data\"" line="RUN_AS_GROUP=\"{{ nginx_user }}\"" backrefs=yes
+
 - name: write server.ini
   copy: src=server.ini dest=/etc/hhvm/server.ini
   notify:

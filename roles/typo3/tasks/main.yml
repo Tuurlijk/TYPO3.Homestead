@@ -1,5 +1,9 @@
 ---
 
+- name: Make the webroot exists
+  file: path={{ typo3_webroot }} state=directory mode=0755
+  tags: [typo3-configuration]
+
 - name: Is the webroot a mountpoint (web share enabled)?
   shell: mountpoint {{ typo3_webroot }}
   register: shared_webroot

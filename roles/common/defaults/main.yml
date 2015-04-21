@@ -28,6 +28,8 @@ sys_packages:
   - 'python-pip'
   - 'python2.7-dev'
   - 're2c'
+  - 'ruby'
+  - 'ruby-dev'
   - 'subversion'
   - 'supervisor'
   - 'unzip'

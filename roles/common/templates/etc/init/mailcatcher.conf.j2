@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+description "Mailcatcher"
+author "Michiel Roos <michiel@maxserv.com>"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+exec $(which mailcatcher) --foreground --http-ip=192.168.144.120

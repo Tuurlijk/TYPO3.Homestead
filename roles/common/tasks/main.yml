@@ -3,21 +3,13 @@
 - name: Disable atime on root filesystem
   mount: name=/ src=/dev/sda1 fstype=ext4 opts=rw,noatime state=mounted
 
-- name: Setup ubuntu mirror - main
-  lineinfile: dest=/etc/apt/sources.list line="deb mirror://mirrors.ubuntu.com/mirrors.txt precise main restricted universe multiverse" insertbefore=BOF state=present
-  tags: test
-
-- name: Setup ubuntu mirror - updates
-  lineinfile: dest=/etc/apt/sources.list line="deb mirror://mirrors.ubuntu.com/mirrors.txt precise-updates main restricted universe multiverse" insertbefore=BOF state=present
-  tags: test
-
-- name: Setup ubuntu mirror - backports
-  lineinfile: dest=/etc/apt/sources.list line="deb mirror://mirrors.ubuntu.com/mirrors.txt precise-backports main restricted universe multiverse" insertbefore=BOF state=present
-  tags: test
-
-- name: Setup ubuntu mirror - security
-  lineinfile: dest=/etc/apt/sources.list line="deb mirror://mirrors.ubuntu.com/mirrors.txt precise-security main restricted universe multiverse" insertbefore=BOF state=present
-  tags: test
+- name: Setup ubuntu mirrors
+  lineinfile: dest=/etc/apt/sources.list line="deb mirror://mirrors.ubuntu.com/mirrors.txt {{ item }} main restricted universe multiverse" insertbefore=BOF state=present
+  with_items:
+    - precise
+    - precise-updates
+    - precise-backports
+    - precise-security
 
 - name: Update apt package lists
   apt:

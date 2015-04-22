@@ -91,7 +91,7 @@ php_brew_required_packages:
   - 'libfreetype6-dev'
   - 'libjpeg-dev'
   - 'libmcrypt-dev'
-  - 'libmariadbclient-dev'
+  - 'libmysqlclient-dev'
   - 'libpng12-dev'
   - 'libreadline-dev'
   - 'libxml2-dev'

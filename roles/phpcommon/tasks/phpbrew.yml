@@ -44,7 +44,7 @@
   with_items: php_brew_versions
 
 - name: Install php extensions
-  shell: source ~/.phpbrew/bashrc; phpbrew use php-{{ item[0] }}; phpbrew ext install {{ item[1] }}; executable=/bin/bash
+  shell: source ~/.phpbrew/bashrc; phpbrew use php-{{ item[0] }}; if [ ! -f /usr/local/phpbrew/php/php-{{ item[0] }}/var/db/{{ item[1] }}.ini ]; then phpbrew ext install {{ item[1] }}; fi executable=/bin/bash
   environment:
     PHPBREW_ROOT: /usr/local/phpbrew
     PATH: /root/bin:{{ ansible_env.PATH }}

@@ -38,7 +38,7 @@ Requirements
 ------------
 
 * [Virtualbox](https://www.virtualbox.org/) or another virtualization product - Free!
-* [Vagrant](http://www.vagrantup.com/) - Free!
+* [Vagrant](http://www.vagrantup.com/) - Version 1.5.* is needed - Free!
 * [Ansible](http://docs.ansible.com/intro_installation.html) - Free! (only the Tower ui will cost you)
 
 Dependencies
@@ -275,8 +275,8 @@ nginx_sites:
     - ssl_certificate_key /etc/ssl/private/homestead.local.typo3.org.key
   typo3.cms:
     - set $upstream php
-    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)?\.?(?<version>.*)\.cms.local.typo3.org$
-    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)) { set $upstream $serverNameUpstream; }
+    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)?\.?(?<version>.*)\.cms.local.typo3.org$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)) { set $upstream $serverNameUpstream; }
     - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
     - "{{ nginx_fastcgi }}"
 ```
@@ -307,7 +307,7 @@ Known Problems
 --------------
 
 * The sources that are fetched from github may be hard to reach when github is under a DDOS
-* The mariadb mirror I had set up crapped out and had to be replaced. If this happens to you, please pick another mirror from here: [https://downloads.mariadb.org/mariadb/repositories/](https://downloads.mariadb.org/mariadb/repositories/#mirror=digitalocean-ams&distro=Ubuntu&distro_release=trusty--ubuntu_trusty&version=5.5). And put that into `roles/mariadb/tasks/main.yml`. And then submit a pull request ;-).
+* If you get the error `The box 'ubuntu/trusty64' could not be found`, then you may have a vagrant version lower than 1.5. The stock Ubuntu vagrant version is 1.4 at the time of writing. You can get the latest vagrant version from [the vagrant site](https://www.vagrantup.com/downloads). Some details can be found on [vaprobash issue #322](https://github.com/fideloper/Vaprobash/issues/322).
 
 License
 -------

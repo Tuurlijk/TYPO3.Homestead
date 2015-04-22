@@ -1,11 +1,5 @@
 ---
 
-- name: Add Key for MariaDB Repository
-  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
-
-- name: Add MariaDB-Repository
-  apt_repository: repo='deb http://ams2.mirrors.digitalocean.com/mariadb/repo/5.5/ubuntu {{ ansible_distribution_release }} main' state=present
-
 - name: Install MariaDB Packages
   apt: pkg={{ item }} state=latest
   with_items:

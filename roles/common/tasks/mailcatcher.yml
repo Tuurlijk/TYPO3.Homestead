@@ -1,0 +1,11 @@
+---
+
+- name: Setup mailcatcher - ruby native, may take some time
+  gem: name={{ item }} user_install=no state=latest
+  with_items: [ i18n, mailcatcher ]
+
+- name: Setup mailcatcher init script
+  copy: src=etc/init/mailcatcher.conf dest=/etc/init/mailcatcher.conf force=no
+
+- name: Start mailcatcher service
+  command: service mailcatcher restart

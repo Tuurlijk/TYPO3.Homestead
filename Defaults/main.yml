@@ -3,3 +3,5 @@
 timezone: Europe/Amsterdam
 
 authorized_keys: {}
+
+mailcatcher_enable: yes

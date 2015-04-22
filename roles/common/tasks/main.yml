@@ -82,16 +82,9 @@
   service: name=postfix state=started enabled=yes
   tags: [service,postfix]
 
-- name: Setup mailcatcher
-  gem: name={{ item }} user_install=no state=latest
-  with_items: [ i18n, mailcatcher ]
-  tags: test
-
-- name: Setup mailcatcher init script
-  template: src=etc/init/mailcatcher.conf.j2 dest=/etc/init/mailcatcher.conf
-
-- name: Start mailcatcher service
-  command: service mailcatcher restart
+- include: mailcatcher.yml
+  tags: mailcatcher
+  when: mailcatcher_enable
 
 - include: ramdisk.yml
   tags: ramdisk

@@ -196,6 +196,7 @@
   lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php line="$GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport'] = 'smtp';" insertafter="<\?php"
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
+  when: mailcatcher_enable
   tags: typo3-cms-localconf
 
 - name: Add mailcatcher smtp port configuration to AdditionalConfiguration.php
@@ -203,6 +204,7 @@
   lineinfile: dest={{ typo3_webroot }}{{ item.key }}/typo3conf/AdditionalConfiguration.php line="$GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport_smtp_server'] = 'localhost:1025';" insertafter="<\?php"
   when: item.key | match('^((6|7)\\.(\d)|dev-master)\\.')
   with_dict: typo3.cms.sites
+  when: mailcatcher_enable
   tags: typo3-cms-localconf
 
 - name: Enable install tool for CMS Sources

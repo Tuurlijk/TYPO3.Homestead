@@ -18,15 +18,15 @@ nginx_sites:
     - ssl_certificate_key /etc/ssl/private/local.typo3.org.key
   typo3.cms:
     - set $upstream php
-    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)?\.?(?<version>.*)\.cms.local.typo3.org$
-    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)) { set $upstream $serverNameUpstream; }
+    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)?\.?(?<version>.*)\.cms.local.typo3.org$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)) { set $upstream $serverNameUpstream; }
     - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
     - "{{ nginx_fastcgi }}"
   typo3.cms.ssl:
     - set $upstream php
     - listen 443
-    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)?\.?(?<version>.*)\.cms.local.typo3.org$
-    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)) { set $upstream $serverNameUpstream; }
+    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)?\.?(?<version>.*)\.cms.local.typo3.org$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)) { set $upstream $serverNameUpstream; }
     - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
     - ssl on
     - ssl_certificate /etc/ssl/certs/local.typo3.org.crt
@@ -34,16 +34,16 @@ nginx_sites:
     - "{{ nginx_fastcgi }}"
   typo3.neos:
     - set $upstream php
-    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)?\.?(?<version>.*)\.neos.local.typo3.org$
-    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)) { set $upstream $serverNameUpstream; }
+    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)?\.?(?<version>.*)\.neos.local.typo3.org$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)) { set $upstream $serverNameUpstream; }
     - root "{{ typo3_webroot }}${version}.neos.local.typo3.org/Web/";
     - "{{ nginx_typo3_neos_resources }}"
     - "{{ nginx_fastcgi }}"
   typo3.neos.ssl:
     - set $upstream php
     - listen 443
-    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)?\.?(?<version>.*)\.neos.local.typo3.org$
-    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php|php\d\d?_\d\d?_\d\d?)) { set $upstream $serverNameUpstream; }
+    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)?\.?(?<version>.*)\.neos.local.typo3.org$
+    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)) { set $upstream $serverNameUpstream; }
     - root "{{ typo3_webroot }}${version}.neos.local.typo3.org/Web/";
     - ssl on
     - ssl_certificate /etc/ssl/certs/local.typo3.org.crt

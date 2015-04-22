@@ -38,7 +38,7 @@ Requirements
 ------------
 
 * [Virtualbox](https://www.virtualbox.org/) or another virtualization product - Free!
-* [Vagrant](http://www.vagrantup.com/) - Free!
+* [Vagrant](http://www.vagrantup.com/) - Version 1.5.* is needed - Free!
 * [Ansible](http://docs.ansible.com/intro_installation.html) - Free! (only the Tower ui will cost you)
 
 Dependencies
@@ -307,6 +307,7 @@ Known Problems
 --------------
 
 * The sources that are fetched from github may be hard to reach when github is under a DDOS
+* If you get the error `The box 'ubuntu/trusty64' could not be found`, then you may have a vagrant version lower than 1.5. The stock Ubuntu vagrant version is 1.4 at the time of writing. You can get the latest vagrant version from [the vagrant site](https://www.vagrantup.com/downloads). Some details can be found on [vaprobash issue #322](https://github.com/fideloper/Vaprobash/issues/322).
 
 License
 -------

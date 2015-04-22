@@ -17,6 +17,7 @@ TYPO3 Homestead comes with the following stack:
 * composer
 * hhvm
 * multiple PHP versions
+* mailcatcher
 * mariadb
 * memcached
 * nginx
@@ -247,6 +248,19 @@ nginx_configs:
 I you wish to add your own php versions, please adjust this variable accordingly in your `Configuration/nginx.yml`.
 
 Learn more about phpbrew on [the phpbrew project page](https://github.com/phpbrew/phpbrew).
+
+MailCatcher
+-----------
+
+[MailCatcher](http://mailcatcher.me/) runs a super simple SMTP server which catches any message sent to it to display in a web interface. This makes it easy to test forms without actually sending mail to the 'real' mail address. Set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out [http://homestead.local.typo3.org:1080](http://homestead.local.typo3.org:1080) to see the mail that's arrived so far.
+
+To disable this feature, add the following to your `Configuration/main.yml`:
+
+```yaml
+mailcatcher_enable: no
+```
+
+Mailcatcher has been set up for TYPO3 CMS. For Neos, you may be interested in the [https://github.com/langeland/Langeland.SwiftBox](Langeland.SwiftBox) package. It is a package that can override the swiftmailer setting to send to that instead and you can browse all the emails with the included flow application.
 
 Configuration Examples
 ----------------------

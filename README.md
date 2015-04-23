@@ -147,8 +147,8 @@ authorized_keys:
 
 The part before the colon is the username of whom the authorized_keys file is changed. You can add as many keys to as many users as you like.
 
-Variables
----------
+TYPO3 installations
+-------------------
 
 You can override any of the role variables in the configuration files in the `/Configuration/` directory. The options have been tuned for usage with TYPO3, so the ones you will most likely be changing are the `typo3.yml` and the `websites.yml` files. In the `typo3.yml` file you can configure your typo3.org username and what TYPO3 versions you wish to have available.
 
@@ -195,7 +195,25 @@ Need to enable an install tool? The following command will create the **ENABLE_I
 ANSIBLE_ARGS='--tags=typo3-cms-installtool' vagrant provision
 ```
 
-The NEOS configuration is WIP. The TYPO3 CMS configuration sets up an empty database and an empty site. So you will need to run through the install tool and set things up.
+The NEOS sites are fully functional out of the box. The TYPO3.NeosDemoTypo3Org Site is already running. The TYPO3 CMS configuration sets up an empty database and an empty site. You can log into the backend, but you will still need to install the introduction package using the extension manager.
+
+You can enable and disable extensions by specifying them in the TYPO3 configuration under the key: `typo3.cms.extensions.enabled` and `typo3.cms.extensions.disabled`:
+
+```yaml
+typo3:
+  cms:
+    sites:
+      6.2.cms.local.typo3.org: '6.2.*'
+      6.2.12.cms.local.typo3.org: '6.2.12'
+      7.1.cms.local.typo3.org: '7.1.*'
+      dev-master.cms.local.typo3.org: '*'
+    extensions:
+      disabled:
+        - taskcenter
+      enabled:
+        - scheduler
+        - opendocs
+```
 
 Multiple PHP versions
 ---------------------

@@ -13,11 +13,11 @@
 
   typo3:
     cms:
-      sites:
-        default: 'default'
+      sites: {}
+      extensions:
+        disabled: []
+        enabled: []
     flow:
-      sites:
-        default: 'default'
+      sites: {}
     neos:
-      sites:
-        default: 'default'
+      sites: {}

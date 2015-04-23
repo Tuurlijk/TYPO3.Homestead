@@ -9,6 +9,9 @@ typo3:
       6.2.12.cms.local.typo3.org: '6.2.12'
       7.1.cms.local.typo3.org: '7.1.*'
       dev-master.cms.local.typo3.org: '*'
+    extensions:
+      enabled:
+        - scheduler
   neos:
     sites:
       1.2.neos.local.typo3.org: '1.2'

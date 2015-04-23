@@ -149,6 +149,26 @@
   with_dict: typo3.cms.sites
   tags: typo3-cms-composer
 
+- name: typo3_console install extensions
+  sudo: vagrant
+  command: >
+    {{ typo3_webroot }}{{ item[0] }}/typo3cms extension:install {{ item[1] }}
+  when: item[0] | match('^((6|7)\\.(\d)|dev-master)\\.') and typo3.cms.extensions.enabled is defined
+  with_nested:
+    - typo3.cms.sites.keys()
+    - typo3.cms.extensions.enabled
+  tags: test
+
+- name: typo3_console uninstall extensions
+  sudo: vagrant
+  command: >
+    {{ typo3_webroot }}{{ item[0] }}/typo3cms extension:uninstall {{ item[1] }}
+  when: item[0] | match('^((6|7)\\.(\d)|dev-master)\\.') and typo3.cms.extensions.enabled is defined
+  with_nested:
+    - typo3.cms.sites.keys()
+    - typo3.cms.extensions.disabled
+  tags: test
+
 - name: Setup git push for typo3_console CMS Sources
   sudo: vagrant
   shell: cd {{ typo3_webroot }}{{ item.key }}/typo3_src; git config remote.origin.push HEAD:refs/for/master;

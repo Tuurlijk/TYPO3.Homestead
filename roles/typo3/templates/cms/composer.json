@@ -16,6 +16,10 @@
     {
       "type": "git",
       "url": "https://github.com/helhum/typo3_console.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/MaxServ/t3ext-accountmanagement.git"
     }
   ],
   "config": {
@@ -30,6 +34,7 @@
   },
   "require": {
     "typo3/cms": "{{ item.value }}",
-    "helhum/typo3-console": "*"
+    "helhum/typo3-console": "*",
+    "maxserv/accountmanagement": "*"
   }
 }

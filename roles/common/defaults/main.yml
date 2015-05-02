@@ -24,6 +24,7 @@ sys_packages:
   - 'libmcrypt4'
   - 'libsqlite3-dev'
   - 'multitail'
+  - 'poppler-utils'
   - 'postfix'
   - 'python-mysqldb'
   - 'python-pip'

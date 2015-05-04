@@ -6,7 +6,7 @@
 
 - name: Clone Prezto
   sudo: vagrant
-  git: repo=https://github.com/sorin-ionescu/prezto.git dest=~/.zprezto
+  git: repo=https://github.com/sorin-ionescu/prezto.git dest=~/.zprezto force=yes
 
 - name: Create Prezto symlinks
   sudo: vagrant

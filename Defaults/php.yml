@@ -1,10 +1,5 @@
 ---
 
-php_fpm_config:
-  - option: "request_terminate_timeout"
-    section: "global"
-    value: "240s"
-
 php_brew_fpm_config:
   - option: "group"
     section: "www"

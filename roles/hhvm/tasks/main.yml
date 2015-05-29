@@ -6,6 +6,9 @@
   apt_repository: repo='deb http://dl.hhvm.com/ubuntu trusty main'
   tags: hhvm
 
+- name: Setup hhvm init script
+  copy: src=etc/init.d/hhvm dest=/etc/init.d/hhvm owner=root group=root mode=0755 force=no
+
 - name: Install HHVM
   apt: pkg=hhvm state=latest update_cache=yes
   tags: hhvm

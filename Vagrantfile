@@ -4,6 +4,7 @@
 require 'yaml'
 
 path = "#{File.dirname(__FILE__)}"
+scriptDir = path + '/scripts'
 
 # Get machine configuration
 configuration = {}
@@ -12,7 +13,7 @@ if File.exist?(path + '/Configuration/vagrant.yml')
 end
 
 # Setup defaults
-sets = ['synced_folders']
+sets = ['synced_folders', 'sites']
 sets.each do |element|
 	unless configuration.has_key?(element)
 		configuration[element] = {}
@@ -75,7 +76,7 @@ end
 VAGRANTFILE_API_VERSION = 2
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-	config.vm.box = 'ubuntu/trusty64'
+	config.vm.box = 'typo3/homestead'
 	config.vm.boot_timeout = 180
 # If you have no Internet access (can not resolve *.local.typo3.org), you can use host aliases:
 # 	config.hostsupdater.aliases = [
@@ -134,16 +135,30 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.customize ["set", :id, "--memsize", MEMORY, "--cpus", CORES]
 	end
 
-	# Ansible | http://docs.ansible.com/playbooks_best_practices.html
-	config.vm.provision "ansible" do |ansible|
-# 		ansible.verbose = "v"
-		ansible.playbook = "site.yml"
-		ansible.limit = "all"
-		ansible.raw_arguments = ENV['ANSIBLE_ARGS']
-		ansible.extra_vars = {
-			ansible_ssh_user: 'vagrant',
-			hostname: 'local.typo3.org'
-		}
+# 	# Ansible | http://docs.ansible.com/playbooks_best_practices.html
+# 	config.vm.provision "ansible" do |ansible|
+# # 		ansible.verbose = "v"
+# 		ansible.playbook = "site.yml"
+# 		ansible.limit = "all"
+# 		ansible.raw_arguments = ENV['ANSIBLE_ARGS']
+# 		ansible.extra_vars = {
+# 			ansible_ssh_user: 'vagrant',
+# 			hostname: 'local.typo3.org'
+# 		}
+# 	end
+
+	# Configure All Of The Configured Databases
+	if configuration.has_key?("sites")
+		configuration["sites"].each do |site|
+			config.vm.provision "shell" do |s|
+				s.path = scriptDir + "/create-mysql.sh"
+				s.args = [site['name']]
+			end
+			config.vm.provision "shell" do |s|
+				s.path = scriptDir + "/setup-typo3.sh"
+				s.args = [site['name']]
+			end
+		end
 	end
 
 	# Setup synced folders
@@ -160,10 +175,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	end
 
 	# Disable default shared folder
-	config.vm.synced_folder ".", "/vagrant", disabled: true
+# 	config.vm.synced_folder ".", "/vagrant", disabled: true
 
 	# Ensure proper permissions for nfs mounts
 	config.nfs.map_uid = Process.uid
 	config.nfs.map_gid = Process.gid
 
+	# Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
+	# such as FTP and Heroku are also available. See the documentation at
+	# https://docs.vagrantup.com/v2/push/atlas.html for more information.
+	config.push.define "atlas" do |push|
+		push.app = "Michiel/example"
+	end
 end

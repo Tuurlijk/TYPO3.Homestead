@@ -1,7 +1,9 @@
 TYPO3 Homestead
 ===============
 
-This project is ancient . . . You're better off going here: [https://github.com/Tuurlijk/TYPOTry](https://github.com/Tuurlijk/TYPOTry), which is the pre-built box. This project will no longer be maintained. The ansible roles will be developed further here: [https://github.com/Tuurlijk/TYPO3.Packer](https://github.com/Tuurlijk/TYPO3.Packer).
+This project is ancient . . . You're better off going here: [https://github.com/Tuurlijk/TYPOTry](https://github.com/Tuurlijk/TYPOTry), which is the pre-built box. This project will no longer be maintained. The ansible roles will be developed further here: [https://github.com/Tuurlijk/TYPO3.Packer](https://github.com/Tuurlijk/TYPO3.Packer). Yes, there will also be a pre-built version of Homestead. The dev-box so to speak. You can already get that here: [https://atlas.hashicorp.com/Michiel/boxes/TYPO3-development](https://atlas.hashicorp.com/Michiel/boxes/TYPO3-development). It has two php versions and hhvm pre-built.
+
+When I have a bit more time, I'll cook up some nice configuration that does away with the host system ansible requirement. It will be a light-weight version of the ansible setup found in this repository. It will run on the guest system with some clever trickery. Then we can use that to tweak config files, set up different php versions and TYPO3 versions. ETA: 2-3 months.
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Tuurlijk&url=https://github.com/Tuurlijk/TYPO3.Homestead&title=TYPO3.Homestead&language=Ansible&tags=github&category=software)
 

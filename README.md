@@ -1,6 +1,8 @@
 TYPO3 Homestead
 ===============
 
+This project is ancient . . . You're better off going here: [https://github.com/Tuurlijk/TYPOTry](https://github.com/Tuurlijk/TYPOTry), which is the pre-built box. This project will no longer be maintained. The ansible roles will be developed further here: [https://github.com/Tuurlijk/TYPO3.Packer](https://github.com/Tuurlijk/TYPO3.Packer).
+
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Tuurlijk&url=https://github.com/Tuurlijk/TYPO3.Homestead&title=TYPO3.Homestead&language=Ansible&tags=github&category=software)
 
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be built with all the packages and configuration needed to start development right away.

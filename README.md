@@ -77,6 +77,7 @@ When the machine has booted, you can visit [http://local.typo3.org](http://local
 * [dev-master.local.typo3.org/typo3/](http://dev-master.local.typo3.org/typo3/)
 * [1.2.local.neos.io/neos/](http://1.2.local.neos.io/neos/)
 * [2.0.local.neos.io/neos/](http://2.0.local.neos.io/neos/)
+* [dev-master.local.neos.io/typo3/](http://dev-master.local.neos.io/typo3/)
 
 All TYPO3 and Neos installation are fully set-up. You can login to the backend with: `admin`/`supersecret`.
 

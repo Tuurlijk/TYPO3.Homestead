@@ -73,12 +73,12 @@ vagrant up
 ```
 When the installation process has finished, you can visit [http://local.typo3.org](http://local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
 
-* [6.2.cms.local.typo3.org/typo3/](http://6.2.cms.local.typo3.org/typo3/)
-* [6.2.12.cms.local.typo3.org/typo3/](http://6.2.12.cms.local.typo3.org/typo3/)
-* [7.4.cms.local.typo3.org/typo3/](http://7.1.cms.local.typo3.org/typo3/)
-* [dev-master.cms.local.typo3.org/typo3/](http://dev-master.cms.local.typo3.org/typo3/)
-* [1.2.neos.local.typo3.org/neos/](http://1.2.neos.local.typo3.org/neos/)
-* [dev-master.neos.local.typo3.org/neos/](http://dev-master.neos.local.typo3.org/neos/)
+* [6.2.local.typo3.org/typo3/](http://6.2.local.typo3.org/typo3/)
+* [6.2.12.local.typo3.org/typo3/](http://6.2.12.local.typo3.org/typo3/)
+* [7.4.local.typo3.org/typo3/](http://7.1.local.typo3.org/typo3/)
+* [dev-master.local.typo3.org/typo3/](http://dev-master.local.typo3.org/typo3/)
+* [1.2.local.neos.io/neos/](http://1.2.local.neos.io/neos/)
+* [dev-master.local.neos.io/neos/](http://dev-master.local.neos.io/neos/)
 
 All TYPO3 and Neos installation are fully set-up. You can login to the backend with: `admin`/`supersecret`.
 
@@ -101,20 +101,20 @@ The site *key* will be the domain name under which you can access the site. The 
 typo3:
   cms:
     sites:
-      4.5.cms.local.typo3.org: 'TYPO3_4-5'
-      4.5.40.cms.local.typo3.org: 'TYPO3_4-5-40'
-      6.2.cms.local.typo3.org: '6.2.*'
-      6.2.12.cms.local.typo3.org: '6.2.12'
-      7.1.0.cms.local.typo3.org: '7.1.0'
-      dev-master.cms.local.typo3.org: '*'
+      4.5.local.typo3.org: 'TYPO3_4-5'
+      4.5.40.local.typo3.org: 'TYPO3_4-5-40'
+      6.2.local.typo3.org: '6.2.*'
+      6.2.12.local.typo3.org: '6.2.12'
+      7.1.0.local.typo3.org: '7.1.0'
+      dev-master.local.typo3.org: '*'
 ```
 
 TYPO3 Homestead uses *wilcard* server names in the Nxinx configuration. So you don't have to manually add any site configuration (except if you want to test ssl). The request url will determine the document root. The regular site requests will use the default php-fpm backend. The other backends currently available are: *hhvm* and *xhprof*. Xhprof will need further pool configuration though.
 
 If you prefix your site name with 'hhvm' for example, your request will be served by the hhvm backend:
 
-* [http://php.6.2.12.cms.local.typo3.org/typo3/](http://php.6.2.12.cms.local.typo3.org/typo3/)
-* [http://hhvm.6.2.12.cms.local.typo3.org/typo3/](http://hhvm.6.2.12.cms.local.typo3.org/typo3/)
+* [http://php.6.2.12.local.typo3.org/typo3/](http://php.6.2.12.local.typo3.org/typo3/)
+* [http://hhvm.6.2.12.local.typo3.org/typo3/](http://hhvm.6.2.12.local.typo3.org/typo3/)
 
 You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
 
@@ -146,10 +146,10 @@ You can enable and disable extensions by specifying them in the TYPO3 configurat
 typo3:
   cms:
     sites:
-      6.2.cms.local.typo3.org: '6.2.*'
-      6.2.12.cms.local.typo3.org: '6.2.12'
-      7.1.cms.local.typo3.org: '7.1.*'
-      dev-master.cms.local.typo3.org: '*'
+      6.2.local.typo3.org: '6.2.*'
+      6.2.12.local.typo3.org: '6.2.12'
+      7.1.local.typo3.org: '7.1.*'
+      dev-master.local.typo3.org: '*'
     extensions:
       disabled:
         - taskcenter
@@ -181,8 +181,8 @@ ANSIBLE_ARGS='--tags=php-brew' vagrant provision
 
 If you prefix your site name with 'php5_3_29', 'php5_4_38', 'php5_5_22' or 'php5_6_6', your request will be served by that backend:
 
-* [http://php5_3_29.6.2.12.cms.local.typo3.org/typo3/](http://php5_3_29.6.2.12.cms.local.typo3.org/typo3/)
-* [http://php5_6_6.6.2.12.cms.local.typo3.org/typo3/](http://php5_6_6.6.2.12.cms.local.typo3.org/typo3/)
+* [http://php5_3_29.6.2.12.local.typo3.org/typo3/](http://php5_3_29.6.2.12.local.typo3.org/typo3/)
+* [http://php5_6_6.6.2.12.local.typo3.org/typo3/](http://php5_6_6.6.2.12.local.typo3.org/typo3/)
 
 You can see what backend is used by inspecting the `X-TYPO3-Homestead-backend` response header.
 
@@ -250,9 +250,9 @@ nginx_sites:
     - ssl_certificate_key /etc/ssl/private/homestead.local.typo3.org.key
   typo3.cms:
     - set $upstream php
-    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)?\.?(?<version>.*)\.cms.local.typo3.org$
+    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)?\.?(?<version>.*)\.local.typo3.org$
     - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)) { set $upstream $serverNameUpstream; }
-    - root "{{ typo3_webroot }}${version}.cms.local.typo3.org/";
+    - root "{{ typo3_webroot }}${version}.local.typo3.org/";
     - "{{ nginx_fastcgi }}"
 ```
 

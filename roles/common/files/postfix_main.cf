@@ -1,5 +1,0 @@
-inet_interfaces = loopback-only
-inet_protocols = ipv4
-mydestination =
-mynetworks_style = host
-relay_domains =

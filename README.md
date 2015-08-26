@@ -1,19 +1,17 @@
 TYPO3 Homestead
 ===============
 
-This project is ancient . . . You're better off going here: [https://github.com/Tuurlijk/TYPOTry](https://github.com/Tuurlijk/TYPOTry), which is the pre-built box. This project will no longer be maintained. The ansible roles will be developed further here: [https://github.com/Tuurlijk/TYPO3.Packer](https://github.com/Tuurlijk/TYPO3.Packer). Yes, there will also be a pre-built version of Homestead. The dev-box so to speak. You can already get that here: [https://atlas.hashicorp.com/Michiel/boxes/TYPO3-development](https://atlas.hashicorp.com/Michiel/boxes/TYPO3-development). It has two php versions and hhvm pre-built.
+*Update 26 august 2015:* Homestead now uses a pre-build box. It no longer requires ansible. All previous ansible functionality may be moved to inside the machine or replaced by bash scripts. If you would like to help out . . . patches are welcome ;-).
 
 When I have a bit more time, I'll cook up some nice configuration that does away with the host system ansible requirement. It will be a light-weight version of the ansible setup found in this repository. It will run on the guest system with some clever trickery. Then we can use that to tweak config files, set up different php versions and TYPO3 versions. ETA: 2-3 months.
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Tuurlijk&url=https://github.com/Tuurlijk/TYPO3.Homestead&title=TYPO3.Homestead&language=Ansible&tags=github&category=software)
 
-TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be built with all the packages and configuration needed to start development right away.
+TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 
 This environment is inteded as as a local environment. Security-wise it is in no way fit for production.
 
 Effortlessly test one site against multiple PHP versions and hhvm.
-
-*[You must have a Linux / OSX control machine to run ansible.](http://docs.ansible.com/intro_windows.html#reminder-you-must-have-a-linux-control-machine)*
 
 Features
 --------
@@ -46,42 +44,6 @@ Requirements
 
 * [Virtualbox](https://www.virtualbox.org/) or another virtualization product - Free!
 * [Vagrant](http://www.vagrantup.com/) - Version 1.5.* is needed - Free!
-* [Ansible](http://docs.ansible.com/intro_installation.html) - Free! (only the Tower ui will cost you)
-
-Dependencies
-------------
-
-TYPO3 Homestead uses several roles from the ansible-galaxy:
-
-* [nbz4live.php-fpm](https://galaxy.ansible.com/list#/roles/304)
-* [jdauphant.nginx](https://galaxy.ansible.com/list#/roles/466)
-* [geerlingguy.composer](https://galaxy.ansible.com/list#/roles/429)
-* [laggyluke.nodejs](https://galaxy.ansible.com/list#/roles/285)
-
-These roles need to be installed before you can run the playbook.
-
-You can use the requirements.yml you find in the root of your freshly cloned TYPO3.Homestead:
-
-```bash
-git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
-cd TYPO3.Homestead
-ansible-galaxy install -r requirements.yml
-```
-
-Ansible versions lower than 1.8 do not support yaml markup in the requirements file. If you have an old version of ansible, you can run:
-
-```bash
-git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
-cd TYPO3.Homestead
-sudo ansible-galaxy install -r requirements_pre-1.8.txt
-# After that you will need to move the roles:
-cd roles
-sudo mv /etc/ansible/roles/nbz4live.php-fpm php-fpm
-sudo mv /etc/ansible/roles/jdauphant.nginx nginx
-sudo mv /etc/ansible/roles/tersmitten.composer composer
-sudo mv /etc/ansible/roles/laggyluke.nodejs nodejs
-sudo mv /etc/ansible/roles/f500.memcached memcached
-```
 
 Installation
 ------------
@@ -94,12 +56,7 @@ git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
 cd TYPO3.Homestead
 ```
 
-2). Install the required ansible-galaxy roles:
-```bash
-ansible-galaxy install -r requirements.yml
-```
-
-3). Copy any configuration files you wish to change from `Defaults/` to `Configuration/`. Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
+2). Copy any configuration files you wish to change from `Defaults/` to `Configuration/`. Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
 
 ```yaml
 synced_folders:
@@ -110,28 +67,20 @@ synced_folders:
 
 If you don't do this, you may want to add your public ssh key to the authorized_keys file of the vagrant user. Read the section SSH Access below.
 
-4). Then boot the machine:
+3). Then boot the machine:
 ```bash
 vagrant up
 ```
-
-The first time it boots it will take some time to install all needed packages and sources. So now is a good time to get a nice drink for yourself.
-
-If you wish to look back at what happened during provisioning, you should have logged the output:
-```bash
-vagrant up 2>&1 | tee vagrant-up.log.txt
-```
-
-When the installation process has finished, you can visit [http://homestead.local.typo3.org](http://homestead.local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
+When the installation process has finished, you can visit [http://local.typo3.org](http://local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
 
 * [6.2.cms.local.typo3.org/typo3/](http://6.2.cms.local.typo3.org/typo3/)
 * [6.2.12.cms.local.typo3.org/typo3/](http://6.2.12.cms.local.typo3.org/typo3/)
-* [7.1.cms.local.typo3.org/typo3/](http://7.1.cms.local.typo3.org/typo3/)
+* [7.4.cms.local.typo3.org/typo3/](http://7.1.cms.local.typo3.org/typo3/)
 * [dev-master.cms.local.typo3.org/typo3/](http://dev-master.cms.local.typo3.org/typo3/)
 * [1.2.neos.local.typo3.org/neos/](http://1.2.neos.local.typo3.org/neos/)
 * [dev-master.neos.local.typo3.org/neos/](http://dev-master.neos.local.typo3.org/neos/)
 
-All CMS (except 4.5.*) and Neos installation are fully set-up. You can login to the backend with: `admin`/`supersecret`.
+All TYPO3 and Neos installation are fully set-up. You can login to the backend with: `admin`/`supersecret`.
 
 The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 
@@ -140,18 +89,6 @@ The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo
 The amount of cpu's avaialble on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be envforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
 
 The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you will have magic auto-resolving hostnames. So if you change the IP, you will need to take care of your hostname resolving yourself, either by hardcoding all the hostnames you wish to use or by some other means.
-
-SSH Access
-----------
-
-If you set up a box without a file share, you will want to access the box using ssh. To add your public ssh key to the authorized_keys file of the vagrant user, you can add the following configuration snippet to your `Configuration/main.yml` file:
-
-```yaml
-authorized_keys:
-  vagrant: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAuWg3UvHGxmtqoBKKJ18jY+23HFnbXfp8r3KubwTp/cRdrkMa+mXQyRK5b1rOIThJHO2u36SWUP78hvoDCqonDy8wjdkW/spQ2gZBSAg0s15o3gnWmdVWguguDD+ff3lS9/uh9V78DcoqFaDuUJPy2v9aZhm31vV7oNqAAsHuWCqZx1pLpTjjAJ/8qIGQiCXUcdsCDV6qouCvOcsGfPJhzUnXMD+Ov3miL8eH5otQn8WVtALANPgd+RHDHQxV88ecMJLIJ99rnt0WXhOl9QC7AXcqrl7CGZnqo44oSqCC7MHrKfaD12GupvBN60x+rJntdJypRcbTwZsOW5TX6cVLQw== michiel@Food.local
-```
-
-The part before the colon is the username of whom the authorized_keys file is changed. You can add as many keys to as many users as you like.
 
 TYPO3 installations
 -------------------

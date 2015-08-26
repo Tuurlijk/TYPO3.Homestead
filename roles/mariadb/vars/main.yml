@@ -1,7 +1,0 @@
----
-mariadb:
-  conf_path: /etc/mysql/my.cnf
-  root_password: supersecret
-  user: typo3
-  password: supersecret
-  database: db

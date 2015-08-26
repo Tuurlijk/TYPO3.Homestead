@@ -71,22 +71,30 @@ plugins.each do |plugin, version|
 	end
 end
 
+$script = <<SCRIPT
+echo "============================================================="
+echo "All done!"
+echo ""
+echo "You can now try one of these sites:"
+echo "- http://6.2.14.local.typo3.org/typo3/"
+echo "- http://7.4.0.local.typo3.org/typo3/"
+echo "- http://local.typo3.org:1080/ <- mailcatcher"
+echo ""
+echo "Username: admin"
+echo "Password: supersecret"
+echo "============================================================="
+SCRIPT
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = 2
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-	config.vm.box = 'ubuntu/trusty64'
+	config.vm.box = 'Michiel/Development'
 	config.vm.boot_timeout = 180
 # If you have no Internet access (can not resolve *.local.typo3.org), you can use host aliases:
 # 	config.hostsupdater.aliases = [
-# 		'4.5.cms.local.typo3.org',
-# 		'4.5.39.cms.local.typo3.org',
-# 		'6.2.cms.local.typo3.org',
-# 		'6.2.9.cms.local.typo3.org',
-# 		'7.0.cms.local.typo3.org',
-# 		'7.0.2.cms.local.typo3.org',
-# 		'1.2.neos.local.typo3.org',
-# 		'dev-master.neos.local.typo3.org'
+# 		'6.2.14.local.typo3.org',
+# 		'7.4.0.local.typo3.org'
 # 		]
 
 	# Network
@@ -123,8 +131,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# Vmware Fusion
 	config.vm.provider :vmware_fusion do |v, override|
-		override.vm.box = "trusty64_fusion"
-		override.vm.box_url = "http://files.vagrantup.com/trusty64_vmware_fusion.box"
+		override.vm.box = "Michiel/Development"
 		v.vmx["memsize"] = MEMORY.to_i
 		v.vmx["numvcpus"] = CORES.to_i
 	end
@@ -134,17 +141,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.customize ["set", :id, "--memsize", MEMORY, "--cpus", CORES]
 	end
 
-	# Ansible | http://docs.ansible.com/playbooks_best_practices.html
-	config.vm.provision "ansible" do |ansible|
-# 		ansible.verbose = "v"
-		ansible.playbook = "site.yml"
-		ansible.limit = "all"
-		ansible.raw_arguments = ENV['ANSIBLE_ARGS']
-		ansible.extra_vars = {
-			ansible_ssh_user: 'vagrant',
-			hostname: 'local.typo3.org'
-		}
-	end
+	# Show information what to do after the machine has booted
+	config.vm.provision "shell", inline: $script, run: "always"
 
 	# Setup synced folders
 	configuration['synced_folders'].each do |folder|

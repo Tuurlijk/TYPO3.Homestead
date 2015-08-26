@@ -1,9 +1,0 @@
----
-
-php_common_ppa: php5
-
-php_fpm_ini_path: /etc/php5/fpm/php.ini
-php_cli_ini_path: /etc/php5/cli/php.ini
-php_apcu_ini_path: /etc/php5/mods-available/apcu.ini
-php_opcache_ini_path: /etc/php5/mods-available/opcache.ini
-php_xdebug_ini_path: /etc/php5/mods-available/xdebug.ini

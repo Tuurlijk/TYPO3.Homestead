@@ -223,43 +223,6 @@ mailcatcher_enable: no
 
 Mailcatcher has been set up for TYPO3 CMS. For Neos, you may be interested in the [https://github.com/langeland/Langeland.SwiftBox](Langeland.SwiftBox) package. It is a package that can override the swiftmailer setting to send to that instead and you can browse all the emails with the included flow application.
 
-Configuration Examples
-----------------------
-
-You can choose between different PHP upstream backends:
-* php: php-fpm
-* xhprof: php-fpm-xhprof (not enabled yet: wip)
-* hhvm: hhvm
-
-```yaml
-nginx_sites:
-  default:
-    - set $upstream hhvm
-    - listen 80 default_server
-    - server_name _
-    - root "{{ typo3_webroot }}/homestead.local.typo3.org/"
-    - "{{ nginx_fastcgi }}"
-  default-ssl:
-    - set $upstream php
-    - listen 443 default_server
-    - server_name _
-    - root "{{ typo3_webroot }}/homestead.local.typo3.org/"
-    - "{{ nginx_fastcgi }}"
-    - ssl on
-    - ssl_certificate /etc/ssl/certs/homestead.local.typo3.org.crt
-    - ssl_certificate_key /etc/ssl/private/homestead.local.typo3.org.key
-  typo3.cms:
-    - set $upstream php
-    - server_name ~(?<serverNameUpstream>xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)?\.?(?<version>.*)\.local.typo3.org$
-    - if ($serverNameUpstream ~ (php|xhprof|blackfire|hhvm|php\d\d?_\d\d?_\d\d?|php)) { set $upstream $serverNameUpstream; }
-    - root "{{ typo3_webroot }}${version}.local.typo3.org/";
-    - "{{ nginx_fastcgi }}"
-```
-
-Please take care to add a domain-name to source mapping in the typo3.yml for each site you configure. Unless you manually set up your sites in your shared folder and link to the available sources yourself.
-
-The `typo3_ssl_certificates` variable is an array of domain names for which self signed ssl certificates will be generated. A wildcard certificates will be generated for *.local.typo3.org.
-
 Contributing
 ------------
 

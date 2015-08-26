@@ -90,6 +90,17 @@ The amount of cpu's avaialble on the host machine will also be available on the 
 
 The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you will have magic auto-resolving hostnames. So if you change the IP, you will need to take care of your hostname resolving yourself, either by hardcoding all the hostnames you wish to use or by some other means.
 
+SSH Access
+----------
+
+If you set up a box without a file share, you will want to access the box using ssh. To add your public ssh key to the authorized_keys file of the vagrant user, you can execute the following command:
+
+```bash
+ cat ~/.ssh/id_rsa.pub | ssh vagrant@local.typo3.org 'cat >> .ssh/authorized_keys'
+```
+
+Now you will be able to get into the box as user vagrant without supplying a password.
+
 TYPO3 installations
 -------------------
 
@@ -234,6 +245,7 @@ TODO
 * Nginx configuration snippets?
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
+* Add available backends as examples to index sites (http://local.neos.io and http://local.typo3.org)
 
 Known Problems
 --------------

@@ -105,7 +105,7 @@ Multiple PHP versions
 
 If you prefix your site name with `hhvm`,  `php5_5_28` or `php5_6_12`, your request will be served by that backend:
 
-You can see what backend is used by inspecting the `X-Upstream` or `X-Powered-By` response header.
+You can see what backend is used by inspecting the `X-Powered-By` response header.
 
 MailCatcher
 -----------

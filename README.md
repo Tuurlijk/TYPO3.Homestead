@@ -103,9 +103,9 @@ Now you will be able to get into the box as user vagrant without supplying a pas
 Multiple PHP versions
 ---------------------
 
-If you prefix your site name with 'php5_5_27' or 'php5_6_11', your request will be served by that backend:
+If you prefix your site name with `hhvm`,  `php5_5_28` or `php5_6_12`, your request will be served by that backend:
 
-You can see what backend is used by inspecting the `X-Upstream` response header.
+You can see what backend is used by inspecting the `X-Upstream` or `X-Powered-By` response header.
 
 MailCatcher
 -----------

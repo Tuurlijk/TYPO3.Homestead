@@ -114,6 +114,18 @@ MailCatcher
 
 Mailcatcher has been set up for TYPO3 CMS. For Neos, you may be interested in the [https://github.com/langeland/Langeland.SwiftBox](Langeland.SwiftBox) package. It is a package that can override the swiftmailer setting to send to that instead and you can browse all the emails with the included flow application.
 
+Can't connect after the vagrant up?
+-----------------------------------
+
+This box needs internet connectivity to resolve the local.neos.io domain name to the IP of the box. If you are not connected to the Internet you will need to add the following entries to your hosts file:
+
+* 192.168.144.120 1.2.local.neos.io
+* 192.168.144.120 2.0.local.neos.io
+* 192.168.144.120 dev-master.local.neos.io
+* 192.168.144.120 6.2.local.typo3.org
+* 192.168.144.120 7.4.local.typo3.org
+* 192.168.144.120 dev-master.local.typo3.org
+
 Contributing
 ------------
 

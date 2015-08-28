@@ -61,15 +61,15 @@ FORWARD = configuration['forward_ports'] || 0
 DEBUG = !!configuration['debug'] || false
 
 # Throw an error if required Vagrant plugins are not installed
-plugins = { 'vagrant-hostsupdater' => nil }
-
-plugins.each do |plugin, version|
-	unless Vagrant.has_plugin? plugin
-		error = "The '#{plugin}' plugin is not installed! Try running:\nvagrant plugin install #{plugin}"
-		error += " --plugin-version #{version}" if version
-		raise error
-	end
-end
+# plugins = { 'vagrant-hostsupdater' => nil }
+#
+# plugins.each do |plugin, version|
+# 	unless Vagrant.has_plugin? plugin
+# 		error = "The '#{plugin}' plugin is not installed! Try running:\nvagrant plugin install #{plugin}"
+# 		error += " --plugin-version #{version}" if version
+# 		raise error
+# 	end
+# end
 
 $script = <<SCRIPT
 echo "============================================================="

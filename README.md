@@ -1,7 +1,7 @@
 TYPO3 Homestead
 ===============
 
-*Update 26 august 2015:* Homestead now uses a pre-build box. It no longer requires ansible. All previous ansible functionality may be moved to inside the machine or replaced by bash scripts. If you would like to help out . . . patches are welcome ;-).
+*Update 26 august 2015:* Homestead now uses a pre-built box. It no longer requires ansible. All previous ansible functionality may be moved to inside the machine or replaced by bash scripts. If you would like to help out . . . patches are welcome ;-).
 
 When I have a bit more time, I'll cook up some nice configuration that does away with the host system ansible requirement. It will be a light-weight version of the ansible setup found in this repository. It will run on the guest system with some clever trickery. Then we can use that to tweak config files, set up different php versions and TYPO3 versions. ETA: 2-3 months.
 

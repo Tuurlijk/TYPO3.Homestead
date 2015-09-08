@@ -157,7 +157,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 				:mount_options => ['vers=3,udp,noacl,nocto,nosuid,nodev,nolock,noatime,nodiratime'],
 				:linux__nfs_options => ['no_root_squash']
 		else
-			cfg.vm.synced_folder folder['src'], folder['target']
+			config.vm.synced_folder folder['src'], folder['target']
 		end
 	end
 

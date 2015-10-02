@@ -6,9 +6,9 @@ typo3:
   cms:
     sites:
       6.2.local.typo3.org: '6.2.*'
-      6.2.14.local.typo3.org: '6.2.14'
+      6.2.15.local.typo3.org: '6.2.15'
       7.4.local.typo3.org: '7.4.*'
-      7.4.0.local.typo3.org: '7.4.0'
+      7.5.0.local.typo3.org: '7.5.0'
       dev-master.local.typo3.org: '*'
     extensions:
       enabled:

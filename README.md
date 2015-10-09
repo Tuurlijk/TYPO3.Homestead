@@ -123,7 +123,7 @@ This box needs internet connectivity to resolve the local.neos.io domain name to
 * 192.168.144.120 2.0.local.neos.io
 * 192.168.144.120 dev-master.local.neos.io
 * 192.168.144.120 6.2.local.typo3.org
-* 192.168.144.120 7.4.local.typo3.org
+* 192.168.144.120 7.5.local.typo3.org
 * 192.168.144.120 dev-master.local.typo3.org
 
 Contributing

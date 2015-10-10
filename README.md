@@ -73,7 +73,7 @@ vagrant up
 When the machine has booted, you can visit [http://local.typo3.org](http://local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
 
 * [6.2.local.typo3.org/typo3/](http://6.2.local.typo3.org/typo3/)
-* [7.4.local.typo3.org/typo3/](http://7.4.local.typo3.org/typo3/)
+* [7.5.local.typo3.org/typo3/](http://7.5.local.typo3.org/typo3/)
 * [dev-master.local.typo3.org/typo3/](http://dev-master.local.typo3.org/typo3/)
 * [1.2.local.neos.io/neos/](http://1.2.local.neos.io/neos/)
 * [2.0.local.neos.io/neos/](http://2.0.local.neos.io/neos/)

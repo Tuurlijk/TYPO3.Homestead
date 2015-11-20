@@ -73,7 +73,7 @@ vagrant up
 When the machine has booted, you can visit [http://local.typo3.org](http://local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:
 
 * [6.2.local.typo3.org/typo3/](http://6.2.local.typo3.org/typo3/)
-* [7.5.local.typo3.org/typo3/](http://7.5.local.typo3.org/typo3/)
+* [7.6.local.typo3.org/typo3/](http://7.6.local.typo3.org/typo3/)
 * [dev-master.local.typo3.org/typo3/](http://dev-master.local.typo3.org/typo3/)
 * [1.2.local.neos.io/neos/](http://1.2.local.neos.io/neos/)
 * [2.0.local.neos.io/neos/](http://2.0.local.neos.io/neos/)
@@ -85,7 +85,7 @@ The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 
 The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
 
-The amount of cpu's avaialble on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be envforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
+The amount of cpu's available on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be enforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
 
 The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you will have magic auto-resolving hostnames. So if you change the IP, you will need to take care of your hostname resolving yourself, either by hardcoding all the hostnames you wish to use or by some other means.
 
@@ -123,7 +123,7 @@ This box needs internet connectivity to resolve the local.neos.io domain name to
 * 192.168.144.120 2.0.local.neos.io
 * 192.168.144.120 dev-master.local.neos.io
 * 192.168.144.120 6.2.local.typo3.org
-* 192.168.144.120 7.5.local.typo3.org
+* 192.168.144.120 7.6.local.typo3.org
 * 192.168.144.120 dev-master.local.typo3.org
 
 Contributing

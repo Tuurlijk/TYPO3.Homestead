@@ -1,17 +1,15 @@
 TYPO3 Homestead
 ===============
 
-*Update 26 august 2015:* Homestead now uses a pre-built box. It no longer requires ansible. All previous ansible functionality may be moved to inside the machine or replaced by bash scripts. If you would like to help out . . . [patches are welcome ;-)](https://github.com/Tuurlijk/TYPO3.Packer).
-
-When I have a bit more time, I'll cook up some nice configuration that does away with the host system ansible requirement. It will be a light-weight version of the ansible setup found in this repository. It will run on the guest system with some clever trickery. Then we can use that to tweak config files, set up different php versions and TYPO3 versions. ETA: 2-3 months.
-
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Tuurlijk&url=https://github.com/Tuurlijk/TYPO3.Homestead&title=TYPO3.Homestead&language=Ansible&tags=github&category=software)
-
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 
 This environment is inteded as as a local environment. Security-wise it is in no way fit for production.
 
 Effortlessly test one site against multiple PHP versions and hhvm.
+
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Tuurlijk&url=https://github.com/Tuurlijk/TYPO3.Homestead&title=TYPO3.Homestead&language=Ansible&tags=github&category=software)
+
+When I have a bit more time, I'll cook up some nice configuration that does away with the host system ansible requirement. It will be a light-weight version of the ansible setup found in this repository. It will run on the guest system with some clever trickery. Then we can use that to tweak config files, set up different php versions and TYPO3 versions. ETA: 2-3 months. Sponsors will speed up delivery time.
 
 Features
 --------
@@ -21,8 +19,9 @@ TYPO3 Homestead comes with the following stack:
 * TYPO3 CMS
 * NEOS CMS
 * composer
+* elasticsearch
 * hhvm
-* multiple PHP versions
+* multiple PHP versions [Current versions](https://github.com/Tuurlijk/TYPO3.Packer/blob/master/ansible/configuration/Development/php.yml#L56)
 * mailcatcher
 * mariadb
 * memcached
@@ -31,6 +30,8 @@ TYPO3 Homestead comes with the following stack:
 * php-apcu
 * php-fpm
 * postfix nullmailer (outgoing only)
+* rabbitMQ
+* redis
 * self signed ssl certificates
 * xdebug
 * xhprof / blackfire
@@ -103,9 +104,20 @@ Now you will be able to get into the box as user vagrant without supplying a pas
 Multiple PHP versions
 ---------------------
 
-If you prefix your site name with `hhvm`,  `php5_5_28` or `php5_6_12`, your request will be served by that backend:
+If you prefix your site name with `hhvm`, `php55`, `php56` or `php70`; your request will be served by that backend:
+
+* http://php55.1.2.local.neos.io
+* http://php56.2.0.local.neos.io
+* http://php70.dev-master.local.neos.io
+* http://hhvm.6.2.local.typo3.org
 
 You can see what backend is used by inspecting the `X-Powered-By` response header.
+
+On the commandline these php versions are available as:
+
+* php55
+* php56
+* php70
 
 MailCatcher
 -----------
@@ -128,6 +140,8 @@ This box needs internet connectivity to resolve the local.neos.io domain name to
 
 Contributing
 ------------
+
+Built with Packer: [patches are welcome ;-)](https://github.com/Tuurlijk/TYPO3.Packer).
 
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests and examples for any new or changed functionality.
 

@@ -57,6 +57,9 @@ PRIVATE_NETWORK = configuration['private_interface'] || '192.168.144.120'
 # Determine if we need to forward ports
 FORWARD = configuration['forward_ports'] || 0
 
+# Boot timeout
+BOOT_TIMEOUT = configuration['boot_timeout'] || 180
+
 # Boot the box with the gui enabled
 DEBUG = !!configuration['debug'] || false
 
@@ -83,6 +86,7 @@ echo "- http://6.2.local.typo3.org/typo3/"
 echo "- http://7.6.local.typo3.org/typo3/"
 echo "- http://dev-master.local.typo3.org/typo3/"
 echo "- http://local.typo3.org:1080/ <- mailcatcher"
+echo "- http://xhprof.typo3.org/ <- XHProf GUI"
 echo ""
 echo "Username: admin"
 echo "Password: supersecret"
@@ -94,7 +98,7 @@ VAGRANTFILE_API_VERSION = 2
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = 'Michiel/Development'
-	config.vm.boot_timeout = 180
+	config.vm.boot_timeout = BOOT_TIMEOUT
 # If you have no Internet access (can not resolve *.local.typo3.org), you can use host aliases:
 # 	config.hostsupdater.aliases = [
 # 		'6.2.local.typo3.org',

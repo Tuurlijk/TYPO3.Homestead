@@ -42,7 +42,7 @@ The flexible configuration allows you to create any combination of TYPO3 source 
 Requirements
 ------------
 
-* [Virtualbox](https://www.virtualbox.org/) or another virtualization product - Free!
+* [Virtualbox](https://www.virtualbox.org/) - Version 5.* - or another virtualization product - Free!
 * [Vagrant](http://www.vagrantup.com/) - Version 1.7.* is needed - Free!
 
 Installation
@@ -132,6 +132,8 @@ synced_folders:
 Make sure the `src` directory exists on your host machine!
 
 If you use shared folders, the contents of the shared `src` folder will replace the the content of the `target` folder on the Vagrant box. You will need to take care of setting up the MySQL databases inside of the Vagrant box. Or you can send me a pull request with some fancy lightweight provisioning code ;-).
+
+Make sure the vagrant box can make a nfs connection to the host. Check your firewall settings if the host cannot connect to the shared folder. Enable access to nfsd and rpc.*.
 
 If you don't do this, you may want to add your public ssh key to the authorized_keys file of the vagrant user. Read the section SSH Access.
 

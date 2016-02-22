@@ -50,25 +50,10 @@ Installation
 
 Installation is pretty straight forward. You're just a few steps away from 'great success'.
 
-1). Clone TYPO3.Homestead and cd into it:
+Clone TYPO3.Review, cd into the new directory and start the machine:
 ```bash
-git clone https://github.com/Tuurlijk/TYPO3.Homestead.git
-cd TYPO3.Homestead
-```
-
-2). Copy any configuration files you wish to change from `Defaults/` to `Configuration/`. Optionally setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
-
-```yaml
-synced_folders:
-  - name: Development
-    src: ~/Projects/TYPO3/Development
-    target: /var/www
-```
-
-If you don't do this, you may want to add your public ssh key to the authorized_keys file of the vagrant user. Read the section SSH Access below.
-
-3). Then boot the machine:
-```bash
+git clone https://github.com/Tuurlijk/TYPO3.Review.git
+cd TYPO3.Review
 vagrant up
 ```
 When the machine has booted, you can visit [http://local.typo3.org](http://local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:

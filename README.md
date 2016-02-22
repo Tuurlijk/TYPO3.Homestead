@@ -60,7 +60,7 @@ Installation is pretty straight forward. You're just a few steps away from 'grea
 **with git**
 * Open a command shell
 * Clone the repository: `git clone https://github.com/Tuurlijk/TYPO3.Homestead.git`
-* Go into the new directory: `cd TYPOTry`
+* Go into the new directory: `cd TYPO3.Homestead`
 * Start the machine: `vagrant up`
 
 When the machine has booted, you can visit [http://local.typo3.org](http://local.typo3.org). And also any of the pre-configured sites or any site you configured. The default sites are:

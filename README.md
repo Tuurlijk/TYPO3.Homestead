@@ -118,6 +118,23 @@ XHProf is a Hierarchical Profiler for PHP. Facebook developed it for in-house us
 
 You can view the profiles on the XHGui site [http://xhprof.local.typo3.org/](http://xhprof.local.typo3.org/). Here you can see beautiful internals of your code doing it’s weird dance. Now it’s time to zoom in on some of the bottlenecks and start fixing the code.
 
+Synced folders
+--------------
+Copy the vagrant.yml file from `Defaults/` to `Configuration/`. Setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
+
+```yaml
+synced_folders:
+  - name: Development
+    src: ~/Projects/TYPO3/Review
+    target: /var/www
+```
+
+Make sure the `src` directory exists on your host machine!
+
+If you use shared folders, the contents of the shared `src` folder will replace the the content of the `target` folder on the Vagrant box. You will need to take care of setting up the MySQL databases inside of the Vagrant box. Or you can send me a pull request with some fancy lightweight provisioning code ;-).
+
+If you don't do this, you may want to add your public ssh key to the authorized_keys file of the vagrant user. Read the section SSH Access.
+
 MailCatcher
 -----------
 

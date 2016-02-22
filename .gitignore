@@ -3,7 +3,7 @@ Configuration/main.yml
 Configuration/nginx.yml
 Configuration/php.yml
 Configuration/websites.yml
-Configuration/vagrant.yml
+#Configuration/vagrant.yml
 Configuration/typo3.yml
 roles/composer
 roles/memcached

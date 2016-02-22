@@ -1,0 +1,58 @@
+---
+# Memory:
+#
+# By default 25% of host system memory will be allocated to the guest. But you
+# may override that amount by setting a fixed value here. A lower limit of
+# 1024 MB is always enforced.
+# memory: 2048
+
+# Cores:
+#
+# By default all cores available on the host system will be used. Please take
+# care that specifying more cores than you have available in your host host
+# system, may actually 'reduce' performance.
+# cores: 2
+
+## Boot Timeout
+#
+# The time in seconds that Vagrant will wait for the machine to boot.
+# boot_timeout: 180
+
+# Debug:
+#
+# If debug is enabled, the virtualbox gui will be shown.
+# debug: no
+
+# Forward ports:
+#
+# Should any ports be forwarded to the host system? - generally not needed
+# forward_ports: no
+
+# Synced folders:
+#
+# Host system folders (src) that will be mounted on the guest system (target).
+# Homestead installs all sites and sources in the /var/www/ folder. So for ease
+# of use we recomend to mount a single host 'Development' folder on /var/www/.
+# Linux and OSX users will get the benefit of an NFS mount, but Windows users
+# will get the default Vagrant shared folder. SMB may also work fine in the
+# future.
+#
+# But...
+# If you want a SUPER fast vm, you can leave this set empty. No folders will be
+# shared from host to guest. You will have to set up your ide to access the
+# homestead box just as if it was a regular remote server. This will be fastest
+# because file intensive actions like class inspections etc. will take place on
+# the 'native' filesystem instead of over nfs or another 'mounted' filesystem.
+#synced_folders:
+#  - name: Development
+#    src: ~/Projects/TYPO3/Development
+#    target: /var/www
+
+# IP:
+#
+# The IP address of local network interface. This defaults to 192.168.144.120
+# which happens to be the ip pointed to by *.local.typo3.org. You are advised
+# to leave this untouched unless you actually have a network collision. In this
+# case you will need to take care of mapping your own hostname aliasses in the
+# Vagrantfile
+# private_interface: "192.168.144.120"

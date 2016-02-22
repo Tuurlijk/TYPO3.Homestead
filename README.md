@@ -120,7 +120,7 @@ You can view the profiles on the XHGui site [http://xhprof.local.typo3.org/](htt
 
 Synced folders
 --------------
-Copy the vagrant.yml file from `Defaults/` to `Configuration/`. Setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
+Edit the vagrant.yml file in `Configuration/`. Setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
 
 ```yaml
 synced_folders:

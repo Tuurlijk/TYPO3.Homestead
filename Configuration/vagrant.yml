@@ -16,7 +16,7 @@
 ## Boot Timeout
 #
 # The time in seconds that Vagrant will wait for the machine to boot.
-# boot_timeout: 180
+# boot_timeout: 600
 
 # Debug:
 #

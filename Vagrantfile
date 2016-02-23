@@ -58,7 +58,7 @@ PRIVATE_NETWORK = configuration['private_interface'] || '192.168.144.120'
 FORWARD = configuration['forward_ports'] || 0
 
 # Boot timeout
-BOOT_TIMEOUT = configuration['boot_timeout'] || 180
+BOOT_TIMEOUT = configuration['boot_timeout'] || 600
 
 # Boot the box with the gui enabled
 DEBUG = !!configuration['debug'] || false

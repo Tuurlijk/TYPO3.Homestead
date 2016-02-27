@@ -1,15 +1,16 @@
 TYPO3 Homestead
 ===============
 
-__*The box currently has PHP 7.0.3 as base PHP version. Some PHP modules are missing:
-  - memcached
-  - redis
-  - xdebug
-  - xhprof
+__*The box currently has PHP 7.0.3 as base PHP version. Some PHP modules are missing:*__
 
-  I am working on bringing those back.
+__* memcached__ 
+__* redis__ 
+__* xdebug__ 
+__* xhprof__ 
+
+__I am working on bringing those back.__ 
   
-  Also, the introduction package and realurlversion required by the introduction package do not play nice with PHP 7.0 yet. So you will need to install the Introduction package by hand. While you are at it, please submit pull requests containing fixes to the respective authors.*__ 
+__Also, the introduction package and realurlversion required by the introduction package do not play nice with PHP 7.0 yet. So you will need to install the Introduction package by hand. While you are at it, please submit pull requests containing fixes to the respective authors.__ 
 
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 

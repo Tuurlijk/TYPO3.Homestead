@@ -1,12 +1,7 @@
 TYPO3 Homestead
 ===============
 
-__*The box currently has PHP 7.0.3 as base PHP version. Some PHP modules are missing:*__
-
-__* memcached__ 
-__* redis__ 
-__* xdebug__ 
-__* xhprof__ 
+__*The box currently has PHP 7.0.3 as base PHP version. Some PHP modules are missing: memcached, redis, xhprof, xdebug*__ 
 
 __I am working on bringing those back.__ 
   

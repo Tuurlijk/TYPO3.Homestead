@@ -1,9 +1,7 @@
 TYPO3 Homestead
 ===============
 
-__*The box currently has PHP 7.0.3 as base PHP version. Some PHP modules are missing: xhprof, xdebug*__ 
-
-__I am working on bringing those back.__ 
+__*The box currently has PHP 7.0.3 as base PHP version.__ 
 
 __To reduce the box size, the TYPO3 sources are now 'shallow' clones. You will find only a single branch and a history of the last 100 commits. You can fetch the full history by doing a `git fetch --unshallow`.__
   

@@ -1,11 +1,11 @@
 TYPO3 Homestead
 ===============
 
-__*The box currently has PHP 7.0.3 as base PHP version.__ 
+__The box currently has PHP 7.0.3 as base PHP version.__ 
 
 __To reduce the box size, the TYPO3 sources are now 'shallow' clones. You will find only a single branch and a history of the last 100 commits. You can fetch the full history by doing a `git fetch --unshallow`.__
   
-__Also, the introduction package and realurlversion required by the introduction package do not play nice with PHP 7.0 yet. So you will need to install the Introduction package by hand. While you are at it, please submit pull requests containing fixes to the respective authors.__ 
+__Also, the introduction package and realurl version required by the introduction package do not play nice with PHP 7.0 yet. So you will need to install the Introduction package by hand. While you are at it, please submit pull requests containing fixes to the respective authors.__ 
 
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 
@@ -190,6 +190,7 @@ Known Problems
 * If you get the error `The box 'ubuntu/trusty64' could not be found`, then you may have a vagrant version lower than 1.5. The stock Ubuntu vagrant version is 1.4 at the time of writing. You can get the latest vagrant version from [the vagrant site](https://www.vagrantup.com/downloads). Some details can be found on [vaprobash issue #322](https://github.com/fideloper/Vaprobash/issues/322).
 * On Windows machines you may need to enable VT-X in the bios of your machine. vt-x is disabled in the BIOS, you can disable this in the image settings under system tab processor, PAE/NX disable or you can enable this setting in your BIOS. Check: [http://www.sysprobs.com/disable-enable-virtualization-technology-bios](http://www.sysprobs.com/disable-enable-virtualization-technology-bios) and check your windows version ( minimal a Pro-edition) or [Enable without BIOS](http://stackoverflow.com/questions/31581854/enabling-intel-virtualization-vt-x-without-option-in-bios).
 * Vagrant may complain about a 'space' character in your path. Ruby can't handle this. You will need to move the Vagrant box to a path without spaces and try again.
+* [Windows host-only adapter creation fails due to slow background processing](https://www.virtualbox.org/ticket/14040) - Use [the fix](https://www.virtualbox.org/attachment/ticket/14040/VBox-Win10-fix-14040.exe)
 
 License
 -------

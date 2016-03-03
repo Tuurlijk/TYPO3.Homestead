@@ -31,7 +31,7 @@ TYPO3 Homestead comes with the following stack:
 * mailcatcher
 * mariadb
 * memcached
-* nginx
+* nginx + http2
 * nodejs
 * php-apcu
 * php-fpm
@@ -146,7 +146,7 @@ If you don't do this, you may want to add your public ssh key to the authorized_
 MailCatcher
 -----------
 
-[MailCatcher](http://mailcatcher.me/) runs a super simple SMTP server which catches any message sent to it to display in a web interface. This makes it easy to test forms without actually sending mail to the 'real' mail address. Set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out [http://local.typo3.org:1080](http://local.typo3.org:1080) to see the mail that's arrived so far.
+[MailCatcher](http://mailcatcher.me/) runs a super simple SMTP server which catches any message sent to it to display in a web interface. This makes it easy to test forms without actually sending mail to the 'real' mail address. Set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out [http://local.typo3.org:1080](http://mail.local.typo3.org) to see the mail that's arrived so far.
 
 Mailcatcher has been set up for TYPO3 CMS. For Neos, you may be interested in the [https://github.com/langeland/Langeland.SwiftBox](Langeland.SwiftBox) package. It is a package that can override the swiftmailer setting to send to that instead and you can browse all the emails with the included flow application.
 

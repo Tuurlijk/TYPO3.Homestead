@@ -1,5 +1,4 @@
-TYPO3 Homestead
-===============
+# TYPO3 Homestead
 
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 
@@ -9,14 +8,12 @@ Effortlessly test one site against multiple PHP versions and hhvm.
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Tuurlijk&url=https://github.com/Tuurlijk/TYPO3.Homestead&title=TYPO3.Homestead&language=Ansible&tags=github&category=software)
 
-Requirements
-------------
+## Requirements
 
 * [Virtualbox](https://www.virtualbox.org/) - Version 5.* - or another virtualization product - Free!
 * [Vagrant](http://www.vagrantup.com/) - Version 1.7.* is needed - Free!
 
-Installation
-------------
+## Installation
 
 Installation is pretty straight forward. You're just a few steps away from 'great success'.
 
@@ -55,8 +52,7 @@ The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you w
 
 To reduce the box size, all git sources are now 'shallow' clones. You will find only a single branch and a history of the last 100 commits. You can fetch the full history by doing a `git fetch --unshallow`.
 
-SSH Access
-----------
+## SSH Access
 
 You can find a terminal op: [http://shell.local.typo3.org](http://shell.local.typo3.org)
 
@@ -68,8 +64,7 @@ If you set up a box without a file share, you will want to access the box using 
 
 Now you will be able to get into the box as user vagrant without supplying a password.
 
-Multiple PHP versions
----------------------
+## Multiple PHP versions
 
 If you prefix your site name with `hhvm`, `php55`, `php56` or `php70`; your request will be served by that backend:
 
@@ -88,8 +83,7 @@ On the commandline these php versions are available as:
 
 The box currently has PHP 7.0.3 as base PHP version.
 
-Reviews
--------
+## Reviews
 
 The TYPO3 Review box makes reviewing patches for TYPO3 as easy as possible.
 You do not have to set up anything else than this review box to get started reviewing for the TYPO3 development.
@@ -99,8 +93,7 @@ First is the last released version (7.5 in time of writing this), second is the 
 
 All sites have an installed introduction package to have a running website out of the box. Also the Styleguide and IconAPI extensions are installed.
 
-Using the Chrome Helper
-.......................
+### Using the Chrome Helper
 
 If you don't want to manually copy and paste the cherry-pick commands you can use the [TYPO3 Review Chrome extension](https://chrome.google.com/webstore/detail/typo3-review/omloegomfdeniikpijekbmggdgmkmkck). You're just a couple of clicks away from reviewing your first change.
 
@@ -108,8 +101,7 @@ Now you can view the „old“ version without the patch at [dev-master.local.ty
 
 ![](Images/chrome_gerrit.png)
 
-Using the review.php script
-...........................
+### Using the review.php script
 
 Open your browser and go to [local.typo3.org](http://local.typo3.org)
 ![](Images/start_page.png)
@@ -132,15 +124,14 @@ The patch is then applied to review.local.typo3.org.
 ![](Images/review.png)
 Now you can view the „old“ version without the patch at [dev-master.local.typo3.org](http://dev-master.local.typo3.org) and the „new“ version with the patch at [review.local.typo3.org](http://review.local.typo3.org). It is easy to switch between the two browser tabs (or windows) to see what has been changed with the patch.
 
-Profiling
----------
+## Profiling
 
 XHProf is a Hierarchical Profiler for PHP. Facebook developed it for in-house use and made it open-source in 2009. It is a powerful tool if you need to know exactly what your PHP code is doing. When you prefix any TYPO3 site name with 'xhprof'; `[http://xhprof.7.6.local.typo3.org/](http://xhprof.7.6.local.typo3.org/)` (and set the magic cookie _profile — use the [XHProf Helper extension for Chrome](https://chrome.google.com/webstore/detail/xhprof-helper/adnlhmmjijeflmbmlpmhilkicpnodphi)), profiles will be created.
 
 You can view the profiles on the XHGui site [http://xhprof.local.typo3.org/](http://xhprof.local.typo3.org/). Here you can see beautiful internals of your code doing it’s weird dance. Now it’s time to zoom in on some of the bottlenecks and start fixing the code.
 
-Synced folders
---------------
+## Synced folders
+
 Edit the vagrant.yml file in `Configuration/`. Setup a shared directory to hold your TYPO3 sources and sites in the `Configuration/vagrant.yml` file:
 
 ```yaml
@@ -158,15 +149,13 @@ Make sure the vagrant box can make a nfs connection to the host. Check your fire
 
 If you don't do this, you may want to add your public ssh key to the authorized_keys file of the vagrant user. Read the section SSH Access.
 
-MailCatcher
------------
+## MailCatcher
 
 [MailCatcher](http://mailcatcher.me/) runs a super simple SMTP server which catches any message sent to it to display in a web interface. This makes it easy to test forms without actually sending mail to the 'real' mail address. Set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out [http://mail.local.typo3.org](http://mail.local.typo3.org) to see the mail that's arrived so far.
 
 Mailcatcher has been set up for TYPO3 CMS. For Neos, you may be interested in the [https://github.com/langeland/Langeland.SwiftBox](Langeland.SwiftBox) package. It is a package that can override the swiftmailer setting to send to that instead and you can browse all the emails with the included flow application.
 
-Features
---------
+## Features
 
 TYPO3 Homestead comes with the following stack:
 
@@ -194,8 +183,7 @@ TYPO3 Homestead comes with the following stack:
 
 The flexible configuration allows you to create any combination of TYPO3 source and PHP backend with or without SSL.
 
-Can't connect after the vagrant up?
------------------------------------
+## Can't connect after the vagrant up?
 
 This box needs internet connectivity to resolve the local.neos.io domain name to the IP of the box. If you are not connected to the Internet you will need to add the following entries to your hosts file:
 
@@ -207,8 +195,7 @@ This box needs internet connectivity to resolve the local.neos.io domain name to
 * 192.168.144.120 dev-master.local.typo3.org
 * 192.168.144.120 review.local.typo3.org
 
-Contributing
-------------
+## Contributing
 
 Built with Packer: [patches are welcome ;-)](https://github.com/Tuurlijk/TYPO3.Packer).
 
@@ -220,16 +207,14 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-TODO
-----
+## TODO
 
 * Nginx configuration snippets?
   https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/
 * Enable configuration through yml file like http://laravel.com/docs/5.0/homestead
 * Add available backends as examples to index sites (http://local.neos.io and http://local.typo3.org)
 
-Known Problems
---------------
+## Known Problems
 
 * The sources that are fetched from github may be hard to reach when github is under a DDOS
 * If you get the error `The box 'ubuntu/trusty64' could not be found`, then you may have a vagrant version lower than 1.5. The stock Ubuntu vagrant version is 1.4 at the time of writing. You can get the latest vagrant version from [the vagrant site](https://www.vagrantup.com/downloads). Some details can be found on [vaprobash issue #322](https://github.com/fideloper/Vaprobash/issues/322).
@@ -237,13 +222,11 @@ Known Problems
 * Vagrant may complain about a 'space' character in your path. Ruby can't handle this. You will need to move the Vagrant box to a path without spaces and try again.
 * [Windows host-only adapter creation fails due to slow background processing](https://www.virtualbox.org/ticket/14040) - Use [the fix](https://www.virtualbox.org/attachment/ticket/14040/VBox-Win10-fix-14040.exe)
 
-License
--------
+## License
 
 [GNU General Public License version 3](https://www.gnu.org/licenses/gpl-3.0.html)
 
-References
-----------
+## References
 
 - [konomae/ansible-laravel-settler](https://github.com/konomae/ansible-laravel-settler)
 - [laravel/homestead](https://github.com/laravel/homestead)

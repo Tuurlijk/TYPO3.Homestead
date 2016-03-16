@@ -1,6 +1,6 @@
 # TYPO3 Homestead
 
-TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
+TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development and review environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 
 This environment is intended as as a local environment. Security-wise it is in NO WAY fit for production.
 
@@ -54,7 +54,7 @@ To reduce the box size, all git sources are now 'shallow' clones. You will find 
 
 ## SSH Access
 
-You can find a terminal op: [http://shell.local.typo3.org](http://shell.local.typo3.org)
+You can find a terminal on: [http://shell.local.typo3.org](http://shell.local.typo3.org)
 
 If you set up a box without a file share, you will want to access the box using ssh. To add your public ssh key to the authorized_keys file of the vagrant user, you can execute the following command:
 

@@ -1,10 +1,6 @@
 TYPO3 Homestead
 ===============
 
-__The box currently has PHP 7.0.3 as base PHP version.__ 
-
-__To reduce the box size, all git sources are now 'shallow' clones. You will find only a single branch and a history of the last 100 commits. You can fetch the full history by doing a `git fetch --unshallow`.__
-
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 
 This environment is inteded as as a local environment. Security-wise it is in no way fit for production.
@@ -59,6 +55,8 @@ The amount of cpu's available on the host machine will also be available on the 
 
 The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you will have magic auto-resolving hostnames. So if you change the IP, you will need to take care of your hostname resolving yourself, either by hardcoding all the hostnames you wish to use or by some other means.
 
+To reduce the box size, all git sources are now 'shallow' clones. You will find only a single branch and a history of the last 100 commits. You can fetch the full history by doing a `git fetch --unshallow`.
+
 SSH Access
 ----------
 
@@ -89,6 +87,8 @@ On the commandline these php versions are available as:
 * php55
 * php56
 * php70
+
+The box currently has PHP 7.0.3 as base PHP version.
 
 Profiling
 ---------

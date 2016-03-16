@@ -3,13 +3,11 @@ TYPO3 Homestead
 
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 
-This environment is inteded as as a local environment. Security-wise it is in no way fit for production.
+This environment is intended as as a local environment. Security-wise it is in NO WAY fit for production.
 
 Effortlessly test one site against multiple PHP versions and hhvm.
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Tuurlijk&url=https://github.com/Tuurlijk/TYPO3.Homestead&title=TYPO3.Homestead&language=Ansible&tags=github&category=software)
-
-When I have a bit more time, I'll cook up some nice configuration that does away with the host system ansible requirement. It will be a light-weight version of the ansible setup found in this repository. It will run on the guest system with some clever trickery. Then we can use that to tweak config files, set up different php versions and TYPO3 versions. ETA: 2-3 months. Sponsors will speed up delivery time.
 
 Requirements
 ------------
@@ -51,7 +49,7 @@ The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 
 The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
 
-The amount of cpu's available on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be enforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
+The amount of CPUs available on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be enforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
 
 The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you will have magic auto-resolving hostnames. So if you change the IP, you will need to take care of your hostname resolving yourself, either by hardcoding all the hostnames you wish to use or by some other means.
 
@@ -89,6 +87,50 @@ On the commandline these php versions are available as:
 * php70
 
 The box currently has PHP 7.0.3 as base PHP version.
+
+Reviews
+-------
+
+The TYPO3 Review box makes reviewing patches for TYPO3 as easy as possible.
+You do not have to set up anything else than this review box to get started reviewing for the TYPO3 development.
+
+This review box includes 3 TYPO3 web sites.
+First is the last released version (7.5 in time of writing this), second is the development version of the master for reference and the third is the master for doing the reviews.
+
+All sites have an installed introduction package to have a running website out of the box. Also the Styleguide and IconAPI extensions are installed.
+
+Using the Chrome Helper
+.......................
+
+If you don't want to manually copy and paste the cherry-pick commands you can use the [TYPO3 Review Chrome extension](https://chrome.google.com/webstore/detail/typo3-review/omloegomfdeniikpijekbmggdgmkmkck). You're just a couple of clicks away from reviewing your first change.
+
+Now you can view the „old“ version without the patch at [dev-master.local.typo3.org](http://dev-master.local.typo3.org) and the „new“ version with the patch at [review.local.typo3.org](http://review.local.typo3.org). It is easy to switch between the two browser tabs (or windows) to see what has been changed with the patch.
+
+![](Images/chrome_gerrit.png)
+
+Using the review.php script
+...........................
+
+Open your browser and go to [local.typo3.org](http://local.typo3.org)
+![](Images/start_page.png)
+You can see a list of links to the backends of the installed sites and some buttons for resetting, updating and reviewing.
+
+Before you start, the first action is to update the sites. Pressing the „Update“ button gets the latest commits from the repository and flushes the cache to get a clean system to work with. You should update the sites on a regular base, best is every time before starting to review something. Always both sites, the dev-master and review are updated to have them in identical state.
+![](Images/update_1.png)
+skip some lines here
+
+![](Images/update_2.png)
+skip some lines here
+
+![](Images/update_3.png)
+
+Now you have to search at [Gerrit](https://review.typo3.org) or even better at [Forger](https://forger.typo3.org) for a review you want to test. On the web page of the selected review item there is a dropdown on the upper right corner called „download“. Drop the list down, click on the line beginning with „Cherry pick“ and copy the line to the clipboard.
+![](Images/get_cherry_pick.png)
+Then go to the web site local.typo3.org. Put the clipboard content into the input field „Cherry pick“ and press the „Do a review“ button.
+![](Images/paste_cherry_pick.png)
+The patch is then applied to review.local.typo3.org. 
+![](Images/review.png)
+Now you can view the „old“ version without the patch at [dev-master.local.typo3.org](http://dev-master.local.typo3.org) and the „new“ version with the patch at [review.local.typo3.org](http://review.local.typo3.org). It is easy to switch between the two browser tabs (or windows) to see what has been changed with the patch.
 
 Profiling
 ---------
@@ -163,6 +205,7 @@ This box needs internet connectivity to resolve the local.neos.io domain name to
 * 192.168.144.120 6.2.local.typo3.org
 * 192.168.144.120 7.6.local.typo3.org
 * 192.168.144.120 dev-master.local.typo3.org
+* 192.168.144.120 review.local.typo3.org
 
 Contributing
 ------------

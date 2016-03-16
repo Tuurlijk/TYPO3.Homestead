@@ -108,32 +108,20 @@ Open your browser and go to [local.typo3.org](http://local.typo3.org)
 You can see a list of links to the backends of the installed sites and some buttons for resetting, updating and reviewing.
 
 Before you start, the first action is to update the sites. Pressing the „Update“ button gets the latest commits from the repository and flushes the cache to get a clean system to work with. You should update the sites on a regular base, best is every time before starting to review something. Always both sites, the dev-master and review are updated to have them in identical state.
-<div style="box-shadow: 10px 10px 5px #888888;">
 ![](Images/update_1.png)
-</div>
 skip some lines here
 
-<div style="box-shadow: 10px 10px 5px #888888;">
 ![](Images/update_2.png)
-</div>
 skip some lines here
 
-<div style="box-shadow: 10px 10px 5px #888888;">
 ![](Images/update_3.png)
-</div>
 
 Now you have to search at [Gerrit](https://review.typo3.org) or even better at [Forger](https://forger.typo3.org) for a review you want to test. On the web page of the selected review item there is a dropdown on the upper right corner called „download“. Drop the list down, click on the line beginning with „Cherry pick“ and copy the line to the clipboard.
-<div style="box-shadow: 10px 10px 5px #888888;">
 ![](Images/get_cherry_pick.png)
-</div>
 Then go to the web site local.typo3.org. Put the clipboard content into the input field „Cherry pick“ and press the „Do a review“ button.
-<div style="box-shadow: 10px 10px 5px #888888;">
 ![](Images/paste_cherry_pick.png)
-</div>
 The patch is then applied to review.local.typo3.org. 
-<div style="box-shadow: 10px 10px 5px #888888;">
 ![](Images/review.png)
-</div>
 Now you can view the „old“ version without the patch at [dev-master.local.typo3.org](http://dev-master.local.typo3.org) and the „new“ version with the patch at [review.local.typo3.org](http://review.local.typo3.org). It is easy to switch between the two browser tabs (or windows) to see what has been changed with the patch.
 
 ## Profiling

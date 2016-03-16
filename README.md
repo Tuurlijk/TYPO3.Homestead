@@ -3,9 +3,7 @@ TYPO3 Homestead
 
 __The box currently has PHP 7.0.3 as base PHP version.__ 
 
-__To reduce the box size, the TYPO3 sources are now 'shallow' clones. You will find only a single branch and a history of the last 100 commits. You can fetch the full history by doing a `git fetch --unshallow`.__
-  
-__Also, the introduction package and realurl version required by the introduction package do not play nice with PHP 7.0 yet. So you will need to install the Introduction package by hand. While you are at it, please submit pull requests containing fixes to the respective authors.__ 
+__To reduce the box size, all git sources are now 'shallow' clones. You will find only a single branch and a history of the last 100 commits. You can fetch the full history by doing a `git fetch --unshallow`.__
 
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.
 
@@ -16,34 +14,6 @@ Effortlessly test one site against multiple PHP versions and hhvm.
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Tuurlijk&url=https://github.com/Tuurlijk/TYPO3.Homestead&title=TYPO3.Homestead&language=Ansible&tags=github&category=software)
 
 When I have a bit more time, I'll cook up some nice configuration that does away with the host system ansible requirement. It will be a light-weight version of the ansible setup found in this repository. It will run on the guest system with some clever trickery. Then we can use that to tweak config files, set up different php versions and TYPO3 versions. ETA: 2-3 months. Sponsors will speed up delivery time.
-
-Features
---------
-
-TYPO3 Homestead comes with the following stack:
-
-* TYPO3 CMS
-* NEOS CMS
-* composer
-* elasticsearch
-* hhvm
-* multiple PHP versions [Current versions](https://github.com/Tuurlijk/TYPO3.Packer/blob/master/ansible/configuration/Development/php.yml#L56)
-* mailcatcher
-* mariadb
-* memcached
-* nginx + http2
-* nodejs
-* php-apcu
-* php-fpm
-* postfix nullmailer (outgoing only)
-* rabbitMQ
-* redis
-* self signed ssl certificates
-* xdebug
-* xhprof / blackfire
-* zsh
-
-The flexible configuration allows you to create any combination of TYPO3 source and PHP backend with or without SSL.
 
 Requirements
 ------------
@@ -74,6 +44,7 @@ When the machine has booted, you can visit [http://local.typo3.org](http://local
 * [6.2.local.typo3.org/typo3/](http://6.2.local.typo3.org/typo3/)
 * [7.6.local.typo3.org/typo3/](http://7.6.local.typo3.org/typo3/)
 * [dev-master.local.typo3.org/typo3/](http://dev-master.local.typo3.org/typo3/)
+* [review.local.typo3.org/typo3/](http://review.local.typo3.org/typo3/)
 * [1.2.local.neos.io/neos/](http://1.2.local.neos.io/neos/)
 * [2.0.local.neos.io/neos/](http://2.0.local.neos.io/neos/)
 * [dev-master.local.neos.io/typo3/](http://dev-master.local.neos.io/typo3/)
@@ -90,6 +61,8 @@ The CNAME *.local.typo3.org resolves to the IP 192.168.144.120. This means you w
 
 SSH Access
 ----------
+
+You can find a terminal op: [http://shell.local.typo3.org](http://shell.local.typo3.org)
 
 If you set up a box without a file share, you will want to access the box using ssh. To add your public ssh key to the authorized_keys file of the vagrant user, you can execute the following command:
 
@@ -149,6 +122,35 @@ MailCatcher
 [MailCatcher](http://mailcatcher.me/) runs a super simple SMTP server which catches any message sent to it to display in a web interface. This makes it easy to test forms without actually sending mail to the 'real' mail address. Set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out [http://mail.local.typo3.org](http://mail.local.typo3.org) to see the mail that's arrived so far.
 
 Mailcatcher has been set up for TYPO3 CMS. For Neos, you may be interested in the [https://github.com/langeland/Langeland.SwiftBox](Langeland.SwiftBox) package. It is a package that can override the swiftmailer setting to send to that instead and you can browse all the emails with the included flow application.
+
+Features
+--------
+
+TYPO3 Homestead comes with the following stack:
+
+* TYPO3 CMS
+* NEOS CMS
+* composer
+* elasticsearch
+* hhvm
+* multiple PHP versions [Current versions](https://github.com/Tuurlijk/TYPO3.Packer/blob/master/ansible/configuration/Development/php.yml#L56)
+* mailcatcher
+* mariadb
+* memcached
+* nginx + http2
+* nodejs
+* php-apcu
+* php-fpm
+* postfix nullmailer (outgoing only)
+* rabbitMQ
+* redis
+* self signed ssl certificates
+* shellinabox [http://shell.local.typo3.org](http://shell.local.typo3.org)
+* xdebug
+* xhprof / blackfire
+* zsh
+
+The flexible configuration allows you to create any combination of TYPO3 source and PHP backend with or without SSL.
 
 Can't connect after the vagrant up?
 -----------------------------------

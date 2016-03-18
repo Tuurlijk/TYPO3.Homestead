@@ -108,13 +108,7 @@ Open your browser and go to [local.typo3.org](http://local.typo3.org)
 You can see a list of links to the backends of the installed sites and some buttons for resetting, updating and reviewing.
 
 Before you start, the first action is to update the sites. Pressing the „Update“ button gets the latest commits from the repository and flushes the cache to get a clean system to work with. You should update the sites on a regular base, best is every time before starting to review something. Always both sites, the dev-master and review are updated to have them in identical state.
-![](Images/update_1.png)
-skip some lines here
-
-![](Images/update_2.png)
-skip some lines here
-
-![](Images/update_3.png)
+![](Images/update.png)
 
 Now you have to search at [Gerrit](https://review.typo3.org) or even better at [Forger](https://forger.typo3.org) for a review you want to test. On the web page of the selected review item there is a dropdown on the upper right corner called „download“. Drop the list down, click on the line beginning with „Cherry pick“ and copy the line to the clipboard.
 ![](Images/get_cherry_pick.png)

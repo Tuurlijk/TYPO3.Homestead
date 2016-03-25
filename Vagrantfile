@@ -81,6 +81,7 @@ echo " "
 echo "TYPO3 (admin / supersecret)"
 echo "http://6.2.local.typo3.org/typo3/"
 echo "http://7.6.local.typo3.org/typo3/"
+echo "http://8.0.local.typo3.org/typo3/"
 echo "http://dev-master.local.typo3.org/typo3/"
 echo "http://review.local.typo3.org/typo3/"
 echo " "
@@ -89,7 +90,7 @@ echo "http://1.2.local.neos.io/neos/"
 echo "http://2.0.local.neos.io/neos/"
 echo "http://dev-master.local.neos.io/neos/"
 echo " "
-echo "MailCatcher"
+echo "MailHog"
 echo "http://mail.local.typo3.org/"
 echo " "
 echo "ElasticSearch"
@@ -109,7 +110,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # If you have no Internet access (can not resolve *.local.typo3.org), you can use host aliases:
 # 	config.hostsupdater.aliases = [
 # 		'6.2.local.typo3.org',
-# 		'7.5.local.typo3.org'
+# 		'7.6.local.typo3.org',
+# 		'8.0.local.typo3.org'
 # 		]
 
 	# Network

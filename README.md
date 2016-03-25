@@ -34,6 +34,7 @@ When the machine has booted, you can visit [http://local.typo3.org](http://local
 
 * [6.2.local.typo3.org/typo3/](http://6.2.local.typo3.org/typo3/)
 * [7.6.local.typo3.org/typo3/](http://7.6.local.typo3.org/typo3/)
+* [8.0.local.typo3.org/typo3/](http://8.0.local.typo3.org/typo3/)
 * [dev-master.local.typo3.org/typo3/](http://dev-master.local.typo3.org/typo3/)
 * [review.local.typo3.org/typo3/](http://review.local.typo3.org/typo3/)
 * [1.2.local.neos.io/neos/](http://1.2.local.neos.io/neos/)
@@ -152,11 +153,10 @@ Make sure the vagrant box can make a nfs connection to the host. Check your fire
 
 If you don't do this, you may want to add your public ssh key to the authorized_keys file of the vagrant user. Read the section SSH Access.
 
-## MailCatcher
+## MailHog
+[MailHog](https://github.com/mailhog/MailHog) runs a super simple SMTP server which catches any message sent to it to display in a web interface. This makes it easy to test forms without actually sending mail to the 'real' mail address. Set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out [http://mail.local.typo3.org](http://mail.local.typo3.org) to see the mail that's arrived so far.
 
-[MailCatcher](http://mailcatcher.me/) runs a super simple SMTP server which catches any message sent to it to display in a web interface. This makes it easy to test forms without actually sending mail to the 'real' mail address. Set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out [http://mail.local.typo3.org](http://mail.local.typo3.org) to see the mail that's arrived so far.
-
-Mailcatcher has been set up for TYPO3 CMS. For Neos, you may be interested in the [https://github.com/langeland/Langeland.SwiftBox](Langeland.SwiftBox) package. It is a package that can override the swiftmailer setting to send to that instead and you can browse all the emails with the included flow application.
+MailHog has been set up for TYPO3 CMS. For Neos, you may be interested in the [https://github.com/langeland/Langeland.SwiftBox](Langeland.SwiftBox) package. It is a package that can override the swiftmailer setting to send to that instead and you can browse all the emails with the included flow application.
 
 ## Features
 
@@ -168,7 +168,7 @@ TYPO3 Homestead comes with the following stack:
 * elasticsearch
 * hhvm
 * multiple PHP versions [Current versions](https://github.com/Tuurlijk/TYPO3.Packer/blob/master/ansible/configuration/Development/php.yml#L56)
-* mailcatcher
+* MailHog
 * mariadb
 * memcached
 * nginx + http2
@@ -195,6 +195,7 @@ This box needs internet connectivity to resolve the local.neos.io domain name to
 * 192.168.144.120 dev-master.local.neos.io
 * 192.168.144.120 6.2.local.typo3.org
 * 192.168.144.120 7.6.local.typo3.org
+* 192.168.144.120 8.0.local.typo3.org
 * 192.168.144.120 dev-master.local.typo3.org
 * 192.168.144.120 review.local.typo3.org
 

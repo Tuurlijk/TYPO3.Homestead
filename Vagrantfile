@@ -30,7 +30,7 @@ host = RbConfig::CONFIG['host_os']
 
 # Give VM 1/4 system memory & access to all cpu cores on the host
 if host =~ /darwin/
-	cpus = `sysctl -n hw.ncpu`.to_i
+	cpus = `sysctl -n hw.physicalcpu`.to_i
 	# sysctl returns Bytes and we need to convert to MB
 	mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
 elsif host =~ /linux/

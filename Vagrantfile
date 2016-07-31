@@ -130,7 +130,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# 	config.ssh.private_key_path = "phusion.key"
 
 	# Do not auto-update the guest box additions
-	config.vbguest.auto_update = false
+	if Vagrant.has_plugin?("vagrant-vbguest")
+		config.vbguest.auto_update = false
+	end
 
 	# Virtualbox
 	config.vm.provider :virtualbox do |vb|

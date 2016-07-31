@@ -129,6 +129,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# 	config.ssh.username = "root"
 	# 	config.ssh.private_key_path = "phusion.key"
 
+	# Do not auto-update the guest box additions
+	config.vbguest.auto_update = false
+
 	# Virtualbox
 	config.vm.provider :virtualbox do |vb|
 		vb.gui = !!DEBUG

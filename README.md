@@ -225,6 +225,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * On Windows machines you may need to enable VT-X in the bios of your machine. vt-x is disabled in the BIOS, you can disable this in the image settings under system tab processor, PAE/NX disable or you can enable this setting in your BIOS. Check: [http://www.sysprobs.com/disable-enable-virtualization-technology-bios](http://www.sysprobs.com/disable-enable-virtualization-technology-bios) and check your windows version ( minimal a Pro-edition) or [Enable without BIOS](http://stackoverflow.com/questions/31581854/enabling-intel-virtualization-vt-x-without-option-in-bios).
 * Vagrant may complain about a 'space' character in your path. Ruby can't handle this. You will need to move the Vagrant box to a path without spaces and try again.
 * [Windows host-only adapter creation fails due to slow background processing](https://www.virtualbox.org/ticket/14040) - Use [the fix](https://www.virtualbox.org/attachment/ticket/14040/VBox-Win10-fix-14040.exe)
+* If you use a shared filesystem on a Windows machine and the folder contains symlinks, you will need to run vagrant as Administrator.
 
 ## License
 

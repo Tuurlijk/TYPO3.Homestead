@@ -37,7 +37,11 @@ elsif host =~ /linux/
 	cpus = `nproc`.to_i
 	# meminfo shows KB and we need to convert to MB
 	mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
-else # sorry Windows folks, I can't help you
+elsif host =~ /mswin|mingw|cygwin/
+	cpus = ENV['NUMBER_OF_PROCESSORS'].to_i
+	# wmic returns Bytes and we need to convert to MB
+	mem = `wmic computersystem get TotalPhysicalMemory /Value`.sub!(/TotalPhysicalMemory=(\d+)/m, '\1').to_i / 1024 /  1024 / 4
+else # sorry other folks, I can't help you
 	cpus = 1
 	mem = 1024
 end

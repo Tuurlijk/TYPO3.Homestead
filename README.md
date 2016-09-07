@@ -63,7 +63,7 @@ If you set up a box without a file share, you will want to access the box using 
  cat ~/.ssh/id_rsa.pub | ssh vagrant@local.typo3.org 'cat >> .ssh/authorized_keys'
 ```
 
-Now you will be able to get into the box as user vagrant without supplying a password.
+You will now need to enter the password for the '*vagrant*' user. It is '*vagrant*'. Now you will be able to get into the box as user vagrant without supplying a password.
 
 ## Multiple PHP versions
 

@@ -45,7 +45,7 @@ All TYPO3 and Neos installation are fully set-up. You can login to the backend w
 
 The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 
-The database credentials can be found in `roles/mariadb/vars/main.yml`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
+MySQL can be accessed as `root` or `typo3`. In both cases the password is `supersecret`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
 
 The amount of CPUs available on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be enforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
 

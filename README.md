@@ -11,7 +11,7 @@ It should not be too hard to set up fresh installs of the TYPO3 versions you wis
 I'm trying to come up with a command line tool that will make 'kickstarting' new TYPO3 instances of
 specific tag / branch super easy. In the mean time . . . hold tight!
 
-If you wish to try TYPO3 8.6, go here: [https://github.com/Tuurlijk/TYPOTry](https://github.com/Tuurlijk/TYPOTry)
+If you wish to try TYPO3 8.6, go here: [https://github.com/Tuurlijk/TYPOTry]
 ```
 
 TYPO3 Homestead is your one-stop [TYPO3](http://typo3.org) and [Neos](http://neos.io) development and review environment. Just run `vagrant up` and a full Linux Ubuntu distribution will be downloaded with all the packages and configuration needed to start development right away.

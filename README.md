@@ -59,7 +59,7 @@ All TYPO3 and Neos installation are fully set-up. You can login to the backend w
 
 The error log can be inspected using: `multitail /var/log/nginx/error.log`.
 
-MySQL can be accessed as `root` or `typo3`. In both cases the password is `supersecret`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
+MySQL can be accessed by vagrant as `typo3` with password `supersecret`. It can also be accessed by root as `root` using password `supersecret`. You can become root by doing `sudo su -`. The typo3 user has access to all databases. The install tool password is the TYPO3 default.
 
 The amount of CPUs available on the host machine will also be available on the guest machine. 25% of the available host machine memory will be made available on the guest machine. The minimum amount of memory will be enforced to 1024 MB. You should not have to pass any extra parameters when starting the box.
 

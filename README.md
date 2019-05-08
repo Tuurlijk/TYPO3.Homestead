@@ -1,5 +1,7 @@
 # TYPO3 Homestead
 
+I now use https://github.com/Tuurlijk/docker-local for local development instead.
+
 ```
 Warning . . . .
 
@@ -7,9 +9,6 @@ The TYPO3 versions in the latest box build are a bit outdated. This is due to th
 composer version that supports shallow clones, is outdated.
 
 It should not be too hard to set up fresh installs of the TYPO3 versions you wish hovever.
-
-I'm trying to come up with a command line tool that will make 'kickstarting' new TYPO3 instances of
-specific tag / branch super easy. In the mean time . . . hold tight!
 
 If you wish to try TYPO3 8.6, go here: [https://github.com/Tuurlijk/TYPOTry]
 ```
